@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="FinalProjectLtWinsModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="FinalProjectLtWinsModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="BienLai">
           <Key>
             <PropertyRef Name="MaBienLai" />
@@ -123,6 +123,7 @@
           </Key>
           <Property Name="MaPhieuPhat" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="MaDG" Type="int" />
+          <Property Name="TrangThai" Type="nvarchar" MaxLength="50" />
         </EntityType>
         <EntityType Name="PhieuPhat_QDP">
           <Key>
@@ -528,8 +529,7 @@
             <End Role="ThuThu" EntitySet="ThuThu" />
           </AssociationSet>
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="FinalProjectLtWinsModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -656,6 +656,7 @@
           <Property Name="MaDG" Type="Int32" />
           <NavigationProperty Name="DocGia" Relationship="Self.FK__PhieuPhat__MaDG__5535A963" FromRole="PhieuPhat" ToRole="DocGia" />
           <NavigationProperty Name="QDPs" Relationship="Self.PhieuPhat_QDP" FromRole="PhieuPhat" ToRole="QDP" />
+          <Property Name="TrangThai" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
         </EntityType>
         <EntityType Name="QDP">
           <Key>
@@ -1109,6 +1110,7 @@
           <EntitySetMapping Name="PhieuPhats">
             <EntityTypeMapping TypeName="FinalProjectLtWinsModel.PhieuPhat">
               <MappingFragment StoreEntitySet="PhieuPhat">
+                <ScalarProperty Name="TrangThai" ColumnName="TrangThai" />
                 <ScalarProperty Name="MaPhieuPhat" ColumnName="MaPhieuPhat" />
                 <ScalarProperty Name="MaDG" ColumnName="MaDG" />
               </MappingFragment>

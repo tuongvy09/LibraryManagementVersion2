@@ -10,11 +10,15 @@ using System.Windows.Forms;
 
 namespace LibraryManagementVersion2
 {
-    public partial class Form1 : Form
+    public partial class Home : Form
     {
-        public Form1()
+        private string currentRole;
+        public Home(string role)
         {
             InitializeComponent();
+            currentRole = role;
+            InitializeMenuButtons(currentRole);
+
         }
     }
 }
