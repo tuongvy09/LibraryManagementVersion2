@@ -22,6 +22,7 @@ namespace LibraryManagementVersion2
     
         public int MaPhieuPhat { get; set; }
         public Nullable<int> MaDG { get; set; }
+        public string TrangThai { get; set; }
     
         public virtual DocGia DocGia { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

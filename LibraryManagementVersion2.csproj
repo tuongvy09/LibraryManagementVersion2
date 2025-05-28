@@ -42,11 +42,41 @@
     <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
       <HintPath>packages\EntityFramework.6.5.1\lib\net45\EntityFramework.SqlServer.dll</HintPath>
     </Reference>
+    <Reference Include="EPPlus, Version=8.0.5.0, Culture=neutral, PublicKeyToken=ea159fdaa78159a1, processorArchitecture=MSIL">
+      <HintPath>packages\EPPlus.8.0.5\lib\net462\EPPlus.dll</HintPath>
+    </Reference>
+    <Reference Include="EPPlus.Interfaces, Version=8.0.0.0, Culture=neutral, PublicKeyToken=a694d7f3b0907a61, processorArchitecture=MSIL">
+      <HintPath>packages\EPPlus.Interfaces.8.0.0\lib\net462\EPPlus.Interfaces.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.IO.RecyclableMemoryStream, Version=3.0.1.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>packages\Microsoft.IO.RecyclableMemoryStream.3.0.1\lib\netstandard2.0\Microsoft.IO.RecyclableMemoryStream.dll</HintPath>
+    </Reference>
+    <Reference Include="PresentationCore" />
     <Reference Include="System" />
+    <Reference Include="System.Buffers, Version=4.0.3.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>packages\System.Buffers.4.5.1\lib\net461\System.Buffers.dll</HintPath>
+    </Reference>
+    <Reference Include="System.ComponentModel.Annotations, Version=4.2.1.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>packages\System.ComponentModel.Annotations.5.0.0\lib\net461\System.ComponentModel.Annotations.dll</HintPath>
+    </Reference>
     <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.configuration" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Memory, Version=4.0.1.2, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>packages\System.Memory.4.5.5\lib\net461\System.Memory.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Numerics" />
+    <Reference Include="System.Numerics.Vectors, Version=4.1.4.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>packages\System.Numerics.Vectors.4.5.0\lib\net46\System.Numerics.Vectors.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Runtime.CompilerServices.Unsafe, Version=4.0.4.1, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>packages\System.Runtime.CompilerServices.Unsafe.4.5.3\lib\net461\System.Runtime.CompilerServices.Unsafe.dll</HintPath>
+    </Reference>
     <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.Security" />
+    <Reference Include="System.Security.Cryptography.Xml, Version=8.0.0.2, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>packages\System.Security.Cryptography.Xml.8.0.2\lib\net462\System.Security.Cryptography.Xml.dll</HintPath>
+    </Reference>
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -59,6 +89,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BienLai.cs">
+<<<<<<< HEAD
       <DependentUpon>LibraryModel.tt</DependentUpon>
     </Compile>
     <Compile Include="BusinessLogic\BLBienLai.cs" />
@@ -75,11 +106,35 @@
       <DependentUpon>LibraryModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Form1.cs">
+=======
+      <DependentUpon>LibraryManage.tt</DependentUpon>
+    </Compile>
+    <Compile Include="CuonSach.cs">
+      <DependentUpon>LibraryManage.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DauSach.cs">
+      <DependentUpon>LibraryManage.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DocGia.cs">
+      <DependentUpon>LibraryManage.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Repositories\CuonSachRepositories.cs" />
+    <Compile Include="Repositories\DauSachRepositories.cs" />
+    <Compile Include="Repositories\DauSachTacGiaRepository.cs" />
+    <Compile Include="Repositories\ImportExcelToDatabase.cs" />
+    <Compile Include="Repositories\LoginRepositories.cs" />
+    <Compile Include="Repositories\NXBRepository.cs" />
+    <Compile Include="Repositories\TacGiaRepository.cs" />
+    <Compile Include="Repositories\TheLoaiRepository.cs" />
+    <Compile Include="Repositories\UserRepository.cs" />
+    <Compile Include="UI\FormAddCuonSach.cs">
+>>>>>>> a43248f27e8f1c6bf6a668bca33a88a1413944bc
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Form1.Designer.cs">
-      <DependentUpon>Form1.cs</DependentUpon>
+    <Compile Include="UI\FormAddCuonSach.Designer.cs">
+      <DependentUpon>FormAddCuonSach.cs</DependentUpon>
     </Compile>
+<<<<<<< HEAD
     <Compile Include="Forms\FormThuThu.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -124,10 +179,109 @@
     </Compile>
     <Compile Include="PhieuPhat.cs">
       <DependentUpon>LibraryModel.tt</DependentUpon>
+=======
+    <Compile Include="UI\FormAddDauSach.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UI\FormAddDauSach.Designer.cs">
+      <DependentUpon>FormAddDauSach.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UI\FormAddNXB.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UI\FormAddNXB.Designer.cs">
+      <DependentUpon>FormAddNXB.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UI\FormAddTG.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UI\FormAddTG.Designer.cs">
+      <DependentUpon>FormAddTG.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UI\FormAddTheLoai.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UI\FormAddTheLoai.Designer.cs">
+      <DependentUpon>FormAddTheLoai.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UI\FormManageDauSach.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UI\FormManageDauSach.Designer.cs">
+      <DependentUpon>FormManageDauSach.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UI\FormManageNXB.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UI\FormManageNXB.Designer.cs">
+      <DependentUpon>FormManageNXB.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UI\FormManageTG.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UI\FormManageTG.Designer.cs">
+      <DependentUpon>FormManageTG.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UI\FormManageTheLoai.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UI\FormManageTheLoai.Designer.cs">
+      <DependentUpon>FormManageTheLoai.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UI\FormUpdateCuonSach.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UI\FormUpdateCuonSach.Designer.cs">
+      <DependentUpon>FormUpdateCuonSach.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UI\Login.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UI\Login.Designer.cs" />
+    <Compile Include="UI\Home.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UI\Home.Designer.cs">
+      <DependentUpon>Home.cs</DependentUpon>
+    </Compile>
+    <Compile Include="LibraryManage.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>LibraryManage.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="LibraryManage.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>LibraryManage.tt</DependentUpon>
+    </Compile>
+    <Compile Include="LibraryManage.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>LibraryManage.edmx</DependentUpon>
+    </Compile>
+    <Compile Include="LoaiDocGia.cs">
+      <DependentUpon>LibraryManage.tt</DependentUpon>
+    </Compile>
+    <Compile Include="LoaiPhieuMuon.cs">
+      <DependentUpon>LibraryManage.tt</DependentUpon>
+    </Compile>
+    <Compile Include="MuonSach.cs">
+      <DependentUpon>LibraryManage.tt</DependentUpon>
+    </Compile>
+    <Compile Include="NXB.cs">
+      <DependentUpon>LibraryManage.tt</DependentUpon>
+    </Compile>
+    <Compile Include="PhieuMuonSach.cs">
+      <DependentUpon>LibraryManage.tt</DependentUpon>
+    </Compile>
+    <Compile Include="PhieuPhat.cs">
+      <DependentUpon>LibraryManage.tt</DependentUpon>
+>>>>>>> a43248f27e8f1c6bf6a668bca33a88a1413944bc
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="QDP.cs">
+<<<<<<< HEAD
       <DependentUpon>LibraryModel.tt</DependentUpon>
     </Compile>
     <Compile Include="sysdiagram.cs">
@@ -151,6 +305,41 @@
     <EmbeddedResource Include="Forms\FormThuThu.resx">
       <DependentUpon>FormThuThu.cs</DependentUpon>
     </EmbeddedResource>
+=======
+      <DependentUpon>LibraryManage.tt</DependentUpon>
+    </Compile>
+    <Compile Include="sp_helpdiagramdefinition_Result.cs">
+      <DependentUpon>LibraryManage.tt</DependentUpon>
+    </Compile>
+    <Compile Include="sp_helpdiagrams_Result.cs">
+      <DependentUpon>LibraryManage.tt</DependentUpon>
+    </Compile>
+    <Compile Include="sysdiagram.cs">
+      <DependentUpon>LibraryManage.tt</DependentUpon>
+    </Compile>
+    <Compile Include="TacGia.cs">
+      <DependentUpon>LibraryManage.tt</DependentUpon>
+    </Compile>
+    <Compile Include="TheLoai.cs">
+      <DependentUpon>LibraryManage.tt</DependentUpon>
+    </Compile>
+    <Compile Include="TheThuVien.cs">
+      <DependentUpon>LibraryManage.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ThuThu.cs">
+      <DependentUpon>LibraryManage.tt</DependentUpon>
+    </Compile>
+    <Compile Include="UI\UserControls\SachControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UI\UserControls\SachControl.Designer.cs">
+      <DependentUpon>SachControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="User.cs">
+      <DependentUpon>LibraryManage.tt</DependentUpon>
+    </Compile>
+    <EmbeddedResource Include="UI\Login.resx" />
+>>>>>>> a43248f27e8f1c6bf6a668bca33a88a1413944bc
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
@@ -159,13 +348,23 @@
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
+      <DesignTime>True</DesignTime>
     </Compile>
+<<<<<<< HEAD
     <EntityDeploy Include="LibraryModel.edmx">
       <Generator>EntityModelCodeGenerator</Generator>
       <LastGenOutput>LibraryModel.Designer.cs</LastGenOutput>
     </EntityDeploy>
     <None Include="LibraryModel.edmx.diagram">
       <DependentUpon>LibraryModel.edmx</DependentUpon>
+=======
+    <EntityDeploy Include="LibraryManage.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>LibraryManage.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <None Include="LibraryManage.edmx.diagram">
+      <DependentUpon>LibraryManage.edmx</DependentUpon>
+>>>>>>> a43248f27e8f1c6bf6a668bca33a88a1413944bc
     </None>
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
@@ -177,12 +376,54 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
+    <None Include="Resources\mau_import.xlsx" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
+<<<<<<< HEAD
+=======
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="LibraryManage.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>LibraryManage.edmx</DependentUpon>
+      <LastGenOutput>LibraryManage.Context.cs</LastGenOutput>
+    </Content>
+    <Content Include="LibraryManage.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>LibraryManage.edmx</DependentUpon>
+      <LastGenOutput>LibraryManage.cs</LastGenOutput>
+    </Content>
+    <None Include="Resources\voucher.png" />
+    <None Include="Resources\user.png" />
+    <None Include="Resources\teamwork.png" />
+    <None Include="Resources\statistics.png" />
+    <None Include="Resources\reciept.png" />
+    <None Include="Resources\receipt.png" />
+    <None Include="Resources\receipt %281%29.png" />
+    <None Include="Resources\readers.png" />
+    <None Include="Resources\pupil.png" />
+    <None Include="Resources\Nền Login.jpg" />
+    <None Include="Resources\nền home.jpg" />
+    <None Include="Resources\logoo.jpg" />
+    <None Include="Resources\logo.png" />
+    <None Include="Resources\login.jpg" />
+    <None Include="Resources\library_card.png" />
+    <None Include="Resources\librarian.png" />
+    <None Include="Resources\home_logo.png" />
+    <None Include="Resources\home_logo %282%29.png" />
+    <None Include="Resources\history-book.png" />
+    <None Include="Resources\borrow.png" />
+    <None Include="Resources\books.png" />
+    <None Include="Resources\book.png" />
+    <None Include="Resources\book %281%29.png" />
+    <None Include="Resources\bg_home_r.png" />
+    <None Include="Resources\bg_home_left.jpg" />
+    <None Include="Resources\bg_home_left.bmp" />
+>>>>>>> a43248f27e8f1c6bf6a668bca33a88a1413944bc
   </ItemGroup>
   <ItemGroup>
     <Content Include="LibraryModel.Context.tt">

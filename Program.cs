@@ -16,7 +16,11 @@ namespace LibraryManagementVersion2
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
+<<<<<<< HEAD
             Application.Run(new Home());
+=======
+            Application.Run(new Home("admin"));
+>>>>>>> a43248f27e8f1c6bf6a668bca33a88a1413944bc
         }
     }
 }
