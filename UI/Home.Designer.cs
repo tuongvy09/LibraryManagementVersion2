@@ -214,10 +214,9 @@ namespace LibraryManagementVersion2
                     newForm = new FormManageThuThu();
                     break;
 
-                //case "Quản lý Độc giả":
-                //    newContent = new DocGiaManagement();
-                //    newContent.Dock = DockStyle.Fill;
-                //    break;
+                case "Quản lý Độc giả":
+                    newForm = new FormManageDocGia();
+                    break;
 
                 //case "Quản lý Thẻ thư viện":
                 //    newContent = new TheThuVienManagement();
