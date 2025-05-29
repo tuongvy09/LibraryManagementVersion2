@@ -133,6 +133,7 @@
     <Compile Include="QDP.cs">
       <DependentUpon>LibraryModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Repositories\BLDocGia.cs" />
     <Compile Include="Repositories\BLThuThu.cs" />
     <Compile Include="Repositories\CuonSachRepositories.cs" />
     <Compile Include="Repositories\DauSachRepositories.cs" />
@@ -170,6 +171,12 @@
     <Compile Include="UI\FormAddDauSach.Designer.cs">
       <DependentUpon>FormAddDauSach.cs</DependentUpon>
     </Compile>
+    <Compile Include="UI\FormAddDocGia.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UI\FormAddDocGia.Designer.cs">
+      <DependentUpon>FormAddDocGia.cs</DependentUpon>
+    </Compile>
     <Compile Include="UI\FormAddNXB.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -194,6 +201,12 @@
     <Compile Include="UI\FormAddThuThu.Designer.cs">
       <DependentUpon>FormAddThuThu.cs</DependentUpon>
     </Compile>
+    <Compile Include="UI\FormEditDocGia.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UI\FormEditDocGia.Designer.cs">
+      <DependentUpon>FormEditDocGia.cs</DependentUpon>
+    </Compile>
     <Compile Include="UI\FormEditThuThu.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -205,6 +218,12 @@
     </Compile>
     <Compile Include="UI\FormManageDauSach.Designer.cs">
       <DependentUpon>FormManageDauSach.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UI\FormManageDocGia.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UI\FormManageDocGia.Designer.cs">
+      <DependentUpon>FormManageDocGia.cs</DependentUpon>
     </Compile>
     <Compile Include="UI\FormManageNXB.cs">
       <SubType>Form</SubType>
