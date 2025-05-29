@@ -12,7 +12,7 @@ namespace LibraryManagementVersion2.Repositories
     {
         public void AddCuonSach(int maDauSach, string trangThaiSach, string tenCuonSach)
         {
-            using (var context = new FinalProjectLtWinsEntities1())
+            using (var context = new LibraryEntities())
             {
                 CuonSach newCuonSach = new CuonSach
                 {
@@ -35,7 +35,7 @@ namespace LibraryManagementVersion2.Repositories
             string trangThai,
             List<int> danhSachMaTacGia)
             {
-            using (var context = new FinalProjectLtWinsEntities1())
+            using (var context = new LibraryEntities())
             {
                 // 1. Lấy cuốn sách theo mã
                 var cuonSach = context.CuonSaches
@@ -83,7 +83,7 @@ namespace LibraryManagementVersion2.Repositories
 
         private void UpdateTacGia_DauSach(int maDauSach, List<int> danhSachMaTacGia)
         {
-            using (var context = new FinalProjectLtWinsEntities1())
+            using (var context = new LibraryEntities())
             {
                 var dauSach = context.DauSaches
                     .Include("TacGias")
@@ -110,8 +110,8 @@ namespace LibraryManagementVersion2.Repositories
         }
 
         public void DeleteCuonSach(int maCuonSach)
-        {
-            using (var context = new FinalProjectLtWinsEntities1())
+        {   
+            using (var context = new LibraryEntities())
             {
                 var cuonSach = context.CuonSaches
                     .Include(cs => cs.PhieuMuonSaches) // Phải include để EF tải danh sách phiếu mượn liên quan
@@ -135,7 +135,7 @@ namespace LibraryManagementVersion2.Repositories
 
         public List<CuonSachDetailModel> GetAllCuonSachDetails()
         {
-            using (var context = new FinalProjectLtWinsEntities1())
+            using (var context = new LibraryEntities())
             {
                 var result = context.CuonSaches
                     .Include("DauSach")
@@ -164,7 +164,7 @@ namespace LibraryManagementVersion2.Repositories
 
         public List<CuonSachDetailModel> SearchCuonSach(string keyword)
         {
-            using (var context = new FinalProjectLtWinsEntities1())
+            using (var context = new LibraryEntities())
             {
                 var query = context.CuonSaches
                     .Where(cs => cs.TenCuonSach.Contains(keyword) ||
@@ -203,7 +203,7 @@ namespace LibraryManagementVersion2.Repositories
 
         public CuonSachDetailModel GetCuonSachById(int maCuonSach)
         {
-            using (var context = new FinalProjectLtWinsEntities1())
+            using (var context = new LibraryEntities())
             {
                 var cs = context.CuonSaches
                     .Where(c => c.MaCuonSach == maCuonSach)
@@ -239,7 +239,7 @@ namespace LibraryManagementVersion2.Repositories
 
         public List<SachHot> GetTop10CuonSachHot()
         {
-            using (var context = new FinalProjectLtWinsEntities1())
+            using (var context = new LibraryEntities())
             {
                 var query = context.CuonSaches
                     .Select(cs => new SachHot

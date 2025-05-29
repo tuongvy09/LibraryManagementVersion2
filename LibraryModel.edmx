@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-    <Schema Namespace="FinalProjectLtWinsModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+      <Schema Namespace="LibraryManagement1Model.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="BienLai">
           <Key>
             <PropertyRef Name="MaBienLai" />
@@ -408,38 +408,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Function Name="fn_diagramobjects" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" ReturnType="int" />
-        <Function Name="sp_alterdiagram" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
-          <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
-          <Parameter Name="owner_id" Type="int" Mode="In" />
-          <Parameter Name="version" Type="int" Mode="In" />
-          <Parameter Name="definition" Type="varbinary(max)" Mode="In" />
-        </Function>
-        <Function Name="sp_creatediagram" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
-          <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
-          <Parameter Name="owner_id" Type="int" Mode="In" />
-          <Parameter Name="version" Type="int" Mode="In" />
-          <Parameter Name="definition" Type="varbinary(max)" Mode="In" />
-        </Function>
-        <Function Name="sp_dropdiagram" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
-          <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
-          <Parameter Name="owner_id" Type="int" Mode="In" />
-        </Function>
-        <Function Name="sp_helpdiagramdefinition" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
-          <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
-          <Parameter Name="owner_id" Type="int" Mode="In" />
-        </Function>
-        <Function Name="sp_helpdiagrams" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
-          <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
-          <Parameter Name="owner_id" Type="int" Mode="In" />
-        </Function>
-        <Function Name="sp_renamediagram" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
-          <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
-          <Parameter Name="owner_id" Type="int" Mode="In" />
-          <Parameter Name="new_diagramname" Type="nvarchar" Mode="In" />
-        </Function>
-        <Function Name="sp_upgraddiagrams" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
-        <EntityContainer Name="FinalProjectLtWinsModelStoreContainer">
+        <EntityContainer Name="LibraryManagement1ModelStoreContainer">
           <EntitySet Name="BienLai" EntityType="Self.BienLai" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="CuonSach" EntityType="Self.CuonSach" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="DauSach" EntityType="Self.DauSach" Schema="dbo" store:Type="Tables" />
@@ -529,10 +498,11 @@
             <End Role="ThuThu" EntitySet="ThuThu" />
           </AssociationSet>
         </EntityContainer>
-      </Schema></edmx:StorageModels>
+      </Schema>
+    </edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
-      <Schema Namespace="FinalProjectLtWinsModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+      <Schema Namespace="LibraryManagement1Model" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
         <EntityType Name="BienLai">
           <Key>
             <PropertyRef Name="MaBienLai" />
@@ -654,9 +624,9 @@
           </Key>
           <Property Name="MaPhieuPhat" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="MaDG" Type="Int32" />
+          <Property Name="TrangThai" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="DocGia" Relationship="Self.FK__PhieuPhat__MaDG__5535A963" FromRole="PhieuPhat" ToRole="DocGia" />
           <NavigationProperty Name="QDPs" Relationship="Self.PhieuPhat_QDP" FromRole="PhieuPhat" ToRole="QDP" />
-          <Property Name="TrangThai" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
         </EntityType>
         <EntityType Name="QDP">
           <Key>
@@ -880,7 +850,7 @@
           <End Role="PhieuPhat" Type="Self.PhieuPhat" Multiplicity="*" />
           <End Role="QDP" Type="Self.QDP" Multiplicity="*" />
         </Association>
-        <EntityContainer Name="FinalProjectLtWinsEntities1" annotation:LazyLoadingEnabled="true">
+        <EntityContainer Name="LibraryEntities" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="BienLais" EntityType="Self.BienLai" />
           <EntitySet Name="CuonSaches" EntityType="Self.CuonSach" />
           <EntitySet Name="DauSaches" EntityType="Self.DauSach" />
@@ -954,56 +924,15 @@
             <End Role="PhieuPhat" EntitySet="PhieuPhats" />
             <End Role="QDP" EntitySet="QDPs" />
           </AssociationSet>
-          <FunctionImport Name="sp_alterdiagram">
-            <Parameter Name="diagramname" Mode="In" Type="String" />
-            <Parameter Name="owner_id" Mode="In" Type="Int32" />
-            <Parameter Name="version" Mode="In" Type="Int32" />
-            <Parameter Name="definition" Mode="In" Type="Binary" />
-          </FunctionImport>
-          <FunctionImport Name="sp_creatediagram">
-            <Parameter Name="diagramname" Mode="In" Type="String" />
-            <Parameter Name="owner_id" Mode="In" Type="Int32" />
-            <Parameter Name="version" Mode="In" Type="Int32" />
-            <Parameter Name="definition" Mode="In" Type="Binary" />
-          </FunctionImport>
-          <FunctionImport Name="sp_dropdiagram">
-            <Parameter Name="diagramname" Mode="In" Type="String" />
-            <Parameter Name="owner_id" Mode="In" Type="Int32" />
-          </FunctionImport>
-          <FunctionImport Name="sp_helpdiagramdefinition" ReturnType="Collection(FinalProjectLtWinsModel.sp_helpdiagramdefinition_Result)">
-            <Parameter Name="diagramname" Mode="In" Type="String" />
-            <Parameter Name="owner_id" Mode="In" Type="Int32" />
-          </FunctionImport>
-          <FunctionImport Name="sp_helpdiagrams" ReturnType="Collection(FinalProjectLtWinsModel.sp_helpdiagrams_Result)">
-            <Parameter Name="diagramname" Mode="In" Type="String" />
-            <Parameter Name="owner_id" Mode="In" Type="Int32" />
-          </FunctionImport>
-          <FunctionImport Name="sp_renamediagram">
-            <Parameter Name="diagramname" Mode="In" Type="String" />
-            <Parameter Name="owner_id" Mode="In" Type="Int32" />
-            <Parameter Name="new_diagramname" Mode="In" Type="String" />
-          </FunctionImport>
-          <FunctionImport Name="sp_upgraddiagrams" />
         </EntityContainer>
-        <ComplexType Name="sp_helpdiagramdefinition_Result">
-          <Property Type="Int32" Name="version" Nullable="true" />
-          <Property Type="Binary" Name="definition" Nullable="true" />
-        </ComplexType>
-        <ComplexType Name="sp_helpdiagrams_Result">
-          <Property Type="String" Name="Database" Nullable="true" MaxLength="128" />
-          <Property Type="String" Name="Name" Nullable="false" MaxLength="128" />
-          <Property Type="Int32" Name="ID" Nullable="false" />
-          <Property Type="String" Name="Owner" Nullable="true" MaxLength="128" />
-          <Property Type="Int32" Name="OwnerID" Nullable="false" />
-        </ComplexType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
-        <EntityContainerMapping StorageEntityContainer="FinalProjectLtWinsModelStoreContainer" CdmEntityContainer="FinalProjectLtWinsEntities1">
+        <EntityContainerMapping StorageEntityContainer="LibraryManagement1ModelStoreContainer" CdmEntityContainer="LibraryEntities">
           <EntitySetMapping Name="BienLais">
-            <EntityTypeMapping TypeName="FinalProjectLtWinsModel.BienLai">
+            <EntityTypeMapping TypeName="LibraryManagement1Model.BienLai">
               <MappingFragment StoreEntitySet="BienLai">
                 <ScalarProperty Name="MaBienLai" ColumnName="MaBienLai" />
                 <ScalarProperty Name="MaDocGia" ColumnName="MaDocGia" />
@@ -1014,7 +943,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="CuonSaches">
-            <EntityTypeMapping TypeName="FinalProjectLtWinsModel.CuonSach">
+            <EntityTypeMapping TypeName="LibraryManagement1Model.CuonSach">
               <MappingFragment StoreEntitySet="CuonSach">
                 <ScalarProperty Name="MaCuonSach" ColumnName="MaCuonSach" />
                 <ScalarProperty Name="MaDauSach" ColumnName="MaDauSach" />
@@ -1024,7 +953,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="DauSaches">
-            <EntityTypeMapping TypeName="FinalProjectLtWinsModel.DauSach">
+            <EntityTypeMapping TypeName="LibraryManagement1Model.DauSach">
               <MappingFragment StoreEntitySet="DauSach">
                 <ScalarProperty Name="MaDauSach" ColumnName="MaDauSach" />
                 <ScalarProperty Name="MaTheLoai" ColumnName="MaTheLoai" />
@@ -1039,7 +968,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="DocGias">
-            <EntityTypeMapping TypeName="FinalProjectLtWinsModel.DocGia">
+            <EntityTypeMapping TypeName="LibraryManagement1Model.DocGia">
               <MappingFragment StoreEntitySet="DocGia">
                 <ScalarProperty Name="MaDocGia" ColumnName="MaDocGia" />
                 <ScalarProperty Name="MaLoaiDG" ColumnName="MaLoaiDG" />
@@ -1060,7 +989,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="LoaiDocGias">
-            <EntityTypeMapping TypeName="FinalProjectLtWinsModel.LoaiDocGia">
+            <EntityTypeMapping TypeName="LibraryManagement1Model.LoaiDocGia">
               <MappingFragment StoreEntitySet="LoaiDocGia">
                 <ScalarProperty Name="MaLoaiDG" ColumnName="MaLoaiDG" />
                 <ScalarProperty Name="TenLoaiDG" ColumnName="TenLoaiDG" />
@@ -1069,7 +998,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="LoaiPhieuMuons">
-            <EntityTypeMapping TypeName="FinalProjectLtWinsModel.LoaiPhieuMuon">
+            <EntityTypeMapping TypeName="LibraryManagement1Model.LoaiPhieuMuon">
               <MappingFragment StoreEntitySet="LoaiPhieuMuon">
                 <ScalarProperty Name="MaLPhieuMuon" ColumnName="MaLPhieuMuon" />
                 <ScalarProperty Name="TenMPM" ColumnName="TenMPM" />
@@ -1078,7 +1007,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="MuonSaches">
-            <EntityTypeMapping TypeName="FinalProjectLtWinsModel.MuonSach">
+            <EntityTypeMapping TypeName="LibraryManagement1Model.MuonSach">
               <MappingFragment StoreEntitySet="MuonSach">
                 <ScalarProperty Name="MaMuonSach" ColumnName="MaMuonSach" />
                 <ScalarProperty Name="MaPhieu" ColumnName="MaPhieu" />
@@ -1092,7 +1021,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="NXBs">
-            <EntityTypeMapping TypeName="FinalProjectLtWinsModel.NXB">
+            <EntityTypeMapping TypeName="LibraryManagement1Model.NXB">
               <MappingFragment StoreEntitySet="NXB">
                 <ScalarProperty Name="MaNXB" ColumnName="MaNXB" />
                 <ScalarProperty Name="TenNSB" ColumnName="TenNSB" />
@@ -1100,7 +1029,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="PhieuMuonSaches">
-            <EntityTypeMapping TypeName="FinalProjectLtWinsModel.PhieuMuonSach">
+            <EntityTypeMapping TypeName="LibraryManagement1Model.PhieuMuonSach">
               <MappingFragment StoreEntitySet="PhieuMuonSach">
                 <ScalarProperty Name="MaPhieu" ColumnName="MaPhieu" />
                 <ScalarProperty Name="MaDocGia" ColumnName="MaDocGia" />
@@ -1108,16 +1037,16 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="PhieuPhats">
-            <EntityTypeMapping TypeName="FinalProjectLtWinsModel.PhieuPhat">
+            <EntityTypeMapping TypeName="LibraryManagement1Model.PhieuPhat">
               <MappingFragment StoreEntitySet="PhieuPhat">
-                <ScalarProperty Name="TrangThai" ColumnName="TrangThai" />
                 <ScalarProperty Name="MaPhieuPhat" ColumnName="MaPhieuPhat" />
                 <ScalarProperty Name="MaDG" ColumnName="MaDG" />
+                <ScalarProperty Name="TrangThai" ColumnName="TrangThai" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="QDPs">
-            <EntityTypeMapping TypeName="FinalProjectLtWinsModel.QDP">
+            <EntityTypeMapping TypeName="LibraryManagement1Model.QDP">
               <MappingFragment StoreEntitySet="QDP">
                 <ScalarProperty Name="MaQDP" ColumnName="MaQDP" />
                 <ScalarProperty Name="Lydo" ColumnName="Lydo" />
@@ -1126,7 +1055,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="sysdiagrams">
-            <EntityTypeMapping TypeName="FinalProjectLtWinsModel.sysdiagram">
+            <EntityTypeMapping TypeName="LibraryManagement1Model.sysdiagram">
               <MappingFragment StoreEntitySet="sysdiagrams">
                 <ScalarProperty Name="name" ColumnName="name" />
                 <ScalarProperty Name="principal_id" ColumnName="principal_id" />
@@ -1137,7 +1066,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="TacGias">
-            <EntityTypeMapping TypeName="FinalProjectLtWinsModel.TacGia">
+            <EntityTypeMapping TypeName="LibraryManagement1Model.TacGia">
               <MappingFragment StoreEntitySet="TacGia">
                 <ScalarProperty Name="MaTacGia" ColumnName="MaTacGia" />
                 <ScalarProperty Name="TenTG" ColumnName="TenTG" />
@@ -1145,7 +1074,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="TheLoais">
-            <EntityTypeMapping TypeName="FinalProjectLtWinsModel.TheLoai">
+            <EntityTypeMapping TypeName="LibraryManagement1Model.TheLoai">
               <MappingFragment StoreEntitySet="TheLoai">
                 <ScalarProperty Name="MaTheLoai" ColumnName="MaTheLoai" />
                 <ScalarProperty Name="QDSoTuoi" ColumnName="QDSoTuoi" />
@@ -1155,7 +1084,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="TheThuViens">
-            <EntityTypeMapping TypeName="FinalProjectLtWinsModel.TheThuVien">
+            <EntityTypeMapping TypeName="LibraryManagement1Model.TheThuVien">
               <MappingFragment StoreEntitySet="TheThuVien">
                 <ScalarProperty Name="MaThe" ColumnName="MaThe" />
                 <ScalarProperty Name="MaDG" ColumnName="MaDG" />
@@ -1165,7 +1094,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="ThuThus">
-            <EntityTypeMapping TypeName="FinalProjectLtWinsModel.ThuThu">
+            <EntityTypeMapping TypeName="LibraryManagement1Model.ThuThu">
               <MappingFragment StoreEntitySet="ThuThu">
                 <ScalarProperty Name="MaThuThu" ColumnName="MaThuThu" />
                 <ScalarProperty Name="TenThuThu" ColumnName="TenThuThu" />
@@ -1183,7 +1112,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Users">
-            <EntityTypeMapping TypeName="FinalProjectLtWinsModel.User">
+            <EntityTypeMapping TypeName="LibraryManagement1Model.User">
               <MappingFragment StoreEntitySet="Users">
                 <ScalarProperty Name="UserID" ColumnName="UserID" />
                 <ScalarProperty Name="Username" ColumnName="Username" />
@@ -1192,7 +1121,7 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <AssociationSetMapping Name="DauSach_TacGia" TypeName="FinalProjectLtWinsModel.DauSach_TacGia" StoreEntitySet="DauSach_TacGia">
+          <AssociationSetMapping Name="DauSach_TacGia" TypeName="LibraryManagement1Model.DauSach_TacGia" StoreEntitySet="DauSach_TacGia">
             <EndProperty Name="DauSach">
               <ScalarProperty Name="MaDauSach" ColumnName="MaDauSach" />
             </EndProperty>
@@ -1200,7 +1129,7 @@
               <ScalarProperty Name="MaTacGia" ColumnName="MaTacGia" />
             </EndProperty>
           </AssociationSetMapping>
-          <AssociationSetMapping Name="PhieuMuonSach_CuonSach" TypeName="FinalProjectLtWinsModel.PhieuMuonSach_CuonSach" StoreEntitySet="PhieuMuonSach_CuonSach">
+          <AssociationSetMapping Name="PhieuMuonSach_CuonSach" TypeName="LibraryManagement1Model.PhieuMuonSach_CuonSach" StoreEntitySet="PhieuMuonSach_CuonSach">
             <EndProperty Name="PhieuMuonSach">
               <ScalarProperty Name="MaPhieu" ColumnName="MaPhieu" />
             </EndProperty>
@@ -1208,7 +1137,7 @@
               <ScalarProperty Name="MaCuonSach" ColumnName="MaSach" />
             </EndProperty>
           </AssociationSetMapping>
-          <AssociationSetMapping Name="PhieuPhat_QDP" TypeName="FinalProjectLtWinsModel.PhieuPhat_QDP" StoreEntitySet="PhieuPhat_QDP">
+          <AssociationSetMapping Name="PhieuPhat_QDP" TypeName="LibraryManagement1Model.PhieuPhat_QDP" StoreEntitySet="PhieuPhat_QDP">
             <EndProperty Name="PhieuPhat">
               <ScalarProperty Name="MaPhieuPhat" ColumnName="MaPhieuPhat" />
             </EndProperty>
@@ -1216,30 +1145,6 @@
               <ScalarProperty Name="MaQDP" ColumnName="MaQDP" />
             </EndProperty>
           </AssociationSetMapping>
-          <FunctionImportMapping FunctionImportName="sp_alterdiagram" FunctionName="FinalProjectLtWinsModel.Store.sp_alterdiagram" />
-          <FunctionImportMapping FunctionImportName="sp_creatediagram" FunctionName="FinalProjectLtWinsModel.Store.sp_creatediagram" />
-          <FunctionImportMapping FunctionImportName="sp_dropdiagram" FunctionName="FinalProjectLtWinsModel.Store.sp_dropdiagram" />
-          <FunctionImportMapping FunctionImportName="sp_helpdiagramdefinition" FunctionName="FinalProjectLtWinsModel.Store.sp_helpdiagramdefinition">
-            <ResultMapping>
-              <ComplexTypeMapping TypeName="FinalProjectLtWinsModel.sp_helpdiagramdefinition_Result">
-                <ScalarProperty Name="version" ColumnName="version" />
-                <ScalarProperty Name="definition" ColumnName="definition" />
-              </ComplexTypeMapping>
-            </ResultMapping>
-          </FunctionImportMapping>
-          <FunctionImportMapping FunctionImportName="sp_helpdiagrams" FunctionName="FinalProjectLtWinsModel.Store.sp_helpdiagrams">
-            <ResultMapping>
-              <ComplexTypeMapping TypeName="FinalProjectLtWinsModel.sp_helpdiagrams_Result">
-                <ScalarProperty Name="Database" ColumnName="Database" />
-                <ScalarProperty Name="Name" ColumnName="Name" />
-                <ScalarProperty Name="ID" ColumnName="ID" />
-                <ScalarProperty Name="Owner" ColumnName="Owner" />
-                <ScalarProperty Name="OwnerID" ColumnName="OwnerID" />
-              </ComplexTypeMapping>
-            </ResultMapping>
-          </FunctionImportMapping>
-          <FunctionImportMapping FunctionImportName="sp_renamediagram" FunctionName="FinalProjectLtWinsModel.Store.sp_renamediagram" />
-          <FunctionImportMapping FunctionImportName="sp_upgraddiagrams" FunctionName="FinalProjectLtWinsModel.Store.sp_upgraddiagrams" />
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

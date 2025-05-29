@@ -4,6 +4,7 @@ using System.Drawing;
 using System.Windows.Forms;
 using System.Linq;
 using LibraryManagementVersion2.UI.UserControls;
+using LibraryManagementVersion2.UI;
 
 namespace LibraryManagementVersion2
 {
@@ -209,10 +210,9 @@ namespace LibraryManagementVersion2
 
             switch (item)
             {
-                //case "Quản lý Thủ thư":
-                //    newContent = new ThuThuManagement();
-                //    newContent.Dock = DockStyle.Fill;
-                //    break;
+                case "Quản lý Thủ thư":
+                    newForm = new FormManageThuThu();
+                    break;
 
                 //case "Quản lý Độc giả":
                 //    newContent = new DocGiaManagement();
