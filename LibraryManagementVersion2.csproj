@@ -134,6 +134,7 @@
       <DependentUpon>LibraryModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Repositories\BLDocGia.cs" />
+    <Compile Include="Repositories\BLTheThuVien.cs" />
     <Compile Include="Repositories\BLThuThu.cs" />
     <Compile Include="Repositories\CuonSachRepositories.cs" />
     <Compile Include="Repositories\DauSachRepositories.cs" />
@@ -195,6 +196,12 @@
     <Compile Include="UI\FormAddTheLoai.Designer.cs">
       <DependentUpon>FormAddTheLoai.cs</DependentUpon>
     </Compile>
+    <Compile Include="UI\FormAddTheThuVien.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UI\FormAddTheThuVien.Designer.cs">
+      <DependentUpon>FormAddTheThuVien.cs</DependentUpon>
+    </Compile>
     <Compile Include="UI\FormAddThuThu.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -206,6 +213,12 @@
     </Compile>
     <Compile Include="UI\FormEditDocGia.Designer.cs">
       <DependentUpon>FormEditDocGia.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UI\FormEditTheThuVien.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UI\FormEditTheThuVien.Designer.cs">
+      <DependentUpon>FormEditTheThuVien.cs</DependentUpon>
     </Compile>
     <Compile Include="UI\FormEditThuThu.cs">
       <SubType>Form</SubType>
@@ -243,6 +256,12 @@
     <Compile Include="UI\FormManageTheLoai.Designer.cs">
       <DependentUpon>FormManageTheLoai.cs</DependentUpon>
     </Compile>
+    <Compile Include="UI\FormManageTheThuVien.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UI\FormManageTheThuVien.Designer.cs">
+      <DependentUpon>FormManageTheThuVien.cs</DependentUpon>
+    </Compile>
     <Compile Include="UI\FormManageThuThu.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -276,6 +295,9 @@
     <Compile Include="User.cs">
       <DependentUpon>LibraryModel.tt</DependentUpon>
     </Compile>
+    <EmbeddedResource Include="UI\FormManageTheThuVien.resx">
+      <DependentUpon>FormManageTheThuVien.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="UI\Login.resx" />
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
