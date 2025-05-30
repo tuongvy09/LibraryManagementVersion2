@@ -8,7 +8,7 @@ using System.Data.Entity;
 
 namespace LibraryManagementVersion2.Repositories
 {
-    public class TheLoaiRepository
+    public class BLTheLoai
     {
         public void AddTheLoai(int qdSoTuoi, string tenTheLoai)
         {

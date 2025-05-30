@@ -39,7 +39,7 @@ namespace LibraryManagementVersion2
             string username = txtTen.Text.Trim();
             string password = txtPassWord.Text.Trim();
 
-            LoginRepositories loginRepo = new LoginRepositories();
+            BLLogin loginRepo = new BLLogin();
             string role;
 
             if (loginRepo.Login(username, password, out role))

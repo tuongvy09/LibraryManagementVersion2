@@ -7,7 +7,7 @@ using System.Windows.Forms;
 
 namespace LibraryManagementVersion2.Repositories
 {
-    public class UserRepository
+    public class BLUser
     {
         public User GetUserByUsername(string username)
         {

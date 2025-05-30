@@ -21,11 +21,11 @@ namespace LibraryManagementVersion2.UI
         private CheckedListBox clbTacGia;
         private Label lblTacGia;
 
-        private DauSachRepositories repo = new DauSachRepositories();
-        private TheLoaiRepository theLoaiRepository = new TheLoaiRepository();
-        private NXBRepository theXBRepository = new NXBRepository();
-        private TacGiaRepository tacGiaRepository = new TacGiaRepository();
-        private DauSachTacGiaRepository dstgRepository = new DauSachTacGiaRepository();
+        private BLDauSach repo = new BLDauSach();
+        private BLTheLoai theLoaiRepository = new BLTheLoai();
+        private BLNXB theXBRepository = new BLNXB();
+        private BLTacGia tacGiaRepository = new BLTacGia();
+        private BLDauSachTacGia dstgRepository = new BLDauSachTacGia();
         public FormAddDauSach()
         {
             InitializeComponentForm();
@@ -320,7 +320,7 @@ namespace LibraryManagementVersion2.UI
 
         private void LoadTheLoaiList()
         {
-            TheLoaiRepository repo = new TheLoaiRepository();
+            BLTheLoai repo = new BLTheLoai();
             List<TheLoai> theLoais = repo.GetAllTheLoai();
 
             cboTheLoai.DataSource = null;

@@ -8,7 +8,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using static LibraryManagementVersion2.Repositories.DauSachRepositories;
+using static LibraryManagementVersion2.Repositories.BLDauSach;
 
 namespace LibraryManagementVersion2.UI
 {
@@ -23,11 +23,11 @@ namespace LibraryManagementVersion2.UI
         private CheckedListBox clbTacGia;
         private Color mainColor = ColorTranslator.FromHtml("#739a4f");
 
-        TacGiaRepository tacGiaRepository = new TacGiaRepository();
-        TheLoaiRepository theLoaiRepository = new TheLoaiRepository();
-        NXBRepository NXBRepository = new NXBRepository();
-        DauSachRepositories dsRepository = new DauSachRepositories();
-        DauSachTacGiaRepository dstgRepository = new DauSachTacGiaRepository();
+        BLTacGia tacGiaRepository = new BLTacGia();
+        BLTheLoai theLoaiRepository = new BLTheLoai();
+        BLNXB NXBRepository = new BLNXB();
+        BLDauSach dsRepository = new BLDauSach();
+        BLDauSachTacGia dstgRepository = new BLDauSachTacGia();
         private int maDauSach = -1;
         public FormManageDauSach()
         {
@@ -247,7 +247,7 @@ namespace LibraryManagementVersion2.UI
 
         private void LoadTheLoaiList()
         {
-            TheLoaiRepository repo = new TheLoaiRepository();
+            BLTheLoai repo = new BLTheLoai();
             List<TheLoai> theLoais = repo.GetAllTheLoai();
 
             cbTheLoai.DataSource = null;

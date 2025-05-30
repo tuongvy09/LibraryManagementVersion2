@@ -21,7 +21,7 @@ namespace LibraryManagementVersion2.UI
         private string placeholderText = "Nhập tên tác giả...";
         private Color mainColor = ColorTranslator.FromHtml("#739a4f");
 
-        private TacGiaRepository tacGiaRepository = new TacGiaRepository();
+        private BLTacGia tacGiaRepository = new BLTacGia();
         public FormManageTG()
         {
             InitializeComponent();
