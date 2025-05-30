@@ -5,6 +5,7 @@ using System.Windows.Forms;
 using System.Linq;
 using LibraryManagementVersion2.UI.UserControls;
 using LibraryManagementVersion2.UI;
+using ThuVien_EF.Forms;
 
 namespace LibraryManagementVersion2
 {
@@ -222,11 +223,9 @@ namespace LibraryManagementVersion2
                     newForm = new FormManageTheThuVien();
                     break;
 
-                //case "Thống kê - Báo cáo":
-                //    newContent = new ThongKeManagement();
-                //    newContent.Dock = DockStyle.Fill;
-
-                //    break;
+                case "Thống kê - Báo cáo":
+                    newForm = new FormManageThongKe();
+                    break;
 
                 case "Sách":
                     newContent = new SachControl();
