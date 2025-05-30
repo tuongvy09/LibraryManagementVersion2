@@ -11,66 +11,19 @@ namespace LibraryManagementVersion2.UI
         private BLTheThuVien blTheThuVien = new BLTheThuVien();
         private string err;
         private int maThe;
-        private bool isLoading = false;
+        private int? maDocGiaHienTai; // Lưu mã độc giả hiện tại
 
         public FormEditTheThuVien(int maThe)
         {
             InitializeComponent();
             this.maThe = maThe;
             InitializeCustomStyle();
-            LoadComboBoxData();
             LoadTheThuVienData();
         }
 
         private void InitializeCustomStyle()
         {
             this.BackColor = Color.White;
-        }
-
-        private void LoadComboBoxData()
-        {
-            if (isLoading) return;
-
-            try
-            {
-                isLoading = true;
-
-                cboDocGia.DataSource = null;
-                cboDocGia.Items.Clear();
-
-                DataTable dtDocGia = blTheThuVien.LayDocGiaChoComboBox();
-
-                if (dtDocGia != null && dtDocGia.Rows.Count > 0)
-                {
-                    DataRow newRow = dtDocGia.NewRow();
-                    newRow["MaDG"] = DBNull.Value;
-                    newRow["TenDocGia"] = "-- Chọn độc giả --";
-                    dtDocGia.Rows.InsertAt(newRow, 0);
-
-                    cboDocGia.DataSource = dtDocGia;
-                    cboDocGia.DisplayMember = "TenDocGia";
-                    cboDocGia.ValueMember = "MaDG";
-                    cboDocGia.SelectedIndex = 0;
-                }
-                else
-                {
-                    cboDocGia.Items.Add("-- Chọn độc giả --");
-                    cboDocGia.SelectedIndex = 0;
-                }
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show("Lỗi khi tải dữ liệu ComboBox: " + ex.Message, "Lỗi",
-                    MessageBoxButtons.OK, MessageBoxIcon.Error);
-
-                cboDocGia.Items.Clear();
-                cboDocGia.Items.Add("-- Chọn độc giả --");
-                cboDocGia.SelectedIndex = 0;
-            }
-            finally
-            {
-                isLoading = false;
-            }
         }
 
         private void LoadTheThuVienData()
@@ -81,14 +34,24 @@ namespace LibraryManagementVersion2.UI
                 if (theThuVien != null)
                 {
                     txtMaThe.Text = theThuVien.MaThe.ToString();
+                    maDocGiaHienTai = theThuVien.MaDG;
 
+                    // Hiển thị tên độc giả trong TextBox
                     if (theThuVien.MaDG.HasValue)
                     {
-                        cboDocGia.SelectedValue = theThuVien.MaDG.Value;
+                        var docGia = blTheThuVien.LayDocGiaTheoMa(theThuVien.MaDG.Value);
+                        if (docGia != null)
+                        {
+                            txtDocGia.Text = docGia.HoTen; // Hiển thị tên độc giả
+                        }
+                        else
+                        {
+                            txtDocGia.Text = "Độc giả không tồn tại";
+                        }
                     }
                     else
                     {
-                        cboDocGia.SelectedIndex = 0;
+                        txtDocGia.Text = "Chưa gán độc giả";
                     }
 
                     dtpNgayCap.Value = theThuVien.NgayCap;
@@ -113,7 +76,7 @@ namespace LibraryManagementVersion2.UI
 
         private void UpdateTrangThaiDisplay()
         {
-            bool conHieuLuc = DateTime.Now <= dtpNgayHetHan.Value;
+            bool conHieuLuc = dtpNgayHetHan.Value > DateTime.Now; // Sửa logic: > thay vì <=
             lblTrangThaiValue.Text = conHieuLuc ? "Còn hiệu lực" : "Hết hạn";
             lblTrangThaiValue.ForeColor = conHieuLuc ? Color.Green : Color.Red;
         }
@@ -125,20 +88,9 @@ namespace LibraryManagementVersion2.UI
 
             try
             {
-                int? maDocGia = null;
-                if (cboDocGia.SelectedValue != null &&
-                    cboDocGia.SelectedValue != DBNull.Value &&
-                    cboDocGia.SelectedIndex > 0)
-                {
-                    if (int.TryParse(cboDocGia.SelectedValue.ToString(), out int tempMaDocGia))
-                    {
-                        maDocGia = tempMaDocGia;
-                    }
-                }
-
                 bool success = blTheThuVien.CapNhatTheThuVien(
                     maThe,
-                    maDocGia,
+                    maDocGiaHienTai, 
                     dtpNgayCap.Value.Date,
                     dtpNgayHetHan.Value.Date,
                     ref err
@@ -178,15 +130,7 @@ namespace LibraryManagementVersion2.UI
 
         private bool ValidateInput()
         {
-            if (cboDocGia.SelectedValue == null ||
-                cboDocGia.SelectedValue == DBNull.Value ||
-                cboDocGia.SelectedIndex <= 0)
-            {
-                MessageBox.Show("Vui lòng chọn độc giả!", "Thông báo",
-                    MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                cboDocGia.Focus();
-                return false;
-            }
+            // Bỏ validation về độc giả vì không cho thay đổi trong form edit
 
             if (dtpNgayCap.Value > DateTime.Now)
             {
