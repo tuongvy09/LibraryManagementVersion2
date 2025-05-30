@@ -216,7 +216,7 @@ namespace LibraryManagementVersion2
                     break;
 
                 case "Quản lý Độc giả":
-                    newForm = new FormManageDocGia();
+                    newForm = new FormDocGiaManagement();
                     break;
 
                 case "Quản lý Thẻ thư viện":

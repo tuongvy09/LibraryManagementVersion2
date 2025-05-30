@@ -224,6 +224,12 @@
     <Compile Include="UI\FormAddThuThu.Designer.cs">
       <DependentUpon>FormAddThuThu.cs</DependentUpon>
     </Compile>
+    <Compile Include="UI\FormDocGiaStatsDetail.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UI\FormDocGiaStatsDetail.Designer.cs">
+      <DependentUpon>FormDocGiaStatsDetail.cs</DependentUpon>
+    </Compile>
     <Compile Include="UI\FormEditDocGia.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -332,6 +338,9 @@
     <Compile Include="Utilities\QRCodeManager.cs" />
     <EmbeddedResource Include="UI\FormManageBienLai.resx">
       <DependentUpon>FormManageBienLai.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UI\FormManageDocGia.resx">
+      <DependentUpon>FormManageDocGia.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="UI\FormManageTheThuVien.resx">
       <DependentUpon>FormManageTheThuVien.cs</DependentUpon>
