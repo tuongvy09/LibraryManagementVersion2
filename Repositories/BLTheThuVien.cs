@@ -206,6 +206,7 @@ namespace LibraryManagementVersion2.Repositories
         }
 
         // Cập nhật thẻ thư viện
+        // Cập nhật thẻ thư viện
         public bool CapNhatTheThuVien(int maThe, int? maDocGia, DateTime ngayCap, DateTime ngayHetHan, ref string err)
         {
             LibraryEntities context = null;
@@ -234,54 +235,67 @@ namespace LibraryManagementVersion2.Repositories
                     return false;
                 }
 
-                // Kiểm tra độc giả có tồn tại không (nếu có)
-                if (maDocGia.HasValue)
-                {
-                    var docGiaExists = context.DocGias.Any(dg => dg.MaDocGia == maDocGia.Value && dg.TrangThai == true);
-                    if (!docGiaExists)
-                    {
-                        err = "Độc giả không tồn tại hoặc đã bị vô hiệu hóa";
-                        return false;
-                    }
-
-                    // Kiểm tra độc giả đã có thẻ khác chưa (trừ thẻ hiện tại)
-                    var hasOtherCard = context.TheThuViens.Any(ttv => ttv.MaDG == maDocGia.Value && ttv.MaThe != maThe);
-                    if (hasOtherCard)
-                    {
-                        err = "Độc giả đã có thẻ thư viện khác";
-                        return false;
-                    }
-                }
-
-                // Cập nhật thông tin
+                // LƯU MÃ ĐỘC GIẢ CŨ TRƯỚC KHI CẬP NHẬT
                 int? oldMaDocGia = theThuVienQuery.MaDG;
 
-                theThuVienQuery.MaDG = maDocGia;
-                theThuVienQuery.NgayCap = ngayCap;
-                theThuVienQuery.NgayHetHan = ngayHetHan;
-
-                context.SaveChanges();
-
-                // Cập nhật MaThe trong bảng DocGia
-                // Xóa liên kết cũ nếu có
-                if (oldMaDocGia.HasValue)
+                // CHỈ KIỂM TRA VALIDATION ĐỘC GIẢ KHI THỰC SỰ THAY ĐỔI ĐỘC GIẢ
+                if (maDocGia != oldMaDocGia)
                 {
-                    var oldDocGia = context.DocGias.FirstOrDefault(dg => dg.MaDocGia == oldMaDocGia.Value);
-                    if (oldDocGia != null)
+                    // Kiểm tra độc giả có tồn tại không (nếu có và khác với độc giả cũ)
+                    if (maDocGia.HasValue)
                     {
-                        oldDocGia.MaThe = null;
-                        oldDocGia.NgayCapNhat = DateTime.Now;
+                        var docGiaExists = context.DocGias.Any(dg => dg.MaDocGia == maDocGia.Value && dg.TrangThai == true);
+                        if (!docGiaExists)
+                        {
+                            err = "Độc giả không tồn tại hoặc đã bị vô hiệu hóa";
+                            return false;
+                        }
+
+                        // Kiểm tra độc giả đã có thẻ khác chưa (trừ thẻ hiện tại)
+                        var hasOtherCard = context.TheThuViens.Any(ttv => ttv.MaDG == maDocGia.Value && ttv.MaThe != maThe);
+                        if (hasOtherCard)
+                        {
+                            err = "Độc giả đã có thẻ thư viện khác";
+                            return false;
+                        }
                     }
                 }
 
-                // Tạo liên kết mới nếu có
-                if (maDocGia.HasValue)
+                // Cập nhật thông tin (chỉ cập nhật ngày nếu không thay đổi độc giả)
+                if (maDocGia == oldMaDocGia)
                 {
-                    var newDocGia = context.DocGias.FirstOrDefault(dg => dg.MaDocGia == maDocGia.Value);
-                    if (newDocGia != null)
+                    // CHỈ CẬP NHẬT NGÀY, KHÔNG THAY ĐỔI ĐỘC GIẢ
+                    theThuVienQuery.NgayCap = ngayCap;
+                    theThuVienQuery.NgayHetHan = ngayHetHan;
+                }
+                else
+                {
+                    // CẬP NHẬT CẢ ĐỘC GIẢ VÀ NGÀY
+                    theThuVienQuery.MaDG = maDocGia;
+                    theThuVienQuery.NgayCap = ngayCap;
+                    theThuVienQuery.NgayHetHan = ngayHetHan;
+
+                    // Cập nhật MaThe trong bảng DocGia khi thay đổi độc giả
+                    // Xóa liên kết cũ nếu có
+                    if (oldMaDocGia.HasValue)
                     {
-                        newDocGia.MaThe = maThe;
-                        newDocGia.NgayCapNhat = DateTime.Now;
+                        var oldDocGia = context.DocGias.FirstOrDefault(dg => dg.MaDocGia == oldMaDocGia.Value);
+                        if (oldDocGia != null)
+                        {
+                            oldDocGia.MaThe = null;
+                            oldDocGia.NgayCapNhat = DateTime.Now;
+                        }
+                    }
+
+                    // Tạo liên kết mới nếu có
+                    if (maDocGia.HasValue)
+                    {
+                        var newDocGia = context.DocGias.FirstOrDefault(dg => dg.MaDocGia == maDocGia.Value);
+                        if (newDocGia != null)
+                        {
+                            newDocGia.MaThe = maThe;
+                            newDocGia.NgayCapNhat = DateTime.Now;
+                        }
                     }
                 }
 

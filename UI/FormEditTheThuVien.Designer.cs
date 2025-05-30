@@ -12,7 +12,7 @@
         private System.Windows.Forms.Label lblTrangThaiValue;
         private System.Windows.Forms.Label lblNote;
         private System.Windows.Forms.TextBox txtMaThe;
-        private System.Windows.Forms.ComboBox cboDocGia;
+        private System.Windows.Forms.TextBox txtDocGia; // THAY ĐỔI: ComboBox thành TextBox
         private System.Windows.Forms.DateTimePicker dtpNgayCap;
         private System.Windows.Forms.DateTimePicker dtpNgayHetHan;
         private System.Windows.Forms.Button btnLuu;
@@ -38,7 +38,7 @@
             this.lblTrangThaiValue = new System.Windows.Forms.Label();
             this.lblNote = new System.Windows.Forms.Label();
             this.txtMaThe = new System.Windows.Forms.TextBox();
-            this.cboDocGia = new System.Windows.Forms.ComboBox();
+            this.txtDocGia = new System.Windows.Forms.TextBox(); // THAY ĐỔI
             this.dtpNgayCap = new System.Windows.Forms.DateTimePicker();
             this.dtpNgayHetHan = new System.Windows.Forms.DateTimePicker();
             this.btnLuu = new System.Windows.Forms.Button();
@@ -88,20 +88,20 @@
             this.lblDocGia.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(115)))), ((int)(((byte)(154)))), ((int)(((byte)(79)))));
             this.lblDocGia.Location = new System.Drawing.Point(56, 130);
             this.lblDocGia.Name = "lblDocGia";
-            this.lblDocGia.Size = new System.Drawing.Size(76, 20);
+            this.lblDocGia.Size = new System.Drawing.Size(66, 20);
             this.lblDocGia.TabIndex = 3;
-            this.lblDocGia.Text = "Độc giả: *";
+            this.lblDocGia.Text = "Độc giả:"; // Bỏ dấu * vì không cho sửa
 
             // 
-            // cboDocGia
+            // txtDocGia - THAY ĐỔI: ComboBox thành TextBox
             // 
-            this.cboDocGia.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.cboDocGia.Font = new System.Drawing.Font("Segoe UI", 11F);
-            this.cboDocGia.FormattingEnabled = true;
-            this.cboDocGia.Location = new System.Drawing.Point(200, 127);
-            this.cboDocGia.Name = "cboDocGia";
-            this.cboDocGia.Size = new System.Drawing.Size(350, 28);
-            this.cboDocGia.TabIndex = 4;
+            this.txtDocGia.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(245)))), ((int)(((byte)(245)))), ((int)(((byte)(245)))));
+            this.txtDocGia.Font = new System.Drawing.Font("Segoe UI", 11F);
+            this.txtDocGia.Location = new System.Drawing.Point(200, 127);
+            this.txtDocGia.Name = "txtDocGia";
+            this.txtDocGia.ReadOnly = true; // Chỉ đọc
+            this.txtDocGia.Size = new System.Drawing.Size(350, 27);
+            this.txtDocGia.TabIndex = 4;
 
             // 
             // lblNgayCap
@@ -234,7 +234,7 @@
             this.Controls.Add(this.lblNgayHetHan);
             this.Controls.Add(this.dtpNgayCap);
             this.Controls.Add(this.lblNgayCap);
-            this.Controls.Add(this.cboDocGia);
+            this.Controls.Add(this.txtDocGia); // THAY ĐỔI
             this.Controls.Add(this.lblDocGia);
             this.Controls.Add(this.txtMaThe);
             this.Controls.Add(this.lblMaThe);
