@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace LibraryManagementVersion2.Repositories
 {
-    public class LoginRepositories
+    public class BLLogin
     {
         public bool Login(string username, string password, out string role)
         {

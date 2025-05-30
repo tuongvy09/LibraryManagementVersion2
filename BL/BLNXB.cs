@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace LibraryManagementVersion2.Repositories
 {
-    public class NXBRepository
+    public class BLNXB
     {
         public void AddNXB(string tenNXB)
         {

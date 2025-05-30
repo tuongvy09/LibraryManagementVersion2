@@ -7,7 +7,7 @@ using System.Windows.Forms;
 
 namespace LibraryManagementVersion2.Repositories
 {
-    public class TacGiaRepository
+    public class BLTacGia
     {
         public void AddTacGia(string tenTG)
         {

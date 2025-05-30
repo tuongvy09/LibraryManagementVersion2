@@ -32,7 +32,10 @@ namespace ThuVien_EF.Forms
             this.tabDocGia = new TabPage();
             this.chartDocGia = new Chart();
             this.tabDoanhthu = new TabPage();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
             this.chartDoanhThu = new Chart();
+            this.tabTop10SachMuonNhieuNhat = new System.Windows.Forms.TabPage();
+            this.dgvBestSeller = new System.Windows.Forms.DataGridView();
             this.panelFilters.SuspendLayout();
             this.tabControl.SuspendLayout();
             this.tabDocGia.SuspendLayout();
@@ -133,6 +136,7 @@ namespace ThuVien_EF.Forms
             // 
             this.tabControl.Controls.Add(this.tabDocGia);
             this.tabControl.Controls.Add(this.tabDoanhthu);
+            this.tabControl.Controls.Add(this.tabTop10SachMuonNhieuNhat);
             this.tabControl.Font = new Font("Segoe UI", 11F, FontStyle.Regular, GraphicsUnit.Point, ((byte)(0)));
             this.tabControl.Location = new Point(20, 122);
             this.tabControl.Name = "tabControl";
@@ -184,6 +188,35 @@ namespace ThuVien_EF.Forms
             this.chartDoanhThu.TabIndex = 0;
             this.chartDoanhThu.Text = "chartDoanhThu";
             // 
+            // tabTop10SachMuonNhieuNhat
+            // 
+            this.tabTop10SachMuonNhieuNhat.Controls.Add(this.dgvBestSeller);
+            this.tabTop10SachMuonNhieuNhat.Location = new System.Drawing.Point(4, 29);
+            this.tabTop10SachMuonNhieuNhat.Name = "tabTop10SachMuonNhieuNhat";
+            this.tabTop10SachMuonNhieuNhat.Padding = new System.Windows.Forms.Padding(3, 3, 3, 3);
+            this.tabTop10SachMuonNhieuNhat.Size = new System.Drawing.Size(1142, 368);
+            this.tabTop10SachMuonNhieuNhat.TabIndex = 0;
+            this.tabTop10SachMuonNhieuNhat.Text = "📚 Top 10 sách mượn nhiều";
+            this.tabTop10SachMuonNhieuNhat.UseVisualStyleBackColor = true;
+            // 
+            // dgvBestSeller
+            // 
+            this.dgvBestSeller.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
+            this.dgvBestSeller.BackgroundColor = System.Drawing.Color.White;
+            dataGridViewCellStyle1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(115)))), ((int)(((byte)(154)))), ((int)(((byte)(79)))));
+            dataGridViewCellStyle1.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle1.ForeColor = System.Drawing.Color.White;
+            this.dgvBestSeller.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
+            this.dgvBestSeller.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.dgvBestSeller.EnableHeadersVisualStyles = false;
+            this.dgvBestSeller.Location = new System.Drawing.Point(3, 3);
+            this.dgvBestSeller.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.dgvBestSeller.Name = "dgvBestSeller";
+            this.dgvBestSeller.ReadOnly = true;
+            this.dgvBestSeller.Size = new System.Drawing.Size(1136, 362);
+            this.dgvBestSeller.TabIndex = 0;
+
+            // 
             // FormManageThongKe
             // 
             this.AutoScaleDimensions = new SizeF(6F, 13F);
@@ -222,5 +255,8 @@ namespace ThuVien_EF.Forms
         private Chart chartDocGia;
         private TabPage tabDoanhthu;
         private Chart chartDoanhThu;
+
+        private System.Windows.Forms.TabPage tabTop10SachMuonNhieuNhat;
+        private System.Windows.Forms.DataGridView dgvBestSeller;
     }
 }

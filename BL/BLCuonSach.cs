@@ -8,7 +8,7 @@ using System.Data.Entity.Infrastructure;
 
 namespace LibraryManagementVersion2.Repositories
 {
-    public class CuonSachRepositories
+    public class BLCuonSach
     {
         public void AddCuonSach(int maDauSach, string trangThaiSach, string tenCuonSach)
         {
