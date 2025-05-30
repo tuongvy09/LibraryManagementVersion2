@@ -1,6 +1,4 @@
-﻿using System.Windows.Forms;
-
-namespace LibraryManagementVersion2.UI
+﻿namespace LibraryManagementVersion2.UI
 {
     partial class FormManageTheThuVien
     {
@@ -13,9 +11,8 @@ namespace LibraryManagementVersion2.UI
         private System.Windows.Forms.Button btnXoa;
         private System.Windows.Forms.Button btnReload;
         private System.Windows.Forms.Button btnTaoQR;
+        private System.Windows.Forms.Label lblTimKiem;
         private System.Windows.Forms.Label lblTitle;
-        private System.Windows.Forms.Panel panelTop;
-        private System.Windows.Forms.Panel panelButtons;
 
         protected override void Dispose(bool disposing)
         {
@@ -28,8 +25,7 @@ namespace LibraryManagementVersion2.UI
 
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle5 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle6 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
             this.dgvTheThuVien = new System.Windows.Forms.DataGridView();
             this.txtTimKiem = new System.Windows.Forms.TextBox();
             this.btnTimKiem = new System.Windows.Forms.Button();
@@ -38,200 +34,178 @@ namespace LibraryManagementVersion2.UI
             this.btnXoa = new System.Windows.Forms.Button();
             this.btnReload = new System.Windows.Forms.Button();
             this.btnTaoQR = new System.Windows.Forms.Button();
+            this.lblTimKiem = new System.Windows.Forms.Label();
             this.lblTitle = new System.Windows.Forms.Label();
-            this.panelTop = new System.Windows.Forms.Panel();
-            this.panelButtons = new System.Windows.Forms.Panel();
             ((System.ComponentModel.ISupportInitialize)(this.dgvTheThuVien)).BeginInit();
-            this.panelTop.SuspendLayout();
-            this.panelButtons.SuspendLayout();
             this.SuspendLayout();
             // 
             // dgvTheThuVien
             // 
             this.dgvTheThuVien.AllowUserToAddRows = false;
             this.dgvTheThuVien.AllowUserToDeleteRows = false;
+            this.dgvTheThuVien.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.dgvTheThuVien.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.dgvTheThuVien.BackgroundColor = System.Drawing.Color.White;
-            this.dgvTheThuVien.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.dgvTheThuVien.CellBorderStyle = System.Windows.Forms.DataGridViewCellBorderStyle.SingleHorizontal;
-            dataGridViewCellStyle5.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle5.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(115)))), ((int)(((byte)(154)))), ((int)(((byte)(79)))));
-            dataGridViewCellStyle5.Font = new System.Drawing.Font("Segoe UI", 9F);
-            dataGridViewCellStyle5.ForeColor = System.Drawing.Color.White;
-            dataGridViewCellStyle5.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle5.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle5.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dgvTheThuVien.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle5;
-            this.dgvTheThuVien.ColumnHeadersHeight = 40;
-            this.dgvTheThuVien.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
-            dataGridViewCellStyle6.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle6.BackColor = System.Drawing.SystemColors.Window;
-            dataGridViewCellStyle6.Font = new System.Drawing.Font("Segoe UI", 9F);
-            dataGridViewCellStyle6.ForeColor = System.Drawing.SystemColors.ControlText;
-            dataGridViewCellStyle6.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(181)))), ((int)(((byte)(213)))), ((int)(((byte)(156)))));
-            dataGridViewCellStyle6.SelectionForeColor = System.Drawing.Color.Black;
-            dataGridViewCellStyle6.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.dgvTheThuVien.DefaultCellStyle = dataGridViewCellStyle6;
-            this.dgvTheThuVien.Dock = System.Windows.Forms.DockStyle.Fill;
+            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(115)))), ((int)(((byte)(154)))), ((int)(((byte)(79)))));
+            dataGridViewCellStyle1.Font = new System.Drawing.Font("Segoe UI", 9F);
+            dataGridViewCellStyle1.ForeColor = System.Drawing.Color.White;
+            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dgvTheThuVien.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
+            this.dgvTheThuVien.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgvTheThuVien.EnableHeadersVisualStyles = false;
-            this.dgvTheThuVien.GridColor = System.Drawing.Color.FromArgb(((int)(((byte)(221)))), ((int)(((byte)(221)))), ((int)(((byte)(221)))));
-            this.dgvTheThuVien.Location = new System.Drawing.Point(0, 130);
+            this.dgvTheThuVien.Location = new System.Drawing.Point(18, 135);
             this.dgvTheThuVien.MultiSelect = false;
             this.dgvTheThuVien.Name = "dgvTheThuVien";
             this.dgvTheThuVien.ReadOnly = true;
             this.dgvTheThuVien.RowHeadersVisible = false;
             this.dgvTheThuVien.RowHeadersWidth = 51;
-            this.dgvTheThuVien.RowTemplate.Height = 35;
             this.dgvTheThuVien.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dgvTheThuVien.Size = new System.Drawing.Size(1000, 420);
-            this.dgvTheThuVien.TabIndex = 3;
+            this.dgvTheThuVien.Size = new System.Drawing.Size(950, 400);
+            this.dgvTheThuVien.TabIndex = 9;
+            this.dgvTheThuVien.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvTheThuVien_CellClick);
             // 
             // txtTimKiem
             // 
             this.txtTimKiem.Font = new System.Drawing.Font("Segoe UI", 10F);
-            this.txtTimKiem.Location = new System.Drawing.Point(20, 55);
+            this.txtTimKiem.Location = new System.Drawing.Point(104, 53);
             this.txtTimKiem.Name = "txtTimKiem";
-            this.txtTimKiem.Size = new System.Drawing.Size(300, 30);
-            this.txtTimKiem.TabIndex = 1;
+            this.txtTimKiem.Size = new System.Drawing.Size(339, 30);
+            this.txtTimKiem.TabIndex = 2;
             // 
             // btnTimKiem
             // 
             this.btnTimKiem.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(115)))), ((int)(((byte)(154)))), ((int)(((byte)(79)))));
-            this.btnTimKiem.FlatAppearance.BorderSize = 0;
             this.btnTimKiem.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnTimKiem.Font = new System.Drawing.Font("Segoe UI", 10F);
+            this.btnTimKiem.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Bold);
             this.btnTimKiem.ForeColor = System.Drawing.Color.White;
-            this.btnTimKiem.Location = new System.Drawing.Point(346, 47);
+            this.btnTimKiem.Location = new System.Drawing.Point(449, 53);
             this.btnTimKiem.Name = "btnTimKiem";
-            this.btnTimKiem.Size = new System.Drawing.Size(137, 30);
-            this.btnTimKiem.TabIndex = 2;
+            this.btnTimKiem.Size = new System.Drawing.Size(136, 30);
+            this.btnTimKiem.TabIndex = 3;
             this.btnTimKiem.Text = "Tìm kiếm";
             this.btnTimKiem.UseVisualStyleBackColor = false;
+            this.btnTimKiem.Click += new System.EventHandler(this.btnTimKiem_Click);
             // 
             // btnThem
             // 
-            this.btnThem.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(46)))), ((int)(((byte)(125)))), ((int)(((byte)(50)))));
-            this.btnThem.FlatAppearance.BorderSize = 0;
+            this.btnThem.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(40)))), ((int)(((byte)(167)))), ((int)(((byte)(69)))));
             this.btnThem.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnThem.Font = new System.Drawing.Font("Segoe UI", 10F);
+            this.btnThem.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Bold);
             this.btnThem.ForeColor = System.Drawing.Color.White;
-            this.btnThem.Location = new System.Drawing.Point(20, 10);
+            this.btnThem.Location = new System.Drawing.Point(18, 90);
             this.btnThem.Name = "btnThem";
-            this.btnThem.Size = new System.Drawing.Size(90, 30);
-            this.btnThem.TabIndex = 0;
+            this.btnThem.Size = new System.Drawing.Size(80, 35);
+            this.btnThem.TabIndex = 4;
             this.btnThem.Text = "Thêm mới";
             this.btnThem.UseVisualStyleBackColor = false;
+            this.btnThem.Click += new System.EventHandler(this.btnThem_Click);
             // 
             // btnSua
             // 
             this.btnSua.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(193)))), ((int)(((byte)(7)))));
-            this.btnSua.FlatAppearance.BorderSize = 0;
             this.btnSua.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnSua.Font = new System.Drawing.Font("Segoe UI", 10F);
+            this.btnSua.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Bold);
             this.btnSua.ForeColor = System.Drawing.Color.White;
-            this.btnSua.Location = new System.Drawing.Point(120, 10);
+            this.btnSua.Location = new System.Drawing.Point(110, 90);
             this.btnSua.Name = "btnSua";
-            this.btnSua.Size = new System.Drawing.Size(60, 30);
-            this.btnSua.TabIndex = 1;
+            this.btnSua.Size = new System.Drawing.Size(80, 35);
+            this.btnSua.TabIndex = 5;
             this.btnSua.Text = "Sửa";
             this.btnSua.UseVisualStyleBackColor = false;
+            this.btnSua.Click += new System.EventHandler(this.btnSua_Click);
             // 
             // btnXoa
             // 
             this.btnXoa.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(220)))), ((int)(((byte)(53)))), ((int)(((byte)(69)))));
-            this.btnXoa.FlatAppearance.BorderSize = 0;
             this.btnXoa.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnXoa.Font = new System.Drawing.Font("Segoe UI", 10F);
+            this.btnXoa.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Bold);
             this.btnXoa.ForeColor = System.Drawing.Color.White;
-            this.btnXoa.Location = new System.Drawing.Point(190, 10);
+            this.btnXoa.Location = new System.Drawing.Point(202, 90);
             this.btnXoa.Name = "btnXoa";
-            this.btnXoa.Size = new System.Drawing.Size(60, 30);
-            this.btnXoa.TabIndex = 2;
+            this.btnXoa.Size = new System.Drawing.Size(80, 35);
+            this.btnXoa.TabIndex = 6;
             this.btnXoa.Text = "Xóa";
             this.btnXoa.UseVisualStyleBackColor = false;
+            this.btnXoa.Click += new System.EventHandler(this.btnXoa_Click);
             // 
             // btnReload
             // 
             this.btnReload.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(108)))), ((int)(((byte)(117)))), ((int)(((byte)(125)))));
-            this.btnReload.FlatAppearance.BorderSize = 0;
             this.btnReload.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnReload.Font = new System.Drawing.Font("Segoe UI", 10F);
+            this.btnReload.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Bold);
             this.btnReload.ForeColor = System.Drawing.Color.White;
-            this.btnReload.Location = new System.Drawing.Point(260, 10);
+            this.btnReload.Location = new System.Drawing.Point(294, 90);
             this.btnReload.Name = "btnReload";
-            this.btnReload.Size = new System.Drawing.Size(80, 30);
-            this.btnReload.TabIndex = 3;
+            this.btnReload.Size = new System.Drawing.Size(80, 35);
+            this.btnReload.TabIndex = 7;
             this.btnReload.Text = "Làm mới";
             this.btnReload.UseVisualStyleBackColor = false;
+            this.btnReload.Click += new System.EventHandler(this.btnReload_Click);
             // 
             // btnTaoQR
             // 
-            this.btnTaoQR.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(111)))), ((int)(((byte)(66)))), ((int)(((byte)(193)))));
-            this.btnTaoQR.FlatAppearance.BorderSize = 0;
+            this.btnTaoQR.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(156)))), ((int)(((byte)(39)))), ((int)(((byte)(176)))));
             this.btnTaoQR.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnTaoQR.Font = new System.Drawing.Font("Segoe UI", 10F);
+            this.btnTaoQR.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Bold);
             this.btnTaoQR.ForeColor = System.Drawing.Color.White;
-            this.btnTaoQR.Location = new System.Drawing.Point(350, 10);
+            this.btnTaoQR.Location = new System.Drawing.Point(386, 90);
             this.btnTaoQR.Name = "btnTaoQR";
-            this.btnTaoQR.Size = new System.Drawing.Size(133, 30);
-            this.btnTaoQR.TabIndex = 4;
+            this.btnTaoQR.Size = new System.Drawing.Size(80, 35);
+            this.btnTaoQR.TabIndex = 8;
             this.btnTaoQR.Text = "Tạo QR";
             this.btnTaoQR.UseVisualStyleBackColor = false;
+            this.btnTaoQR.Click += new System.EventHandler(this.btnTaoQR_Click);
+            // 
+            // lblTimKiem
+            // 
+            this.lblTimKiem.AutoSize = true;
+            this.lblTimKiem.Font = new System.Drawing.Font("Segoe UI", 10F);
+            this.lblTimKiem.Location = new System.Drawing.Point(15, 55);
+            this.lblTimKiem.Name = "lblTimKiem";
+            this.lblTimKiem.Size = new System.Drawing.Size(83, 23);
+            this.lblTimKiem.TabIndex = 1;
+            this.lblTimKiem.Text = "Tìm kiếm:";
             // 
             // lblTitle
             // 
             this.lblTitle.AutoSize = true;
-            this.lblTitle.Font = new System.Drawing.Font("Segoe UI", 16F, System.Drawing.FontStyle.Bold);
+            this.lblTitle.Font = new System.Drawing.Font("Segoe UI", 18F, System.Drawing.FontStyle.Bold);
             this.lblTitle.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(115)))), ((int)(((byte)(154)))), ((int)(((byte)(79)))));
-            this.lblTitle.Location = new System.Drawing.Point(15, 15);
+            this.lblTitle.Location = new System.Drawing.Point(12, 9);
             this.lblTitle.Name = "lblTitle";
-            this.lblTitle.Size = new System.Drawing.Size(325, 37);
+            this.lblTitle.Size = new System.Drawing.Size(364, 41);
             this.lblTitle.TabIndex = 0;
             this.lblTitle.Text = "QUẢN LÝ THẺ THƯ VIỆN";
-            // 
-            // panelTop
-            // 
-            this.panelTop.Controls.Add(this.lblTitle);
-            this.panelTop.Controls.Add(this.txtTimKiem);
-            this.panelTop.Controls.Add(this.btnTimKiem);
-            this.panelTop.Dock = System.Windows.Forms.DockStyle.Top;
-            this.panelTop.Location = new System.Drawing.Point(0, 0);
-            this.panelTop.Name = "panelTop";
-            this.panelTop.Size = new System.Drawing.Size(1000, 80);
-            this.panelTop.TabIndex = 1;
-            // 
-            // panelButtons
-            // 
-            this.panelButtons.Controls.Add(this.btnThem);
-            this.panelButtons.Controls.Add(this.btnSua);
-            this.panelButtons.Controls.Add(this.btnXoa);
-            this.panelButtons.Controls.Add(this.btnReload);
-            this.panelButtons.Controls.Add(this.btnTaoQR);
-            this.panelButtons.Dock = System.Windows.Forms.DockStyle.Top;
-            this.panelButtons.Location = new System.Drawing.Point(0, 80);
-            this.panelButtons.Name = "panelButtons";
-            this.panelButtons.Size = new System.Drawing.Size(1000, 50);
-            this.panelButtons.TabIndex = 2;
             // 
             // FormManageTheThuVien
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.White;
-            this.ClientSize = new System.Drawing.Size(1000, 550);
+            this.ClientSize = new System.Drawing.Size(984, 561);
             this.Controls.Add(this.dgvTheThuVien);
-            this.Controls.Add(this.panelButtons);
-            this.Controls.Add(this.panelTop);
+            this.Controls.Add(this.btnTaoQR);
+            this.Controls.Add(this.btnReload);
+            this.Controls.Add(this.btnXoa);
+            this.Controls.Add(this.btnSua);
+            this.Controls.Add(this.btnThem);
+            this.Controls.Add(this.btnTimKiem);
+            this.Controls.Add(this.txtTimKiem);
+            this.Controls.Add(this.lblTimKiem);
+            this.Controls.Add(this.lblTitle);
             this.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.Name = "FormManageTheThuVien";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "Quản Lý Thẻ Thư Viện";
-            this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
+            this.Text = "Quản lý Thẻ thư viện";
+            this.Load += new System.EventHandler(this.FormManageTheThuVien_Load);
             ((System.ComponentModel.ISupportInitialize)(this.dgvTheThuVien)).EndInit();
-            this.panelTop.ResumeLayout(false);
-            this.panelTop.PerformLayout();
-            this.panelButtons.ResumeLayout(false);
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
     }
