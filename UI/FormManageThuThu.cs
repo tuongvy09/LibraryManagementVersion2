@@ -19,7 +19,46 @@ namespace LibraryManagementVersion2.UI
         public FormManageThuThu()
         {
             InitializeComponent();
+            InitializeCustomStyle();
         }
+
+        private void InitializeCustomStyle()
+        {
+            // Thêm placeholder text cho textbox tìm kiếm
+            if (txtTimKiem.Text == "")
+            {
+                txtTimKiem.Text = "Nhập tên thủ thư, email hoặc số điện thoại...";
+                txtTimKiem.ForeColor = Color.Gray;
+            }
+
+            txtTimKiem.Enter += (s, e) =>
+            {
+                if (txtTimKiem.Text == "Nhập tên thủ thư, email hoặc số điện thoại...")
+                {
+                    txtTimKiem.Text = "";
+                    txtTimKiem.ForeColor = Color.Black;
+                }
+            };
+
+            txtTimKiem.Leave += (s, e) =>
+            {
+                if (string.IsNullOrWhiteSpace(txtTimKiem.Text))
+                {
+                    txtTimKiem.Text = "Nhập tên thủ thư, email hoặc số điện thoại...";
+                    txtTimKiem.ForeColor = Color.Gray;
+                }
+            };
+
+            // Thêm KeyPress event cho txtTimKiem
+            txtTimKiem.KeyPress += (s, e) =>
+            {
+                if (e.KeyChar == (char)13) // Enter key
+                {
+                    btnTimKiem_Click(s, e);
+                }
+            };
+        }
+
 
         void LoadData()
         {
@@ -107,7 +146,8 @@ namespace LibraryManagementVersion2.UI
 
         private void btnTimKiem_Click(object sender, EventArgs e)
         {
-            if (string.IsNullOrWhiteSpace(txtTimKiem.Text))
+            if (string.IsNullOrWhiteSpace(txtTimKiem.Text) ||
+                txtTimKiem.Text == "Nhập tên thủ thư, email hoặc số điện thoại...")
             {
                 LoadData();
                 return;
@@ -127,13 +167,18 @@ namespace LibraryManagementVersion2.UI
 
         private void btnReload_Click(object sender, EventArgs e)
         {
-            txtTimKiem.Clear();
+            txtTimKiem.Text = "Nhập tên thủ thư, email hoặc số điện thoại...";
+            txtTimKiem.ForeColor = Color.Gray;
             LoadData();
         }
-
         private void dgvThuThu_CellClick(object sender, DataGridViewCellEventArgs e)
         {
             // Optional: Handle cell click if needed
+        }
+
+        private void txtTimKiem_TextChanged(object sender, EventArgs e)
+        {
+
         }
     }
 }

@@ -345,6 +345,9 @@
     <EmbeddedResource Include="UI\FormManageTheThuVien.resx">
       <DependentUpon>FormManageTheThuVien.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="UI\FormManageThuThu.resx">
+      <DependentUpon>FormManageThuThu.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="UI\Login.resx" />
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
