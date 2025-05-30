@@ -15,7 +15,6 @@ namespace ThuVien_EF.Forms
         private Label lblSoLanMuon;
         private Label lblLanMuonGanNhat;
         private Button btnClose;
-        private Button btnExportDetail;
 
         protected override void Dispose(bool disposing)
         {
@@ -37,7 +36,6 @@ namespace ThuVien_EF.Forms
             this.lblSoLanMuon = new Label();
             this.lblLanMuonGanNhat = new Label();
             this.btnClose = new Button();
-            this.btnExportDetail = new Button();
             this.panelStats.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -48,9 +46,9 @@ namespace ThuVien_EF.Forms
             this.lblTitle.ForeColor = Color.FromArgb(((int)(((byte)(115)))), ((int)(((byte)(154)))), ((int)(((byte)(79)))));
             this.lblTitle.Location = new Point(20, 20);
             this.lblTitle.Name = "lblTitle";
-            this.lblTitle.Size = new Size(250, 30);
+            this.lblTitle.Size = new Size(220, 30);
             this.lblTitle.TabIndex = 0;
-            this.lblTitle.Text = "📊 THỐNG KÊ CHI TIẾT";
+            this.lblTitle.Text = "THỐNG KÊ CHI TIẾT";
             // 
             // lblDocGiaInfo
             // 
@@ -83,7 +81,7 @@ namespace ThuVien_EF.Forms
             this.lblTienMuon.Name = "lblTienMuon";
             this.lblTienMuon.Size = new Size(250, 20);
             this.lblTienMuon.TabIndex = 0;
-            this.lblTienMuon.Text = "💰 Tổng tiền mượn sách: 0 VNĐ";
+            this.lblTienMuon.Text = "Tổng tiền mượn sách: 0 VNĐ";
             // 
             // lblTienPhat
             // 
@@ -93,7 +91,7 @@ namespace ThuVien_EF.Forms
             this.lblTienPhat.Name = "lblTienPhat";
             this.lblTienPhat.Size = new Size(200, 20);
             this.lblTienPhat.TabIndex = 1;
-            this.lblTienPhat.Text = "⚠️ Tổng tiền phạt: 0 VNĐ";
+            this.lblTienPhat.Text = "Tổng tiền phạt: 0 VNĐ";
             // 
             // lblTongCong
             // 
@@ -102,9 +100,9 @@ namespace ThuVien_EF.Forms
             this.lblTongCong.ForeColor = Color.FromArgb(((int)(((byte)(220)))), ((int)(((byte)(53)))), ((int)(((byte)(69)))));
             this.lblTongCong.Location = new Point(15, 90);
             this.lblTongCong.Name = "lblTongCong";
-            this.lblTongCong.Size = new Size(180, 21);
+            this.lblTongCong.Size = new Size(150, 21);
             this.lblTongCong.TabIndex = 2;
-            this.lblTongCong.Text = "💵 Tổng cộng: 0 VNĐ";
+            this.lblTongCong.Text = "Tổng cộng: 0 VNĐ";
             // 
             // lblSoLanMuon
             // 
@@ -112,9 +110,9 @@ namespace ThuVien_EF.Forms
             this.lblSoLanMuon.Font = new Font("Segoe UI", 11F, FontStyle.Regular, GraphicsUnit.Point, ((byte)(0)));
             this.lblSoLanMuon.Location = new Point(15, 130);
             this.lblSoLanMuon.Name = "lblSoLanMuon";
-            this.lblSoLanMuon.Size = new Size(160, 20);
+            this.lblSoLanMuon.Size = new Size(140, 20);
             this.lblSoLanMuon.TabIndex = 3;
-            this.lblSoLanMuon.Text = "📚 Số lần mượn: 0 lần";
+            this.lblSoLanMuon.Text = "Số lần mượn: 0 lần";
             // 
             // lblLanMuonGanNhat
             // 
@@ -122,23 +120,9 @@ namespace ThuVien_EF.Forms
             this.lblLanMuonGanNhat.Font = new Font("Segoe UI", 11F, FontStyle.Regular, GraphicsUnit.Point, ((byte)(0)));
             this.lblLanMuonGanNhat.Location = new Point(15, 165);
             this.lblLanMuonGanNhat.Name = "lblLanMuonGanNhat";
-            this.lblLanMuonGanNhat.Size = new Size(280, 20);
+            this.lblLanMuonGanNhat.Size = new Size(250, 20);
             this.lblLanMuonGanNhat.TabIndex = 4;
-            this.lblLanMuonGanNhat.Text = "📅 Lần mượn gần nhất: Chưa mượn";
-            // 
-            // btnExportDetail
-            // 
-            this.btnExportDetail.BackColor = Color.FromArgb(((int)(((byte)(40)))), ((int)(((byte)(167)))), ((int)(((byte)(69)))));
-            this.btnExportDetail.FlatStyle = FlatStyle.Flat;
-            this.btnExportDetail.Font = new Font("Segoe UI", 10F, FontStyle.Bold, GraphicsUnit.Point, ((byte)(0)));
-            this.btnExportDetail.ForeColor = Color.White;
-            this.btnExportDetail.Location = new Point(160, 340);
-            this.btnExportDetail.Name = "btnExportDetail";
-            this.btnExportDetail.Size = new Size(120, 35);
-            this.btnExportDetail.TabIndex = 3;
-            this.btnExportDetail.Text = "📄 Xuất chi tiết";
-            this.btnExportDetail.UseVisualStyleBackColor = false;
-            this.btnExportDetail.Click += new System.EventHandler(this.btnExportDetail_Click);
+            this.lblLanMuonGanNhat.Text = "Lần mượn gần nhất: Chưa mượn";
             // 
             // btnClose
             // 
@@ -146,11 +130,11 @@ namespace ThuVien_EF.Forms
             this.btnClose.FlatStyle = FlatStyle.Flat;
             this.btnClose.Font = new Font("Segoe UI", 10F, FontStyle.Bold, GraphicsUnit.Point, ((byte)(0)));
             this.btnClose.ForeColor = Color.White;
-            this.btnClose.Location = new Point(300, 340);
+            this.btnClose.Location = new Point(200, 340);
             this.btnClose.Name = "btnClose";
             this.btnClose.Size = new Size(100, 35);
-            this.btnClose.TabIndex = 4;
-            this.btnClose.Text = "✖️ Đóng";
+            this.btnClose.TabIndex = 3;
+            this.btnClose.Text = "Đóng";
             this.btnClose.UseVisualStyleBackColor = false;
             this.btnClose.Click += new System.EventHandler(this.btnClose_Click);
             // 
@@ -161,7 +145,6 @@ namespace ThuVien_EF.Forms
             this.BackColor = Color.White;
             this.ClientSize = new Size(500, 400);
             this.Controls.Add(this.btnClose);
-            this.Controls.Add(this.btnExportDetail);
             this.Controls.Add(this.panelStats);
             this.Controls.Add(this.lblDocGiaInfo);
             this.Controls.Add(this.lblTitle);

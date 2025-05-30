@@ -60,19 +60,5 @@ namespace ThuVien_EF.Forms
             this.Close();
         }
 
-        private void btnExportDetail_Click(object sender, EventArgs e)
-        {
-            try
-            {
-                // TODO: Implement export functionality
-                MessageBox.Show("Chức năng xuất báo cáo chi tiết đang được phát triển!", "Thông báo",
-                    MessageBoxButtons.OK, MessageBoxIcon.Information);
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show($"Lỗi xuất báo cáo: {ex.Message}", "Lỗi",
-                    MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
-        }
     }
 }
