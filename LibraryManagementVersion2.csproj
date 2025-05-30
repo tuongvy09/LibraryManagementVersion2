@@ -49,6 +49,10 @@
       <HintPath>packages\Microsoft.IO.RecyclableMemoryStream.3.0.1\lib\netstandard2.0\Microsoft.IO.RecyclableMemoryStream.dll</HintPath>
     </Reference>
     <Reference Include="PresentationCore" />
+    <Reference Include="PresentationFramework" />
+    <Reference Include="QRCoder, Version=1.6.0.0, Culture=neutral, PublicKeyToken=c4ed5b9ae8358a28, processorArchitecture=MSIL">
+      <HintPath>packages\QRCoder.1.6.0\lib\net40\QRCoder.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Buffers, Version=4.0.3.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
       <HintPath>packages\System.Buffers.4.5.1\lib\net461\System.Buffers.dll</HintPath>
@@ -83,6 +87,7 @@
     <Reference Include="System.Net.Http" />
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
+    <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BienLai.cs">
@@ -275,6 +280,12 @@
     <Compile Include="UI\FormManageThuThu.Designer.cs">
       <DependentUpon>FormManageThuThu.cs</DependentUpon>
     </Compile>
+    <Compile Include="UI\FormQRDisplay.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UI\FormQRDisplay.Designer.cs">
+      <DependentUpon>FormQRDisplay.cs</DependentUpon>
+    </Compile>
     <Compile Include="UI\FormUpdateCuonSach.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -302,6 +313,7 @@
     <Compile Include="User.cs">
       <DependentUpon>LibraryModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Utilities\QRCodeManager.cs" />
     <EmbeddedResource Include="UI\FormManageBienLai.resx">
       <DependentUpon>FormManageBienLai.cs</DependentUpon>
     </EmbeddedResource>
