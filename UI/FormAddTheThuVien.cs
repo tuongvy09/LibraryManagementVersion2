@@ -1,4 +1,6 @@
 ﻿using LibraryManagementVersion2.Repositories;
+using LibraryManagementVersion2.Utilities;
+using OfficeOpenXml.FormulaParsing.Excel.Functions.Engineering;
 using System;
 using System.Data;
 using System.Drawing;
@@ -100,52 +102,96 @@ namespace LibraryManagementVersion2.UI
             };
         }
 
-        private void btnLuu_Click(object sender, EventArgs e)
+private void btnLuu_Click(object sender, EventArgs e)
+    {
+        if (!ValidateInput())
+            return;
+
+        try
         {
-            if (!ValidateInput())
-                return;
-
-            try
+            int? maDocGia = null;
+            if (cboDocGia.SelectedValue != null &&
+                cboDocGia.SelectedValue != DBNull.Value &&
+                cboDocGia.SelectedIndex > 0)
             {
-                int? maDocGia = null;
-                if (cboDocGia.SelectedValue != null &&
-                    cboDocGia.SelectedValue != DBNull.Value &&
-                    cboDocGia.SelectedIndex > 0)
+                if (int.TryParse(cboDocGia.SelectedValue.ToString(), out int tempMaDocGia))
                 {
-                    if (int.TryParse(cboDocGia.SelectedValue.ToString(), out int tempMaDocGia))
-                    {
-                        maDocGia = tempMaDocGia;
-                    }
-                }
-
-                bool success = blTheThuVien.ThemTheThuVien(
-                    maDocGia,
-                    dtpNgayCap.Value.Date,
-                    dtpNgayHetHan.Value.Date,
-                    ref err
-                );
-
-                if (success)
-                {
-                    MessageBox.Show("Thêm thẻ thư viện thành công!", "Thành công",
-                        MessageBoxButtons.OK, MessageBoxIcon.Information);
-                    this.DialogResult = DialogResult.OK;
-                    this.Close();
-                }
-                else
-                {
-                    MessageBox.Show("Thêm thẻ thư viện thất bại: " + err, "Lỗi",
-                        MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    maDocGia = tempMaDocGia;
                 }
             }
-            catch (Exception ex)
+
+            // Sử dụng method mới để lấy ID thẻ vừa tạo
+            int newCardId = blTheThuVien.ThemTheThuVienVaLayMaThe(
+                maDocGia,
+                dtpNgayCap.Value.Date,
+                dtpNgayHetHan.Value.Date,
+                ref err
+            );
+
+            if (newCardId > 0)
             {
-                MessageBox.Show("Lỗi: " + ex.Message, "Lỗi",
-                    MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("✅ Thêm thẻ thư viện thành công!", "Thành công",
+                              MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+                // Hỏi có muốn tạo QR Code không
+                var result = MessageBox.Show(
+                    "🔄 Bạn có muốn tạo QR Code cho thẻ này không?\n\n" +
+                    "QR Code sẽ giúp quét thẻ nhanh chóng khi ra vào thư viện.",
+                    "Tạo QR Code",
+                    MessageBoxButtons.YesNo,
+                    MessageBoxIcon.Question);
+
+                if (result == DialogResult.Yes)
+                {
+                    ShowQRCodeForNewCard(newCardId);
+                }
+
+                this.DialogResult = DialogResult.OK;
+                this.Close();
+            }
+            else
+            {
+                MessageBox.Show("❌ Thêm thẻ thư viện thất bại: " + err, "Lỗi",
+                              MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
+        catch (Exception ex)
+        {
+            MessageBox.Show("❌ Lỗi: " + ex.Message, "Lỗi",
+                           MessageBoxButtons.OK, MessageBoxIcon.Error);
+        }
+    }
 
-        private void btnHuy_Click(object sender, EventArgs e)
+    private void ShowQRCodeForNewCard(int newCardId)
+    {
+        try
+        {
+            var newCard = blTheThuVien.LayTheThuVienDayDuTheoMa(newCardId);
+
+            if (newCard != null)
+            {
+                string qrText = QRCodeManager.CreateLibraryCardQR(newCard);
+                var qrImage = QRCodeManager.GenerateQRCode(qrText);
+
+                using (var qrDialog = new FormQRDisplay(qrImage, newCard))
+                {
+                    qrDialog.ShowDialog();
+                }
+            }
+            else
+            {
+                MessageBox.Show("❌ Không thể lấy thông tin thẻ vừa tạo!", "Lỗi",
+                              MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+        catch (Exception ex)
+        {
+            MessageBox.Show($"❌ Lỗi khi tạo QR Code: {ex.Message}", "Lỗi",
+                           MessageBoxButtons.OK, MessageBoxIcon.Error);
+        }
+    }
+
+    private void btnHuy_Click(object sender, EventArgs e)
         {
             this.Close();
         }
