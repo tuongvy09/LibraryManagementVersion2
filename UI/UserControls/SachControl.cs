@@ -14,7 +14,7 @@ namespace LibraryManagementVersion2.UI.UserControls
 {
     public partial class SachControl : UserControl
     {
-        private readonly CuonSachRepositories _cuonSachRepo = new CuonSachRepositories();
+        private readonly BLCuonSach _cuonSachRepo = new BLCuonSach();
         public SachControl()
         {
             InitializeComponent();

@@ -64,7 +64,7 @@ namespace LibraryManagementVersion2.UI
 
                 try
                 {
-                    var repository = new NXBRepository();
+                    var repository = new BLNXB();
                     repository.AddNXB(txtName.Text.Trim());
 
                     MessageBox.Show("Thêm nhà xuất bản thành công!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);

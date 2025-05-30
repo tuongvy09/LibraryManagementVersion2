@@ -17,7 +17,7 @@ namespace LibraryManagementVersion2.UI
         private TextBox txtTenCuonSach, txtTrangThai;
         private ComboBox cboDauSach;
         private Button btnSave, btnCancel;
-        private DauSachRepositories repo = new DauSachRepositories();
+        private BLDauSach repo = new BLDauSach();
 
         public FormAddCuonSach()
         {
@@ -153,7 +153,7 @@ namespace LibraryManagementVersion2.UI
         {
             try
             {
-                var dauSachRepo = new DauSachRepositories();
+                var dauSachRepo = new BLDauSach();
                 var list = dauSachRepo.GetAllMaDauSach();
 
                 if (list == null || list.Count == 0)
@@ -186,7 +186,7 @@ namespace LibraryManagementVersion2.UI
 
             try
             {
-                var repo = new CuonSachRepositories();
+                var repo = new BLCuonSach();
                 repo.AddCuonSach(maDauSach, trangThai, tenCuonSach);
                 MessageBox.Show("Thêm cuốn sách thành công!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 this.DialogResult = DialogResult.OK;

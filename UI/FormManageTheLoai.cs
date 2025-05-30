@@ -19,7 +19,7 @@ namespace LibraryManagementVersion2.UI
         private DataGridView dgvTheLoai;
         private Color mainColor = ColorTranslator.FromHtml("#739a4f");
 
-        private TheLoaiRepository theLoaiRepository = new TheLoaiRepository();
+        private BLTheLoai theLoaiRepository = new BLTheLoai();
         public FormManageTheLoai()
         {
             InitializeComponent();

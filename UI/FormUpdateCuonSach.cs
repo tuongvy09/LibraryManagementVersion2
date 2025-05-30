@@ -19,11 +19,11 @@ namespace LibraryManagementVersion2.UI
         private ListBox lstTacGia;
         private Button btnSave, btnCancel;
 
-        private DauSachRepositories repo = new DauSachRepositories();
-        private TheLoaiRepository theLoaiRepository = new TheLoaiRepository();
-        private NXBRepository theXBRepository = new NXBRepository();
-        private TacGiaRepository tacGiaRepository = new TacGiaRepository();
-        private CuonSachRepositories cuonSachRepository = new CuonSachRepositories();
+        private BLDauSach repo = new BLDauSach();
+        private BLTheLoai theLoaiRepository = new BLTheLoai();
+        private BLNXB theXBRepository = new BLNXB();
+        private BLTacGia tacGiaRepository = new BLTacGia();
+        private BLCuonSach cuonSachRepository = new BLCuonSach();
         private int _maCuonSach;
 
         public FormUpdateCuonSach(int maCuonSach)

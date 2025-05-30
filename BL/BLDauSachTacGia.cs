@@ -7,7 +7,7 @@ using System.Data.Entity;
 
 namespace LibraryManagementVersion2.Repositories
 {
-    public class DauSachTacGiaRepository
+    public class BLDauSachTacGia
     {
         public void AddTacGiaChoDauSach(int maDauSach, int maTacGia)
         {

@@ -1,10 +1,13 @@
-﻿using System;
+﻿using LibraryManagementVersion2.Repositories;
+using System;
+using System.Collections.Generic;
 using System.Data;
 using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
 using System.Windows.Forms.DataVisualization.Charting;
 using ThuVien_EF.BS_Layer;
+using static LibraryManagementVersion2.Repositories.BLCuonSach;
 
 namespace ThuVien_EF.Forms
 {
@@ -13,12 +16,14 @@ namespace ThuVien_EF.Forms
         private readonly BLThongKe blThongKe = new BLThongKe();
         private bool dataLoaded = false;
         private bool isLoading = false;
+        private BLCuonSach CuonSachRepository = new BLCuonSach();
 
         public FormManageThongKe()
         {
             InitializeComponent();
             InitializeControls();
             SetupChartStyles();
+            LoadTop10BestSellerData();
         }
 
         private void InitializeControls()
@@ -297,5 +302,24 @@ namespace ThuVien_EF.Forms
                 MessageBox.Show($"Lỗi: {ex.Message}", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
+
+        private void LoadTop10BestSellerData()
+        {
+            dgvBestSeller.Rows.Clear();
+            if (dgvBestSeller.Columns.Count == 0)
+            {
+                dgvBestSeller.Columns.Add("STT", "STT");
+                dgvBestSeller.Columns.Add("TenSach", "Tên Sách");
+                dgvBestSeller.Columns.Add("SoLuong", "Số Lượng Đã Mượn");
+            }
+
+            List<SachHot> danhSachHot = CuonSachRepository.GetTop10CuonSachHot();
+            int stt = 1;
+            foreach (var sach in danhSachHot)
+            {
+                dgvBestSeller.Rows.Add(stt++, $"{sach.TenCuonSach} ({sach.TenDauSach})", sach.SoLuongMuon);
+            }
+        }
+
     }
 }

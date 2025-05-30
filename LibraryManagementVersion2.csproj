@@ -147,20 +147,20 @@
     <Compile Include="QDP.cs">
       <DependentUpon>LibraryModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="Repositories\BLBienLai.cs" />
-    <Compile Include="Repositories\BLDocGia.cs" />
-    <Compile Include="Repositories\BLTheThuVien.cs" />
-    <Compile Include="Repositories\BLThongKe.cs" />
-    <Compile Include="Repositories\BLThuThu.cs" />
-    <Compile Include="Repositories\CuonSachRepositories.cs" />
-    <Compile Include="Repositories\DauSachRepositories.cs" />
-    <Compile Include="Repositories\DauSachTacGiaRepository.cs" />
-    <Compile Include="Repositories\ImportExcelToDatabase.cs" />
-    <Compile Include="Repositories\LoginRepositories.cs" />
-    <Compile Include="Repositories\NXBRepository.cs" />
-    <Compile Include="Repositories\TacGiaRepository.cs" />
-    <Compile Include="Repositories\TheLoaiRepository.cs" />
-    <Compile Include="Repositories\UserRepository.cs" />
+    <Compile Include="BL\BLBienLai.cs" />
+    <Compile Include="BL\BLDocGia.cs" />
+    <Compile Include="BL\BLTheThuVien.cs" />
+    <Compile Include="BL\BLThongKe.cs" />
+    <Compile Include="BL\BLThuThu.cs" />
+    <Compile Include="BL\BLCuonSach.cs" />
+    <Compile Include="BL\BLDauSach.cs" />
+    <Compile Include="BL\BLDauSachTacGia.cs" />
+    <Compile Include="BL\ImportExcelToDatabase.cs" />
+    <Compile Include="BL\BLLogin.cs" />
+    <Compile Include="BL\BLNXB.cs" />
+    <Compile Include="BL\BLTacGia.cs" />
+    <Compile Include="BL\BLTheLoai.cs" />
+    <Compile Include="BL\BLUser.cs" />
     <Compile Include="sysdiagram.cs">
       <DependentUpon>LibraryModel.tt</DependentUpon>
     </Compile>

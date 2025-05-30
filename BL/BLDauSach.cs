@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace LibraryManagementVersion2.Repositories
 {
-    public class DauSachRepositories
+    public class BLDauSach
     {
         public List<DauSach> GetAllMaDauSach()
         {

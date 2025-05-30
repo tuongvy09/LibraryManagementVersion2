@@ -126,7 +126,7 @@ namespace LibraryManagementVersion2.UI
 
             try
             {
-                TheLoaiRepository repo = new TheLoaiRepository();
+                BLTheLoai repo = new BLTheLoai();
                 repo.AddTheLoai(qdSoTuoi, tenTheLoai);
                 MessageBox.Show("Thêm thể loại thành công!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 this.Close();

@@ -31,7 +31,9 @@ namespace LibraryManagementVersion2.Repositories
                                       docgia.Email,
                                       docgia.DiaChi,
                                       docgia.NgayDangKy,
-                                      docgia.TienNo,
+                                      TongTienNo = docgia.PhieuPhats
+                                        .SelectMany(pp => pp.QDPs)
+                                        .Sum(qdp => (decimal?)qdp.TienPhat) ?? 0,
                                       docgia.TrangThai,
                                       docgia.GioiTinh,
                                       TenLoaiDG = loaidg != null ? loaidg.TenLoaiDG : "Chưa phân loại"
@@ -62,7 +64,7 @@ namespace LibraryManagementVersion2.Repositories
                         item.DiaChi ?? "",
                         item.TenLoaiDG ?? "Chưa phân loại",
                         item.NgayDangKy?.ToString("dd/MM/yyyy") ?? "",
-                        (item.TienNo ?? 0).ToString("N0") + " VNĐ",
+                        item.TongTienNo.ToString("N0") + " VNĐ",
                         item.TrangThai == true ? "Hoạt động" : "Không hoạt động"
                     );
                 }

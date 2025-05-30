@@ -24,7 +24,7 @@ namespace LibraryManagementVersion2.UI
         private DataGridView dgvNXB;
 
         private Color mainColor = ColorTranslator.FromHtml("#739a4f");
-        private NXBRepository nxbRepository = new NXBRepository();
+        private BLNXB nxbRepository = new BLNXB();
 
         public FormManageNXB()
         {

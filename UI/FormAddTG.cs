@@ -104,7 +104,7 @@ namespace LibraryManagementVersion2.UI
 
             try
             {
-                TacGiaRepository repo = new TacGiaRepository();
+                BLTacGia repo = new BLTacGia();
                 repo.AddTacGia(tenTacGia);
 
                 MessageBox.Show("Thêm tác giả thành công!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
