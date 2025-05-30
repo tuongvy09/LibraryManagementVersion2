@@ -244,8 +244,9 @@ namespace LibraryManagementVersion2
                 //case "Phiếu phạt":
                 //    break;
 
-                //case "Biên lai":
-                //    break;
+                case "Biên lai":
+                    newForm = new FormManageBienLai();
+                    break;
 
                 //case "Người dùng":
                 //    newContent = new NguoiDungControl();
