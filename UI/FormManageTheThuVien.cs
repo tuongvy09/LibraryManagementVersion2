@@ -15,21 +15,6 @@ namespace LibraryManagementVersion2.UI
         {
             InitializeComponent();
             InitializeCustomStyle();
-            SetupEventHandlers(); // Thêm dòng này
-        }
-
-        private void SetupEventHandlers()
-        {
-            // Wire up all event handlers
-            this.Load += FormManageTheThuVien_Load;
-            this.txtTimKiem.KeyPress += txtTimKiem_KeyPress;
-            this.btnTimKiem.Click += btnTimKiem_Click;
-            this.btnThem.Click += btnThem_Click;
-            this.btnSua.Click += btnSua_Click;
-            this.btnXoa.Click += btnXoa_Click;
-            this.btnReload.Click += btnReload_Click;
-            this.btnTaoQR.Click += btnTaoQR_Click;
-            this.dgvTheThuVien.CellClick += dgvTheThuVien_CellClick;
         }
 
         private void InitializeCustomStyle()
@@ -58,6 +43,49 @@ namespace LibraryManagementVersion2.UI
                     txtTimKiem.ForeColor = Color.Gray;
                 }
             };
+
+            // Thêm KeyPress event cho txtTimKiem
+            txtTimKiem.KeyPress += (s, e) =>
+            {
+                if (e.KeyChar == (char)13) // Enter key
+                {
+                    btnTimKiem_Click(s, e);
+                }
+            };
+
+            // Setup DataGridView style
+            SetupDataGridViewStyle();
+        }
+
+        private void SetupDataGridViewStyle()
+        {
+            // Style cho DataGridView giống FormManageThuThu
+            dgvTheThuVien.AlternatingRowsDefaultCellStyle.BackColor = Color.FromArgb(245, 245, 245);
+            dgvTheThuVien.DefaultCellStyle.SelectionBackColor = Color.FromArgb(115, 154, 79);
+            dgvTheThuVien.DefaultCellStyle.SelectionForeColor = Color.White;
+            dgvTheThuVien.GridColor = Color.FromArgb(221, 221, 221);
+            dgvTheThuVien.BorderStyle = BorderStyle.Fixed3D;
+            dgvTheThuVien.CellBorderStyle = DataGridViewCellBorderStyle.SingleHorizontal;
+
+            // Event để format cell colors cho trạng thái
+            dgvTheThuVien.CellFormatting += DgvTheThuVien_CellFormatting;
+        }
+
+        private void DgvTheThuVien_CellFormatting(object sender, DataGridViewCellFormattingEventArgs e)
+        {
+            if (dgvTheThuVien.Columns.Count > 5 && e.ColumnIndex == 5) // Cột trạng thái
+            {
+                if (e.Value?.ToString() == "Còn hiệu lực")
+                {
+                    e.CellStyle.ForeColor = Color.Green;
+                    e.CellStyle.Font = new Font("Segoe UI", 9F, FontStyle.Bold);
+                }
+                else if (e.Value?.ToString() == "Hết hạn")
+                {
+                    e.CellStyle.ForeColor = Color.Red;
+                    e.CellStyle.Font = new Font("Segoe UI", 9F, FontStyle.Bold);
+                }
+            }
         }
 
         void LoadData()
@@ -83,39 +111,16 @@ namespace LibraryManagementVersion2.UI
             {
                 if (dgvTheThuVien.Columns.Count > 0)
                 {
-                    // Đặt width cho các cột
-                    dgvTheThuVien.Columns[0].Width = 80;  // Mã thẻ
-                    dgvTheThuVien.Columns[1].Width = 200; // Tên độc giả
-                    dgvTheThuVien.Columns[2].Width = 120; // Số ĐT
-                    dgvTheThuVien.Columns[3].Width = 120; // Ngày cấp
-                    dgvTheThuVien.Columns[4].Width = 120; // Ngày hết hạn
-                    dgvTheThuVien.Columns[5].Width = 120; // Trạng thái
-
                     // Center align cho một số cột
-                    dgvTheThuVien.Columns[0].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
-                    dgvTheThuVien.Columns[2].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
-                    dgvTheThuVien.Columns[3].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
-                    dgvTheThuVien.Columns[4].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
-                    dgvTheThuVien.Columns[5].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
-
-                    // Tô màu cho cột trạng thái
-                    foreach (DataGridViewRow row in dgvTheThuVien.Rows)
-                    {
-                        if (row.Cells[5].Value != null)
-                        {
-                            string trangThai = row.Cells[5].Value.ToString();
-                            if (trangThai == "Hết hạn")
-                            {
-                                row.Cells[5].Style.ForeColor = Color.Red;
-                                row.Cells[5].Style.Font = new Font(dgvTheThuVien.Font, FontStyle.Bold);
-                            }
-                            else if (trangThai == "Còn hiệu lực")
-                            {
-                                row.Cells[5].Style.ForeColor = Color.Green;
-                                row.Cells[5].Style.Font = new Font(dgvTheThuVien.Font, FontStyle.Bold);
-                            }
-                        }
-                    }
+                    dgvTheThuVien.Columns[0].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter; // Mã thẻ
+                    if (dgvTheThuVien.Columns.Count > 2)
+                        dgvTheThuVien.Columns[2].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter; // Số ĐT
+                    if (dgvTheThuVien.Columns.Count > 3)
+                        dgvTheThuVien.Columns[3].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter; // Ngày cấp
+                    if (dgvTheThuVien.Columns.Count > 4)
+                        dgvTheThuVien.Columns[4].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter; // Ngày hết hạn
+                    if (dgvTheThuVien.Columns.Count > 5)
+                        dgvTheThuVien.Columns[5].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter; // Trạng thái
                 }
             }
             catch (Exception ex)
@@ -185,28 +190,19 @@ namespace LibraryManagementVersion2.UI
                 return;
             }
 
-            try
+            DialogResult result = MessageBox.Show("Bạn có chắc muốn xóa thẻ thư viện này?",
+                "Xác nhận xóa", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+
+            if (result == DialogResult.Yes)
             {
-                string tenDocGia = dgvTheThuVien.CurrentRow.Cells[1].Value?.ToString() ?? "N/A";
-                string maThe = dgvTheThuVien.CurrentRow.Cells[0].Value?.ToString() ?? "N/A";
-
-                DialogResult result = MessageBox.Show(
-                    $"Bạn có chắc muốn xóa thẻ thư viện?\n\n" +
-                    $"Mã thẻ: {maThe}\n" +
-                    $"Độc giả: {tenDocGia}\n\n" +
-                    $"⚠️ Thao tác này không thể hoàn tác!",
-                    "Xác nhận xóa",
-                    MessageBoxButtons.YesNo,
-                    MessageBoxIcon.Warning);
-
-                if (result == DialogResult.Yes)
+                try
                 {
-                    int maTheInt = Convert.ToInt32(dgvTheThuVien.CurrentRow.Cells[0].Value);
-                    bool success = dbTheThuVien.XoaTheThuVien(maTheInt, ref err);
+                    int maThe = Convert.ToInt32(dgvTheThuVien.CurrentRow.Cells[0].Value);
+                    bool success = dbTheThuVien.XoaTheThuVien(maThe, ref err);
 
                     if (success)
                     {
-                        MessageBox.Show("Xóa thẻ thư viện thành công!", "Thành công",
+                        MessageBox.Show("Xóa thẻ thư viện thành công!", "Thông báo",
                             MessageBoxButtons.OK, MessageBoxIcon.Information);
                         LoadData();
                     }
@@ -216,34 +212,40 @@ namespace LibraryManagementVersion2.UI
                             MessageBoxButtons.OK, MessageBoxIcon.Error);
                     }
                 }
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show("Lỗi: " + ex.Message, "Lỗi",
-                    MessageBoxButtons.OK, MessageBoxIcon.Error);
+                catch (Exception ex)
+                {
+                    MessageBox.Show("Lỗi: " + ex.Message, "Lỗi",
+                        MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
             }
         }
 
         private void btnTimKiem_Click(object sender, EventArgs e)
         {
+            if (string.IsNullOrWhiteSpace(txtTimKiem.Text) ||
+                txtTimKiem.Text == "Nhập mã thẻ, tên độc giả hoặc số điện thoại...")
+            {
+                LoadData();
+                return;
+            }
+
             try
             {
-                string tuKhoa = txtTimKiem.Text.Trim();
-
-                // Kiểm tra nếu là placeholder text thì xem như tìm kiếm rỗng
-                if (tuKhoa == "Nhập mã thẻ, tên độc giả hoặc số điện thoại..." || string.IsNullOrWhiteSpace(tuKhoa))
-                {
-                    LoadData();
-                    return;
-                }
-
-                dgvTheThuVien.DataSource = dbTheThuVien.TimKiemTheThuVien(tuKhoa);
+                dgvTheThuVien.DataSource = dbTheThuVien.TimKiemTheThuVien(txtTimKiem.Text.Trim());
                 dgvTheThuVien.AutoResizeColumns();
                 CustomizeDataGridView();
 
                 // Hiển thị số kết quả tìm được
                 int soKetQua = dgvTheThuVien.Rows.Count;
-                lblTitle.Text = $"QUẢN LÝ THẺ THƯ VIỆN - Tìm thấy {soKetQua} kết quả";
+                if (soKetQua == 0)
+                {
+                    MessageBox.Show("Không tìm thấy kết quả nào!", "Thông báo",
+                        MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
+                else
+                {
+                    lblTitle.Text = $"QUẢN LÝ THẺ THƯ VIỆN - Tìm thấy {soKetQua} kết quả";
+                }
             }
             catch (Exception ex)
             {
@@ -276,24 +278,6 @@ namespace LibraryManagementVersion2.UI
             }
         }
 
-        private void txtTimKiem_KeyPress(object sender, KeyPressEventArgs e)
-        {
-            if (e.KeyChar == (char)13) // Enter key
-            {
-                btnTimKiem_Click(sender, e);
-            }
-        }
-
-        private void dgvTheThuVien_CellClick(object sender, DataGridViewCellEventArgs e)
-        {
-            // Có thể thêm logic xử lý khi click vào cell nếu cần
-            if (e.RowIndex >= 0 && dgvTheThuVien.Rows[e.RowIndex].Cells[0].Value != null)
-            {
-                string trangThai = dgvTheThuVien.Rows[e.RowIndex].Cells[5].Value?.ToString() ?? "";
-                // Có thể thêm logic tùy chỉnh ở đây
-            }
-        }
-
         private void btnTaoQR_Click(object sender, EventArgs e)
         {
             if (dgvTheThuVien.CurrentRow == null)
@@ -322,6 +306,11 @@ namespace LibraryManagementVersion2.UI
                 MessageBox.Show("Lỗi: " + ex.Message, "Lỗi",
                     MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
+        }
+
+        private void dgvTheThuVien_CellClick(object sender, DataGridViewCellEventArgs e)
+        {
+            // Optional: Handle cell click if needed
         }
 
         // Method để refresh form từ bên ngoài
