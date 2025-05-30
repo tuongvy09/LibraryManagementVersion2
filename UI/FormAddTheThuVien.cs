@@ -36,7 +36,7 @@ namespace LibraryManagementVersion2.UI
                 cboDocGia.DataSource = null;
                 cboDocGia.Items.Clear();
 
-                DataTable dtDocGia = blTheThuVien.LayDocGiaChoComboBox();
+                DataTable dtDocGia = blTheThuVien.LayDocGiaChuaCoThe();
 
                 if (dtDocGia != null && dtDocGia.Rows.Count > 0)
                 {
@@ -52,8 +52,13 @@ namespace LibraryManagementVersion2.UI
                 }
                 else
                 {
-                    cboDocGia.Items.Add("-- Chọn độc giả --");
+                    cboDocGia.Items.Add("-- Không có độc giả nào chưa có thẻ --");
                     cboDocGia.SelectedIndex = 0;
+
+                    // Disable các control nếu không có độc giả nào
+                    btnLuu.Enabled = false;
+                    MessageBox.Show("Không có độc giả nào chưa có thẻ thư viện!", "Thông báo",
+                        MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
             }
             catch (Exception ex)
@@ -62,8 +67,9 @@ namespace LibraryManagementVersion2.UI
                     MessageBoxButtons.OK, MessageBoxIcon.Error);
 
                 cboDocGia.Items.Clear();
-                cboDocGia.Items.Add("-- Chọn độc giả --");
+                cboDocGia.Items.Add("-- Lỗi tải dữ liệu --");
                 cboDocGia.SelectedIndex = 0;
+                btnLuu.Enabled = false;
             }
             finally
             {
@@ -82,6 +88,15 @@ namespace LibraryManagementVersion2.UI
                 {
                     dtpNgayHetHan.Value = dtpNgayCap.Value.AddYears(1);
                 }
+            };
+
+            // Event khi thay đổi độc giả
+            cboDocGia.SelectedIndexChanged += (s, e) =>
+            {
+                // Enable nút Lưu nếu đã chọn độc giả hợp lệ
+                btnLuu.Enabled = (cboDocGia.SelectedIndex > 0 &&
+                                 cboDocGia.SelectedValue != null &&
+                                 cboDocGia.SelectedValue != DBNull.Value);
             };
         }
 

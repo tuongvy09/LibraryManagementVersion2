@@ -42,19 +42,7 @@ namespace LibraryManagementVersion2.Repositories
 
                 foreach (var item in theThuVienList)
                 {
-                    string trangThai = item.NgayHetHan >= DateTime.Now ? "Hết hạn" : "Hết hạn";
-                    if (item.NgayHetHan > DateTime.Now)
-                    {
-                        trangThai = "Hết hạn";
-                    }
-                    else if (item.NgayHetHan.AddDays(-30) <= DateTime.Now && item.NgayHetHan >= DateTime.Now)
-                    {
-                        trangThai = "Còn hiệu lực";
-                    }
-                    else
-                    {
-                        trangThai = "Hết hạn";
-                    }
+                    string trangThai = item.NgayHetHan > DateTime.Now ? "Còn hiệu lực" : "Hết hạn";
 
                     dt.Rows.Add(
                         item.MaThe,
@@ -479,5 +467,59 @@ namespace LibraryManagementVersion2.Repositories
                 context?.Dispose();
             }
         }
+
+        // Thêm method mới vào class BLTheThuVien
+        public DataTable LayDocGiaChuaCoThe()
+        {
+            LibraryEntities context = null;
+            try
+            {
+                context = new LibraryEntities();
+
+                // Lấy các độc giả chưa có thẻ thư viện (MaThe = null)
+                var docGiaList = context.DocGias
+                    .Where(dg => dg.TrangThai == true && dg.MaThe == null) // Chưa có thẻ
+                    .OrderBy(dg => dg.HoTen)
+                    .ToList();
+
+                DataTable dt = new DataTable();
+                dt.Columns.Add("MaDG", typeof(int));
+                dt.Columns.Add("TenDocGia", typeof(string));
+
+                foreach (var docgia in docGiaList)
+                {
+                    dt.Rows.Add(docgia.MaDocGia, docgia.HoTen ?? "");
+                }
+                return dt;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Lỗi khi lấy danh sách độc giả chưa có thẻ: " + ex.Message);
+            }
+            finally
+            {
+                context?.Dispose();
+            }
+        }
+
+        // Thêm method lấy thông tin độc giả theo mã
+        public DocGia LayDocGiaTheoMa(int maDocGia)
+        {
+            LibraryEntities context = null;
+            try
+            {
+                context = new LibraryEntities();
+                return context.DocGias.FirstOrDefault(dg => dg.MaDocGia == maDocGia);
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Lỗi khi lấy thông tin độc giả: " + ex.Message);
+            }
+            finally
+            {
+                context?.Dispose();
+            }
+        }
+
     }
 }
