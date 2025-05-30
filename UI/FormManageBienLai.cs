@@ -91,16 +91,11 @@ namespace LibraryManagementVersion2.UI
             {
                 if (dgvBienLai.Columns.Count > 0)
                 {
-                    // Center align cho một số cột
-                    dgvBienLai.Columns[0].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter; // Mã biên lai
-                    if (dgvBienLai.Columns.Count > 2)
-                        dgvBienLai.Columns[2].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter; // Số ĐT
-                    if (dgvBienLai.Columns.Count > 3)
-                        dgvBienLai.Columns[3].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter; // Ngày thanh toán
-                    if (dgvBienLai.Columns.Count > 4)
-                        dgvBienLai.Columns[4].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter; // Hình thức TT
-                    if (dgvBienLai.Columns.Count > 5)
-                        dgvBienLai.Columns[5].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight; // Số tiền
+                    // Căn trái tất cả các cột
+                    foreach (DataGridViewColumn column in dgvBienLai.Columns)
+                    {
+                        column.DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleLeft;
+                    }
                 }
             }
             catch (Exception ex)

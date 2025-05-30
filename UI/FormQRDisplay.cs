@@ -35,7 +35,7 @@ namespace LibraryManagementVersion2.UI
         private void InitializeCustomComponents()
         {
             this.Text = "QR Code - Thẻ Thư Viện";
-            this.Size = new Size(480, 520);
+            this.Size = new Size(500, 540); // Tăng kích thước form một chút
             this.StartPosition = FormStartPosition.CenterParent;
             this.FormBorderStyle = FormBorderStyle.FixedDialog;
             this.MaximizeBox = false;
@@ -49,7 +49,7 @@ namespace LibraryManagementVersion2.UI
                 Text = "QR CODE THẺ THƯ VIỆN",
                 Font = new Font("Segoe UI", 14, FontStyle.Bold),
                 ForeColor = mainColor,
-                Location = new Point(120, 15),
+                Location = new Point(130, 15),
                 AutoSize = true
             };
             this.Controls.Add(lblTitle);
@@ -57,7 +57,7 @@ namespace LibraryManagementVersion2.UI
             // QR Code PictureBox
             picQR = new PictureBox()
             {
-                Location = new Point(90, 50),
+                Location = new Point(100, 50),
                 Size = new Size(300, 300),
                 SizeMode = PictureBoxSizeMode.Zoom,
                 BorderStyle = BorderStyle.FixedSingle,
@@ -68,7 +68,7 @@ namespace LibraryManagementVersion2.UI
             // Info label
             lblInfo = new Label()
             {
-                Location = new Point(50, 360),
+                Location = new Point(60, 360),
                 Size = new Size(380, 80),
                 TextAlign = ContentAlignment.MiddleCenter,
                 Font = new Font("Segoe UI", 10),
@@ -76,11 +76,10 @@ namespace LibraryManagementVersion2.UI
             };
             this.Controls.Add(lblInfo);
 
-            // Save button
             btnSave = new Button()
             {
                 Text = "💾 Lưu QR",
-                Location = new Point(60, 450),
+                Location = new Point(40, 460), 
                 Size = new Size(100, 35),
                 BackColor = mainColor,
                 ForeColor = Color.White,
@@ -91,11 +90,10 @@ namespace LibraryManagementVersion2.UI
             btnSave.Click += BtnSave_Click;
             this.Controls.Add(btnSave);
 
-            // Print button  
             btnPrint = new Button()
             {
                 Text = "🖨️ In thẻ",
-                Location = new Point(170, 450),
+                Location = new Point(155, 460), 
                 Size = new Size(100, 35),
                 BackColor = ColorTranslator.FromHtml("#2196F3"),
                 ForeColor = Color.White,
@@ -106,11 +104,10 @@ namespace LibraryManagementVersion2.UI
             btnPrint.Click += BtnPrint_Click;
             this.Controls.Add(btnPrint);
 
-            // Copy QR Data button
             Button btnCopy = new Button()
             {
                 Text = "📋 Copy",
-                Location = new Point(280, 450),
+                Location = new Point(270, 460),
                 Size = new Size(80, 35),
                 BackColor = ColorTranslator.FromHtml("#FF9800"),
                 ForeColor = Color.White,
@@ -121,11 +118,10 @@ namespace LibraryManagementVersion2.UI
             btnCopy.Click += BtnCopy_Click;
             this.Controls.Add(btnCopy);
 
-            // Close button
             btnClose = new Button()
             {
                 Text = "❌ Đóng",
-                Location = new Point(370, 450),
+                Location = new Point(365, 460), 
                 Size = new Size(80, 35),
                 BackColor = Color.Gray,
                 ForeColor = Color.White,

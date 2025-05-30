@@ -15,7 +15,48 @@ namespace LibraryManagementVersion2.UI
         public FormManageTheThuVien()
         {
             InitializeComponent();
+            InitializeCustomStyle();
             InitializeDataGridViews();
+        }
+
+        private void InitializeCustomStyle()
+        {
+            // Thêm placeholder text cho textbox tìm kiếm
+            if (txtTimKiem.Text == "")
+            {
+                txtTimKiem.Text = "Nhập mã thẻ, tên độc giả hoặc số điện thoại...";
+                txtTimKiem.ForeColor = Color.Gray;
+            }
+
+            txtTimKiem.Enter += (s, e) =>
+            {
+                if (txtTimKiem.Text == "Nhập mã thẻ, tên độc giả hoặc số điện thoại...")
+                {
+                    txtTimKiem.Text = "";
+                    txtTimKiem.ForeColor = Color.Black;
+                }
+            };
+
+            txtTimKiem.Leave += (s, e) =>
+            {
+                if (string.IsNullOrWhiteSpace(txtTimKiem.Text))
+                {
+                    txtTimKiem.Text = "Nhập mã thẻ, tên độc giả hoặc số điện thoại...";
+                    txtTimKiem.ForeColor = Color.Gray;
+                }
+            };
+
+            // Thêm KeyPress event cho txtTimKiem
+            txtTimKiem.KeyPress += (s, e) =>
+            {
+                if (e.KeyChar == (char)13) // Enter key
+                {
+                    btnTimKiem_Click(s, e);
+                }
+            };
+
+            // Setup style cho form
+            this.BackColor = Color.White;
         }
 
         private void InitializeDataGridViews()
@@ -36,10 +77,33 @@ namespace LibraryManagementVersion2.UI
                 DataTable emptyTableHetHan = emptyTable.Copy();
                 emptyTableHetHan.Columns.Add("Hết hạn từ");
                 dgvHetHan.DataSource = emptyTableHetHan;
+
+                // Style cho DataGridViews
+                SetupDataGridViewStyle(dgvConHieuLuc);
+                SetupDataGridViewStyle(dgvHetHan);
             }
             catch (Exception ex)
             {
                 Console.WriteLine("Error initializing DataGridViews: " + ex.Message);
+            }
+        }
+
+        private void SetupDataGridViewStyle(DataGridView dgv)
+        {
+            try
+            {
+                // Style cho DataGridView
+                dgv.AlternatingRowsDefaultCellStyle.BackColor = Color.FromArgb(245, 245, 245);
+                dgv.DefaultCellStyle.SelectionBackColor = Color.FromArgb(115, 154, 79);
+                dgv.DefaultCellStyle.SelectionForeColor = Color.White;
+                dgv.DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleLeft;
+                dgv.GridColor = Color.FromArgb(221, 221, 221);
+                dgv.BorderStyle = BorderStyle.Fixed3D;
+                dgv.CellBorderStyle = DataGridViewCellBorderStyle.SingleHorizontal;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Error setting up DataGridView style: " + ex.Message);
             }
         }
 
@@ -138,7 +202,8 @@ namespace LibraryManagementVersion2.UI
 
         private void btnTimKiem_Click(object sender, EventArgs e)
         {
-            if (string.IsNullOrWhiteSpace(txtTimKiem.Text))
+            if (string.IsNullOrWhiteSpace(txtTimKiem.Text) ||
+                txtTimKiem.Text == "Nhập mã thẻ, tên độc giả hoặc số điện thoại...")
             {
                 LoadData();
                 return;
@@ -156,6 +221,14 @@ namespace LibraryManagementVersion2.UI
                 dgvHetHan.AutoResizeColumns();
 
                 UpdateTabTitles();
+
+                // Hiển thị số kết quả tìm được
+                int tongKetQua = ketQuaTimKiem?.Rows?.Count ?? 0;
+                if (tongKetQua == 0)
+                {
+                    MessageBox.Show("Không tìm thấy kết quả nào!", "Thông báo",
+                        MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
             }
             catch (Exception ex)
             {
@@ -195,8 +268,23 @@ namespace LibraryManagementVersion2.UI
 
         private void btnReload_Click(object sender, EventArgs e)
         {
-            txtTimKiem.Clear();
-            LoadData();
+            try
+            {
+                // Reset lại textbox tìm kiếm với placeholder
+                txtTimKiem.Text = "Nhập mã thẻ, tên độc giả hoặc số điện thoại...";
+                txtTimKiem.ForeColor = Color.Gray;
+
+                // Load lại dữ liệu
+                LoadData();
+
+                MessageBox.Show("Đã làm mới dữ liệu!", "Thông báo",
+                    MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Lỗi khi làm mới dữ liệu: " + ex.Message, "Lỗi",
+                    MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
 
         private void btnTaoQR_Click(object sender, EventArgs e)
@@ -266,6 +354,30 @@ namespace LibraryManagementVersion2.UI
         public void RefreshData()
         {
             LoadData();
+        }
+
+        // Override ProcessCmdKey để xử lý phím tắt
+        protected override bool ProcessCmdKey(ref Message msg, Keys keyData)
+        {
+            switch (keyData)
+            {
+                case Keys.F3:
+                    btnTimKiem_Click(null, null);
+                    return true;
+                case Keys.F5:
+                    btnReload_Click(null, null);
+                    return true;
+                case Keys.F2:
+                    btnThem_Click(null, null);
+                    return true;
+                case Keys.F4:
+                    btnSua_Click(null, null);
+                    return true;
+                case Keys.Escape:
+                    this.Close();
+                    return true;
+            }
+            return base.ProcessCmdKey(ref msg, keyData);
         }
     }
 }

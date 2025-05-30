@@ -556,9 +556,11 @@ namespace LibraryManagementVersion2.Repositories
             {
                 context = new LibraryEntities();
 
-                // Lấy các độc giả chưa có thẻ thư viện (MaThe = null)
+                // KIỂM TRA KÉP: vừa kiểm tra MaThe = null VÀ không có trong bảng TheThuVien
                 var docGiaList = context.DocGias
-                    .Where(dg => dg.TrangThai == true && dg.MaThe == null) // Chưa có thẻ
+                    .Where(dg => dg.TrangThai == true &&
+                                dg.MaThe == null && // Chưa có MaThe trong bảng DocGia
+                                !context.TheThuViens.Any(ttv => ttv.MaDG == dg.MaDocGia)) // Và không có trong TheThuVien
                     .OrderBy(dg => dg.HoTen)
                     .ToList();
 
