@@ -429,7 +429,7 @@ namespace LibraryManagementVersion2.Repositories
             }
         }
 
-        // Tìm kiếm độc giả - FIXED VARIABLE CONFLICT
+        // Tìm kiếm độc giả 
         public DataTable TimKiemDocGia(string tuKhoa)
         {
             LibraryEntities context = null;
@@ -545,6 +545,180 @@ namespace LibraryManagementVersion2.Repositories
             {
                 context?.Dispose();
             }
+        }
+
+        public DataTable LayChiTietTienMuonDocGia(int maDocGia)
+        {
+            DataTable dt = new DataTable();
+            dt.Columns.Add("MaDocGia", typeof(int));
+            dt.Columns.Add("HoTen", typeof(string));
+            dt.Columns.Add("TongTienMuon", typeof(decimal));
+            dt.Columns.Add("TongTienPhat", typeof(decimal));
+            dt.Columns.Add("TongCong", typeof(decimal));
+            dt.Columns.Add("SoLanMuon", typeof(int));
+            dt.Columns.Add("LanMuonGanNhat", typeof(DateTime));
+
+            try
+            {
+                using (LibraryEntities context = new LibraryEntities())
+                {
+                    // Lấy thông tin độc giả
+                    var docGia = context.DocGias.FirstOrDefault(dg => dg.MaDocGia == maDocGia);
+                    if (docGia == null) return dt;
+
+                    decimal tongTienMuon = 0;
+                    int soLanMuon = 0;
+                    DateTime? lanMuonGanNhat = null;
+
+                    var allPhieuMuon = context.PhieuMuonSaches.ToList()
+                        .Where(pms => pms.MaDocGia == maDocGia);
+
+                    foreach (var phieu in allPhieuMuon)
+                    {
+                        // Lấy chi phí từ LoaiPhieuMuon
+                        var loaiPhieu = context.LoaiPhieuMuons.FirstOrDefault(lpm => lpm.MaLPhieuMuon == phieu.MaPhieu);
+                        if (loaiPhieu != null && loaiPhieu.ChiPhi.HasValue)
+                        {
+                            tongTienMuon += loaiPhieu.ChiPhi.Value;
+                        }
+
+                        soLanMuon++;
+
+                        // Lấy ngày mượn gần nhất
+                        var muonSach = context.MuonSaches.FirstOrDefault(ms => ms.MaPhieu == phieu.MaPhieu);
+                        if (muonSach != null)
+                        {
+                            if (lanMuonGanNhat == null || muonSach.NgayMuon > lanMuonGanNhat)
+                            {
+                                lanMuonGanNhat = muonSach.NgayMuon;
+                            }
+                        }
+                    }
+
+                    decimal tongTienPhat = 0;
+
+                    // Lấy tất cả phiếu phạt của độc giả
+                    var allPhieuPhat = context.PhieuPhats
+                        .Where(pp => pp.MaDG == maDocGia)
+                        .ToList();
+
+                    foreach (var phieuPhat in allPhieuPhat)
+                    {
+                        if (phieuPhat.QDPs != null && phieuPhat.QDPs.Any())
+                        {
+                            foreach (var qdp in phieuPhat.QDPs)
+                            {
+                                if (qdp.TienPhat.HasValue)
+                                {
+                                    tongTienPhat += qdp.TienPhat.Value;
+                                }
+                            }
+                        }
+                    }
+
+                    // Thêm dữ liệu vào DataTable
+                    dt.Rows.Add(
+                        docGia.MaDocGia,
+                        docGia.HoTen,
+                        tongTienMuon,
+                        tongTienPhat,
+                        tongTienMuon + tongTienPhat,
+                        soLanMuon,
+                        lanMuonGanNhat ?? DateTime.MinValue
+                    );
+                }
+            }
+            catch (Exception ex)
+            {
+                System.Diagnostics.Debug.WriteLine($"Lỗi LayChiTietTienMuonDocGia: {ex.Message}");
+                System.Diagnostics.Debug.WriteLine($"Stack trace: {ex.StackTrace}");
+            }
+
+            return dt;
+        }
+        public DataTable LayTatCaDocGia()
+        {
+            DataTable dt = new DataTable();
+            dt.Columns.Add("MaDocGia", typeof(int));
+            dt.Columns.Add("HoTen", typeof(string));
+            dt.Columns.Add("Tuoi", typeof(int));
+            dt.Columns.Add("SoDT", typeof(string));
+            dt.Columns.Add("CCCD", typeof(string));
+            dt.Columns.Add("Email", typeof(string));
+            dt.Columns.Add("DiaChi", typeof(string));
+            dt.Columns.Add("TenLoaiDG", typeof(string));
+            dt.Columns.Add("NgayDangKy", typeof(string));
+            dt.Columns.Add("TienNo", typeof(string));
+            dt.Columns.Add("TrangThai", typeof(string));
+
+            try
+            {
+                using (LibraryEntities context = new LibraryEntities())
+                {
+                    var allDocGia = context.DocGias.ToList();
+
+                    foreach (var dg in allDocGia)
+                    {
+                        // Lấy tên loại độc giả
+                        string tenLoaiDG = "Chưa phân loại";
+                        if (dg.MaLoaiDG.HasValue)
+                        {
+                            var loaiDG = context.LoaiDocGias.FirstOrDefault(ldg => ldg.MaLoaiDG == dg.MaLoaiDG.Value);
+                            tenLoaiDG = loaiDG?.TenLoaiDG ?? "Chưa phân loại";
+                        }
+
+                        string ngayDangKyStr;
+                        if (dg.NgayDangKy.HasValue)
+                        {
+                            ngayDangKyStr = dg.NgayDangKy.Value.ToString("dd/MM/yyyy");
+                        }
+                        else
+                        {
+                            ngayDangKyStr = "Chưa có";
+                        }
+
+                        string tienNoStr;
+                        if (dg.TienNo.HasValue)
+                        {
+                            tienNoStr = dg.TienNo.Value.ToString("N0") + " VNĐ";
+                        }
+                        else
+                        {
+                            tienNoStr = "0 VNĐ";
+                        }
+
+                        string trangThaiStr;
+                        if (dg.TrangThai.HasValue)
+                        {
+                            trangThaiStr = dg.TrangThai.Value ? "Hoạt động" : "Ngừng hoạt động";
+                        }
+                        else
+                        {
+                            trangThaiStr = "Không xác định";
+                        }
+
+                        dt.Rows.Add(
+                            dg.MaDocGia,
+                            dg.HoTen ?? "",
+                            dg.Tuoi,
+                            dg.SoDT ?? "",
+                            dg.CCCD ?? "",
+                            dg.Email ?? "",
+                            dg.DiaChi ?? "",
+                            tenLoaiDG,
+                            ngayDangKyStr,
+                            tienNoStr,
+                            trangThaiStr
+                        );
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                System.Diagnostics.Debug.WriteLine($"Lỗi LayTatCaDocGia: {ex.Message}");
+            }
+
+            return dt;
         }
     }
 }
