@@ -102,6 +102,7 @@
     <Compile Include="BienLai.cs">
       <DependentUpon>LibraryModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="BL\BLPhieuMuon.cs" />
     <Compile Include="CuonSach.cs">
       <DependentUpon>LibraryModel.tt</DependentUpon>
     </Compile>
@@ -224,6 +225,12 @@
     <Compile Include="UI\FormAddThuThu.Designer.cs">
       <DependentUpon>FormAddThuThu.cs</DependentUpon>
     </Compile>
+    <Compile Include="UI\FormChiTietPhieuMuon.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UI\FormChiTietPhieuMuon.Designer.cs">
+      <DependentUpon>FormChiTietPhieuMuon.cs</DependentUpon>
+    </Compile>
     <Compile Include="UI\FormDocGiaStatsDetail.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -271,6 +278,12 @@
     </Compile>
     <Compile Include="UI\FormManageNXB.Designer.cs">
       <DependentUpon>FormManageNXB.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UI\FormManagePhieuMuon.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UI\FormManagePhieuMuon.Designer.cs">
+      <DependentUpon>FormManagePhieuMuon.cs</DependentUpon>
     </Compile>
     <Compile Include="UI\FormManageTG.cs">
       <SubType>Form</SubType>
@@ -341,6 +354,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="UI\FormManageDocGia.resx">
       <DependentUpon>FormManageDocGia.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UI\FormManagePhieuMuon.resx">
+      <DependentUpon>FormManagePhieuMuon.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="UI\FormManageTheThuVien.resx">
       <DependentUpon>FormManageTheThuVien.cs</DependentUpon>
