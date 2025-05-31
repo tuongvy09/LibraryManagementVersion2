@@ -240,8 +240,9 @@ namespace LibraryManagementVersion2
                 //case "Mượn sách":
                 //    break;
 
-                //case "Phiếu phạt":
-                //    break;
+                case "Phiếu phạt":
+                    newForm = new FormManagePhieuPhat();
+                    break;
 
                 case "Biên lai":
                     newForm = new FormManageBienLai();

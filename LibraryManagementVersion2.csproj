@@ -285,6 +285,12 @@
     <Compile Include="UI\FormManagePhieuMuon.Designer.cs">
       <DependentUpon>FormManagePhieuMuon.cs</DependentUpon>
     </Compile>
+    <Compile Include="UI\FormManagePhieuPhat.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UI\FormManagePhieuPhat.Designer.cs">
+      <DependentUpon>FormManagePhieuPhat.cs</DependentUpon>
+    </Compile>
     <Compile Include="UI\FormManageTG.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -357,6 +363,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="UI\FormManagePhieuMuon.resx">
       <DependentUpon>FormManagePhieuMuon.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UI\FormManagePhieuPhat.resx">
+      <DependentUpon>FormManagePhieuPhat.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="UI\FormManageTheThuVien.resx">
       <DependentUpon>FormManageTheThuVien.cs</DependentUpon>
