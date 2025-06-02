@@ -103,6 +103,7 @@
       <DependentUpon>LibraryModel.tt</DependentUpon>
     </Compile>
     <Compile Include="BL\BLPhieuMuon.cs" />
+    <Compile Include="BL\BLPhieuPhat.cs" />
     <Compile Include="CuonSach.cs">
       <DependentUpon>LibraryModel.tt</DependentUpon>
     </Compile>
@@ -388,6 +389,7 @@
       <Generator>EntityModelCodeGenerator</Generator>
       <LastGenOutput>LibraryModel.Designer.cs</LastGenOutput>
     </EntityDeploy>
+    <None Include="BL\EF.Reverse.POCO.v3.ttinclude" />
     <None Include="LibraryModel.edmx.diagram">
       <DependentUpon>LibraryModel.edmx</DependentUpon>
     </None>
