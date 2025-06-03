@@ -10,7 +10,7 @@ namespace LibraryManagementVersion2.UI
     {
         private BLDocGia blDocGia = new BLDocGia();
         private string err;
-        private bool isLoading = false; // Flag để tránh recursive loading
+        private bool isLoading = false;
 
         public FormAddDocGia()
         {

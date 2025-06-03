@@ -15,6 +15,8 @@ namespace LibraryManagementVersion2.UI
     {
         BLThuThu dbThuThu = new BLThuThu();
         string err;
+        private bool isPlaceholderActive = true;
+        private string placeholderText = "Nhập tên thủ thư, email hoặc số điện thoại...";
 
         public FormManageThuThu()
         {
@@ -24,30 +26,12 @@ namespace LibraryManagementVersion2.UI
 
         private void InitializeCustomStyle()
         {
-            // Thêm placeholder text cho textbox tìm kiếm
-            if (txtTimKiem.Text == "")
-            {
-                txtTimKiem.Text = "Nhập tên thủ thư, email hoặc số điện thoại...";
-                txtTimKiem.ForeColor = Color.Gray;
-            }
+            // Setup placeholder text
+            SetPlaceholder();
 
-            txtTimKiem.Enter += (s, e) =>
-            {
-                if (txtTimKiem.Text == "Nhập tên thủ thư, email hoặc số điện thoại...")
-                {
-                    txtTimKiem.Text = "";
-                    txtTimKiem.ForeColor = Color.Black;
-                }
-            };
-
-            txtTimKiem.Leave += (s, e) =>
-            {
-                if (string.IsNullOrWhiteSpace(txtTimKiem.Text))
-                {
-                    txtTimKiem.Text = "Nhập tên thủ thư, email hoặc số điện thoại...";
-                    txtTimKiem.ForeColor = Color.Gray;
-                }
-            };
+            txtTimKiem.Enter += TxtTimKiem_Enter;
+            txtTimKiem.Leave += TxtTimKiem_Leave;
+            txtTimKiem.TextChanged += TxtTimKiem_TextChanged;
 
             // Thêm KeyPress event cho txtTimKiem
             txtTimKiem.KeyPress += (s, e) =>
@@ -56,21 +40,100 @@ namespace LibraryManagementVersion2.UI
                 {
                     btnTimKiem_Click(s, e);
                 }
+                else if (e.KeyChar == (char)27) // Escape key
+                {
+                    btnReload_Click(s, e);
+                }
             };
         }
 
+        private void SetPlaceholder()
+        {
+            if (string.IsNullOrWhiteSpace(txtTimKiem.Text) || isPlaceholderActive)
+            {
+                txtTimKiem.Text = placeholderText;
+                txtTimKiem.ForeColor = Color.Gray;
+                txtTimKiem.Font = new Font(txtTimKiem.Font, FontStyle.Italic);
+                isPlaceholderActive = true;
+            }
+        }
+
+        private void ClearPlaceholder()
+        {
+            if (isPlaceholderActive)
+            {
+                txtTimKiem.Text = "";
+                txtTimKiem.ForeColor = Color.Black;
+                txtTimKiem.Font = new Font(txtTimKiem.Font, FontStyle.Regular);
+                isPlaceholderActive = false;
+            }
+        }
+
+        private void TxtTimKiem_Enter(object sender, EventArgs e)
+        {
+            ClearPlaceholder();
+        }
+
+        private void TxtTimKiem_Leave(object sender, EventArgs e)
+        {
+            if (string.IsNullOrWhiteSpace(txtTimKiem.Text))
+            {
+                SetPlaceholder();
+            }
+        }
+
+        private void TxtTimKiem_TextChanged(object sender, EventArgs e)
+        {
+            if (!isPlaceholderActive && txtTimKiem.Focused)
+            {
+                txtTimKiem.ForeColor = Color.Black;
+                txtTimKiem.Font = new Font(txtTimKiem.Font, FontStyle.Regular);
+            }
+        }
 
         void LoadData()
         {
             try
             {
-                dgvThuThu.DataSource = dbThuThu.LayThuThu();
+                // ✅ Load data với sắp xếp: Hoạt động trước, Ngừng hoạt động sau
+                dgvThuThu.DataSource = dbThuThu.LayThuThuSorted();
                 dgvThuThu.AutoResizeColumns();
+
+                // ✅ Highlight các dòng ngừng hoạt động
+                HighlightInactiveRows();
             }
             catch (Exception ex)
             {
                 MessageBox.Show("Không lấy được dữ liệu: " + ex.Message, "Lỗi",
                     MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        // ✅ Method để highlight các dòng ngừng hoạt động
+        private void HighlightInactiveRows()
+        {
+            try
+            {
+                foreach (DataGridViewRow row in dgvThuThu.Rows)
+                {
+                    // Giả sử cột trạng thái là cột cuối cùng hoặc có tên "Trạng thái"
+                    var trangThaiCell = row.Cells["Trạng thái"] ?? row.Cells[row.Cells.Count - 1];
+
+                    if (trangThaiCell?.Value?.ToString() == "Ngừng hoạt động")
+                    {
+                        row.DefaultCellStyle.BackColor = Color.FromArgb(248, 249, 250); // Màu xám nhạt
+                        row.DefaultCellStyle.ForeColor = Color.Gray; // Chữ màu xám
+                    }
+                    else
+                    {
+                        row.DefaultCellStyle.BackColor = Color.White;
+                        row.DefaultCellStyle.ForeColor = Color.Black;
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                System.Diagnostics.Debug.WriteLine($"Lỗi highlight rows: {ex.Message}");
             }
         }
 
@@ -109,13 +172,36 @@ namespace LibraryManagementVersion2.UI
         {
             if (dgvThuThu.CurrentRow == null)
             {
-                MessageBox.Show("Vui lòng chọn thủ thư cần xóa!", "Thông báo",
+                MessageBox.Show("Vui lòng chọn thủ thư cần vô hiệu hóa!", "Thông báo",
                     MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
 
-            DialogResult result = MessageBox.Show("Bạn có chắc muốn xóa thủ thư này?",
-                "Xác nhận xóa", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+            // ✅ Lấy thông tin thủ thư hiện tại
+            string tenThuThu = dgvThuThu.CurrentRow.Cells["Tên thủ thư"]?.Value?.ToString() ??
+                              dgvThuThu.CurrentRow.Cells[1]?.Value?.ToString() ?? "thủ thư này";
+
+            string trangThaiHienTai = dgvThuThu.CurrentRow.Cells["Trạng thái"]?.Value?.ToString() ??
+                                     dgvThuThu.CurrentRow.Cells[dgvThuThu.CurrentRow.Cells.Count - 1]?.Value?.ToString();
+
+            // ✅ Kiểm tra trạng thái hiện tại để hiển thị thông báo phù hợp
+            DialogResult result;
+            string actionText;
+
+            if (trangThaiHienTai == "Ngừng hoạt động")
+            {
+                result = MessageBox.Show($"Thủ thư '{tenThuThu}' đã được vô hiệu hóa trước đó.\n\n" +
+                    "Bạn có muốn kích hoạt lại tài khoản này không?",
+                    "Kích hoạt lại tài khoản", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+                actionText = "kích hoạt lại";
+            }
+            else
+            {
+                result = MessageBox.Show($"Bạn có chắc chắn muốn vô hiệu hóa tài khoản thủ thư '{tenThuThu}'?\n\n" +
+                    "Lưu ý: Thủ thư sẽ không thể truy cập hệ thống, nhưng dữ liệu sẽ được lưu trữ.",
+                    "Xác nhận vô hiệu hóa", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+                actionText = "vô hiệu hóa";
+            }
 
             if (result == DialogResult.Yes)
             {
@@ -126,13 +212,14 @@ namespace LibraryManagementVersion2.UI
 
                     if (success)
                     {
-                        MessageBox.Show("Xóa thủ thư thành công!", "Thông báo",
-                            MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        // ✅ Thông báo phù hợp với hành động thực tế
+                        MessageBox.Show($"Đã {actionText} tài khoản thủ thư '{tenThuThu}' thành công!",
+                            "Thành công", MessageBoxButtons.OK, MessageBoxIcon.Information);
                         LoadData();
                     }
                     else
                     {
-                        MessageBox.Show("Xóa thủ thư thất bại: " + err, "Lỗi",
+                        MessageBox.Show($"Thao tác thất bại: {err}", "Lỗi",
                             MessageBoxButtons.OK, MessageBoxIcon.Error);
                     }
                 }
@@ -146,8 +233,8 @@ namespace LibraryManagementVersion2.UI
 
         private void btnTimKiem_Click(object sender, EventArgs e)
         {
-            if (string.IsNullOrWhiteSpace(txtTimKiem.Text) ||
-                txtTimKiem.Text == "Nhập tên thủ thư, email hoặc số điện thoại...")
+            // ✅ Kiểm tra placeholder
+            if (isPlaceholderActive || string.IsNullOrWhiteSpace(txtTimKiem.Text))
             {
                 LoadData();
                 return;
@@ -155,8 +242,24 @@ namespace LibraryManagementVersion2.UI
 
             try
             {
-                dgvThuThu.DataSource = dbThuThu.TimKiemThuThu(txtTimKiem.Text.Trim());
+                // ✅ Tìm kiếm với sắp xếp
+                dgvThuThu.DataSource = dbThuThu.TimKiemThuThuSorted(txtTimKiem.Text.Trim());
                 dgvThuThu.AutoResizeColumns();
+
+                // ✅ Highlight các dòng ngừng hoạt động
+                HighlightInactiveRows();
+
+                // ✅ Hiển thị số kết quả tìm kiếm
+                int soKetQua = dgvThuThu.Rows.Count;
+                if (soKetQua == 0)
+                {
+                    MessageBox.Show($"Không tìm thấy thủ thư nào với từ khóa '{txtTimKiem.Text.Trim()}'!",
+                        "Kết quả tìm kiếm", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
+                else
+                {
+                    this.Text = $"Quản lý thủ thư - Tìm thấy {soKetQua} kết quả";
+                }
             }
             catch (Exception ex)
             {
@@ -167,10 +270,13 @@ namespace LibraryManagementVersion2.UI
 
         private void btnReload_Click(object sender, EventArgs e)
         {
-            txtTimKiem.Text = "Nhập tên thủ thư, email hoặc số điện thoại...";
-            txtTimKiem.ForeColor = Color.Gray;
+            SetPlaceholder();
             LoadData();
+            this.Text = "Quản lý thủ thư"; // ✅ Reset title
+            MessageBox.Show("Đã làm mới dữ liệu!", "Thông báo",
+                MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
+
         private void dgvThuThu_CellClick(object sender, DataGridViewCellEventArgs e)
         {
             // Optional: Handle cell click if needed
@@ -178,7 +284,16 @@ namespace LibraryManagementVersion2.UI
 
         private void txtTimKiem_TextChanged(object sender, EventArgs e)
         {
+            // Đã xử lý trong TxtTimKiem_TextChanged method ở trên
+        }
 
+        // ✅ Override để xử lý DataBindingComplete event
+        protected override void OnLoad(EventArgs e)
+        {
+            base.OnLoad(e);
+
+            // Đăng ký event để highlight rows sau khi data binding complete
+            dgvThuThu.DataBindingComplete += (s, args) => HighlightInactiveRows();
         }
     }
 }

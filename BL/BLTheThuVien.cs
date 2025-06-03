@@ -27,10 +27,10 @@ namespace LibraryManagementVersion2.Repositories
         // Lấy danh sách tất cả thẻ thư viện
         public DataTable LayTheThuVien()
         {
-            LibraryEntities context = null;
+            LibraryManagement1Entities context = null;
             try
             {
-                context = new LibraryEntities();
+                context = new LibraryManagement1Entities();
 
                 var theThuVienList = (from ttv in context.TheThuViens
                                       join docgia in context.DocGias on ttv.MaDG equals docgia.MaDocGia into dgGroup
@@ -82,10 +82,10 @@ namespace LibraryManagementVersion2.Repositories
         // Lấy danh sách độc giả cho ComboBox
         public DataTable LayDocGiaChoComboBox()
         {
-            LibraryEntities context = null;
+            LibraryManagement1Entities context = null;
             try
             {
-                context = new LibraryEntities();
+                context = new LibraryManagement1Entities();
 
                 var docGiaList = context.DocGias
                     .Where(dg => dg.TrangThai == true)
@@ -114,10 +114,10 @@ namespace LibraryManagementVersion2.Repositories
         // Thêm thẻ thư viện mới
         public bool ThemTheThuVien(int? maDocGia, DateTime ngayCap, DateTime ngayHetHan, ref string err)
         {
-            LibraryEntities context = null;
+            LibraryManagement1Entities context = null;
             try
             {
-                context = new LibraryEntities();
+                context = new LibraryManagement1Entities();
 
                 // Validate input
                 if (ngayCap > DateTime.Now)
@@ -223,10 +223,10 @@ namespace LibraryManagementVersion2.Repositories
         // Cập nhật thẻ thư viện
         public bool CapNhatTheThuVien(int maThe, int? maDocGia, DateTime ngayCap, DateTime ngayHetHan, ref string err)
         {
-            LibraryEntities context = null;
+            LibraryManagement1Entities context = null;
             try
             {
-                context = new LibraryEntities();
+                context = new LibraryManagement1Entities();
 
                 var theThuVienQuery = context.TheThuViens.FirstOrDefault(ttv => ttv.MaThe == maThe);
 
@@ -365,10 +365,10 @@ namespace LibraryManagementVersion2.Repositories
         // Lấy thẻ còn hiệu lực
         public DataTable LayTheThuVienConHieuLuc()
         {
-            LibraryEntities context = null;
+            LibraryManagement1Entities context = null;
             try
             {
-                context = new LibraryEntities();
+                context = new LibraryManagement1Entities();
 
                 var theThuVienList = (from ttv in context.TheThuViens
                                       join docgia in context.DocGias on ttv.MaDG equals docgia.MaDocGia into dgGroup
@@ -399,10 +399,10 @@ namespace LibraryManagementVersion2.Repositories
         // Lấy thẻ hết hạn
         public DataTable LayTheThuVienHetHan()
         {
-            LibraryEntities context = null;
+            LibraryManagement1Entities context = null;
             try
             {
-                context = new LibraryEntities();
+                context = new LibraryManagement1Entities();
 
                 var theThuVienList = (from ttv in context.TheThuViens
                                       join docgia in context.DocGias on ttv.MaDG equals docgia.MaDocGia into dgGroup
@@ -475,10 +475,10 @@ namespace LibraryManagementVersion2.Repositories
         // Tìm kiếm thẻ thư viện
         public DataTable TimKiemTheThuVien(string tuKhoa)
         {
-            LibraryEntities context = null;
+            LibraryManagement1Entities context = null;
             try
             {
-                context = new LibraryEntities();
+                context = new LibraryManagement1Entities();
 
                 var theThuVienList = (from ttv in context.TheThuViens
                                       join docgia in context.DocGias on ttv.MaDG equals docgia.MaDocGia into dgGroup
@@ -532,10 +532,10 @@ namespace LibraryManagementVersion2.Repositories
         // Lấy thông tin thẻ thư viện theo mã
         public TheThuVien LayTheThuVienTheoMa(int maThe)
         {
-            LibraryEntities context = null;
+            LibraryManagement1Entities context = null;
             try
             {
-                context = new LibraryEntities();
+                context = new LibraryManagement1Entities();
                 return context.TheThuViens.FirstOrDefault(ttv => ttv.MaThe == maThe);
             }
             catch (Exception ex)
@@ -551,10 +551,10 @@ namespace LibraryManagementVersion2.Repositories
         // Thêm method mới vào class BLTheThuVien
         public DataTable LayDocGiaChuaCoThe()
         {
-            LibraryEntities context = null;
+            LibraryManagement1Entities context = null;
             try
             {
-                context = new LibraryEntities();
+                context = new LibraryManagement1Entities();
 
                 // KIỂM TRA KÉP: vừa kiểm tra MaThe = null VÀ không có trong bảng TheThuVien
                 var docGiaList = context.DocGias
@@ -587,10 +587,10 @@ namespace LibraryManagementVersion2.Repositories
         // Thêm method lấy thông tin độc giả theo mã
         public DocGia LayDocGiaTheoMa(int maDocGia)
         {
-            LibraryEntities context = null;
+            LibraryManagement1Entities context = null;
             try
             {
-                context = new LibraryEntities();
+                context = new LibraryManagement1Entities();
                 return context.DocGias.FirstOrDefault(dg => dg.MaDocGia == maDocGia);
             }
             catch (Exception ex)
@@ -605,10 +605,10 @@ namespace LibraryManagementVersion2.Repositories
 
         public TheThuVienQRData LayTheThuVienDayDuTheoMa(int maThe)
         {
-            LibraryEntities context = null;
+            LibraryManagement1Entities context = null;
             try
             {
-                context = new LibraryEntities();
+                context = new LibraryManagement1Entities();
 
                 // SQL JOIN 2 bảng TheThuVien và DocGia
                 var theThuVienInfo = (from tt in context.TheThuViens
@@ -652,10 +652,10 @@ namespace LibraryManagementVersion2.Repositories
         // Method để insert thẻ và return ID (cần cho QR generation sau khi add)
         public int ThemTheThuVienVaLayMaThe(int? maDocGia, DateTime ngayCap, DateTime ngayHetHan, ref string err)
         {
-            LibraryEntities context = null;
+            LibraryManagement1Entities context = null;
             try
             {
-                context = new LibraryEntities();
+                context = new LibraryManagement1Entities();
 
                 // Validate input
                 if (ngayCap > DateTime.Now)
