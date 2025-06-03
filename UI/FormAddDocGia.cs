@@ -26,6 +26,9 @@ namespace LibraryManagementVersion2.UI
             // Set các giá trị mặc định
             chkTrangThai.Checked = true;
             cboGioiTinh.SelectedIndex = -1;
+
+            // ✅ Set title cho form
+            this.Text = "Thêm Độc giả";
         }
 
         private void LoadComboBoxData()
@@ -45,33 +48,32 @@ namespace LibraryManagementVersion2.UI
 
                 if (dtLoaiDG != null && dtLoaiDG.Rows.Count > 0)
                 {
-                    // Thêm dòng "-- Chọn loại độc giả --"
-                    DataRow newRow = dtLoaiDG.NewRow();
-                    newRow["MaLoaiDG"] = DBNull.Value;
-                    newRow["TenLoaiDG"] = "-- Chọn loại độc giả --";
-                    dtLoaiDG.Rows.InsertAt(newRow, 0);
+                    // ✅ Không thêm dòng "-- Chọn loại độc giả --" nữa
+                    // Vì sẽ gây lỗi khóa ngoại khi MaLoaiDG = null
 
                     cboLoaiDocGia.DataSource = dtLoaiDG;
                     cboLoaiDocGia.DisplayMember = "TenLoaiDG";
                     cboLoaiDocGia.ValueMember = "MaLoaiDG";
-                    cboLoaiDocGia.SelectedIndex = 0;
+
+                    // ✅ Chọn item đầu tiên (loại độc giả hợp lệ)
+                    if (dtLoaiDG.Rows.Count > 0)
+                    {
+                        cboLoaiDocGia.SelectedIndex = 0;
+                    }
                 }
                 else
                 {
-                    // Nếu không có dữ liệu, thêm item mặc định
-                    cboLoaiDocGia.Items.Add("-- Chọn loại độc giả --");
-                    cboLoaiDocGia.SelectedIndex = 0;
+                    MessageBox.Show("Không có loại độc giả nào trong hệ thống!\nVui lòng thêm loại độc giả trước.",
+                        "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    this.Close();
+                    return;
                 }
             }
             catch (Exception ex)
             {
                 MessageBox.Show("Lỗi khi tải dữ liệu ComboBox: " + ex.Message, "Lỗi",
                     MessageBoxButtons.OK, MessageBoxIcon.Error);
-
-                // Fallback: thêm item mặc định
-                cboLoaiDocGia.Items.Clear();
-                cboLoaiDocGia.Items.Add("-- Chọn loại độc giả --");
-                cboLoaiDocGia.SelectedIndex = 0;
+                this.Close();
             }
             finally
             {
@@ -86,32 +88,38 @@ namespace LibraryManagementVersion2.UI
 
             try
             {
-                string gioiTinh = "";
+                // ✅ Xử lý giới tính
+                string gioiTinh = null;
                 if (cboGioiTinh.SelectedIndex == 0)
-                    gioiTinh = "M"; // Nam
+                    gioiTinh = "Nam";
                 else if (cboGioiTinh.SelectedIndex == 1)
-                    gioiTinh = "F"; // Nữ
+                    gioiTinh = "Nữ";
 
-                int? maLoaiDG = null;
-                if (cboLoaiDocGia.SelectedValue != null &&
-                    cboLoaiDocGia.SelectedValue != DBNull.Value &&
-                    cboLoaiDocGia.SelectedIndex > 0)
+                // ✅ Xử lý MaLoaiDG - PHẢI có giá trị hợp lệ
+                int maLoaiDG;
+                if (cboLoaiDocGia.SelectedValue == null ||
+                    !int.TryParse(cboLoaiDocGia.SelectedValue.ToString(), out maLoaiDG))
                 {
-                    if (int.TryParse(cboLoaiDocGia.SelectedValue.ToString(), out int tempMaLoaiDG))
-                    {
-                        maLoaiDG = tempMaLoaiDG;
-                    }
+                    MessageBox.Show("Vui lòng chọn loại độc giả hợp lệ!", "Thông báo",
+                        MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    cboLoaiDocGia.Focus();
+                    return;
                 }
+
+                // ✅ Validate CCCD và Email trước khi gọi method
+                string cccd = string.IsNullOrWhiteSpace(txtCCCD.Text) ? null : txtCCCD.Text.Trim();
+                string email = string.IsNullOrWhiteSpace(txtEmail.Text) ? null : txtEmail.Text.Trim();
+                string diaChi = string.IsNullOrWhiteSpace(txtDiaChi.Text) ? null : txtDiaChi.Text.Trim();
 
                 bool success = blDocGia.ThemDocGia(
                     txtHoTen.Text.Trim(),
                     Convert.ToInt32(txtTuoi.Text.Trim()),
                     txtSoDT.Text.Trim(),
-                    txtCCCD.Text.Trim(),
+                    cccd,
                     gioiTinh,
-                    txtEmail.Text.Trim(),
-                    txtDiaChi.Text.Trim(),
-                    maLoaiDG,
+                    email,
+                    diaChi,
+                    maLoaiDG, // ✅ Truyền int thay vì int?
                     chkTrangThai.Checked,
                     ref err
                 );
@@ -138,6 +146,7 @@ namespace LibraryManagementVersion2.UI
 
         private void btnHuy_Click(object sender, EventArgs e)
         {
+            this.DialogResult = DialogResult.Cancel;
             this.Close();
         }
 
@@ -175,6 +184,15 @@ namespace LibraryManagementVersion2.UI
                 return false;
             }
 
+            // ✅ Validate số điện thoại theo cấu trúc database (char(10))
+            if (txtSoDT.Text.Trim().Length != 10)
+            {
+                MessageBox.Show("Số điện thoại phải có đúng 10 chữ số!", "Thông báo",
+                    MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                txtSoDT.Focus();
+                return false;
+            }
+
             if (!IsValidPhoneNumber(txtSoDT.Text.Trim()))
             {
                 MessageBox.Show("Số điện thoại không hợp lệ! (Định dạng: 0xxxxxxxxx)", "Thông báo",
@@ -191,11 +209,32 @@ namespace LibraryManagementVersion2.UI
                 return false;
             }
 
-            if (!string.IsNullOrWhiteSpace(txtCCCD.Text) && txtCCCD.Text.Trim().Length != 12)
+            // ✅ Validate CCCD theo cấu trúc database (char(12))
+            if (!string.IsNullOrWhiteSpace(txtCCCD.Text))
             {
-                MessageBox.Show("CCCD phải có 12 chữ số!", "Thông báo",
+                if (txtCCCD.Text.Trim().Length != 12)
+                {
+                    MessageBox.Show("CCCD phải có đúng 12 chữ số!", "Thông báo",
+                        MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    txtCCCD.Focus();
+                    return false;
+                }
+
+                if (!System.Text.RegularExpressions.Regex.IsMatch(txtCCCD.Text.Trim(), @"^\d{12}$"))
+                {
+                    MessageBox.Show("CCCD chỉ được chứa các chữ số!", "Thông báo",
+                        MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    txtCCCD.Focus();
+                    return false;
+                }
+            }
+
+            // ✅ Validate loại độc giả
+            if (cboLoaiDocGia.SelectedValue == null)
+            {
+                MessageBox.Show("Vui lòng chọn loại độc giả!", "Thông báo",
                     MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                txtCCCD.Focus();
+                cboLoaiDocGia.Focus();
                 return false;
             }
 
@@ -217,7 +256,8 @@ namespace LibraryManagementVersion2.UI
 
         private bool IsValidPhoneNumber(string phoneNumber)
         {
-            return System.Text.RegularExpressions.Regex.IsMatch(phoneNumber, @"^0\d{9,10}$");
+            // ✅ Validate số điện thoại Việt Nam 10 số bắt đầu bằng 0
+            return System.Text.RegularExpressions.Regex.IsMatch(phoneNumber, @"^0\d{9}$");
         }
 
         private void txtTuoi_KeyPress(object sender, KeyPressEventArgs e)
@@ -230,7 +270,13 @@ namespace LibraryManagementVersion2.UI
 
         private void txtSoDT_KeyPress(object sender, KeyPressEventArgs e)
         {
+            // ✅ Giới hạn 10 ký tự cho số điện thoại
             if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar))
+            {
+                e.Handled = true;
+            }
+
+            if (!char.IsControl(e.KeyChar) && ((sender as TextBox).Text.Length >= 10))
             {
                 e.Handled = true;
             }
@@ -238,7 +284,13 @@ namespace LibraryManagementVersion2.UI
 
         private void txtCCCD_KeyPress(object sender, KeyPressEventArgs e)
         {
+            // ✅ Giới hạn 12 ký tự cho CCCD
             if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar))
+            {
+                e.Handled = true;
+            }
+
+            if (!char.IsControl(e.KeyChar) && ((sender as TextBox).Text.Length >= 12))
             {
                 e.Handled = true;
             }

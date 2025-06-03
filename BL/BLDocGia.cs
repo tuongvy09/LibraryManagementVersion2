@@ -188,14 +188,14 @@ namespace LibraryManagementVersion2.Repositories
         // Thêm độc giả mới
         public bool ThemDocGia(string hoTen, int tuoi, string soDT, string cccd,
                               string gioiTinh, string email, string diaChi,
-                              int? maLoaiDG, bool trangThai, ref string err)
+                              int maLoaiDG, bool trangThai, ref string err) // ✅ Đổi từ int? thành int
         {
             LibraryManagement1Entities context = null;
             try
             {
                 context = new LibraryManagement1Entities();
 
-                // Validate input trước khi thêm
+                // ✅ Validate input trước khi thêm
                 if (string.IsNullOrWhiteSpace(hoTen))
                 {
                     err = "Họ tên không được để trống";
@@ -214,8 +214,30 @@ namespace LibraryManagementVersion2.Repositories
                     return false;
                 }
 
+                // ✅ Validate độ dài số điện thoại (char(10) trong DB)
+                if (soDT.Length != 10)
+                {
+                    err = "Số điện thoại phải có đúng 10 chữ số";
+                    return false;
+                }
+
+                // ✅ Validate CCCD nếu có (char(12) trong DB)
+                if (!string.IsNullOrWhiteSpace(cccd) && cccd.Length != 12)
+                {
+                    err = "CCCD phải có đúng 12 chữ số";
+                    return false;
+                }
+
+                // ✅ Kiểm tra MaLoaiDG có tồn tại không
+                var loaiDGExists = context.LoaiDocGias.Any(ldg => ldg.MaLoaiDG == maLoaiDG);
+                if (!loaiDGExists)
+                {
+                    err = "Loại độc giả không tồn tại trong hệ thống";
+                    return false;
+                }
+
                 // Kiểm tra trùng lặp số điện thoại
-                var existingByPhone = context.DocGias.FirstOrDefault(docgia => docgia.SoDT == soDT);
+                var existingByPhone = context.DocGias.FirstOrDefault(dg => dg.SoDT == soDT);
                 if (existingByPhone != null)
                 {
                     err = "Số điện thoại đã tồn tại trong hệ thống";
@@ -225,7 +247,7 @@ namespace LibraryManagementVersion2.Repositories
                 // Kiểm tra trùng lặp CCCD (nếu có)
                 if (!string.IsNullOrWhiteSpace(cccd))
                 {
-                    var existingByCCCD = context.DocGias.FirstOrDefault(docgia => docgia.CCCD == cccd);
+                    var existingByCCCD = context.DocGias.FirstOrDefault(dg => dg.CCCD == cccd);
                     if (existingByCCCD != null)
                     {
                         err = "CCCD đã tồn tại trong hệ thống";
@@ -233,34 +255,23 @@ namespace LibraryManagementVersion2.Repositories
                     }
                 }
 
-                // Kiểm tra MaLoaiDG có tồn tại không (nếu có)
-                if (maLoaiDG.HasValue)
-                {
-                    var loaiDGExists = context.LoaiDocGias.Any(loaidg => loaidg.MaLoaiDG == maLoaiDG.Value);
-                    if (!loaiDGExists)
-                    {
-                        err = "Loại độc giả không tồn tại";
-                        return false;
-                    }
-                }
-
-                // Tạo độc giả mới
+                // ✅ Tạo độc giả mới với validation tốt hơn
                 var newDocGia = new DocGia
                 {
                     HoTen = hoTen.Trim(),
                     Tuoi = tuoi,
                     SoDT = soDT.Trim(),
                     CCCD = string.IsNullOrWhiteSpace(cccd) ? null : cccd.Trim(),
-                    GioiTinh = string.IsNullOrWhiteSpace(gioiTinh) ? null : gioiTinh,
+                    GioiTinh = string.IsNullOrWhiteSpace(gioiTinh) ? null : gioiTinh.Trim(),
                     Email = string.IsNullOrWhiteSpace(email) ? null : email.Trim(),
                     DiaChi = string.IsNullOrWhiteSpace(diaChi) ? null : diaChi.Trim(),
-                    MaLoaiDG = maLoaiDG,
+                    MaLoaiDG = maLoaiDG, // ✅ Luôn có giá trị hợp lệ
                     NgayDangKy = DateTime.Now,
                     TienNo = 0,
                     TrangThai = trangThai,
                     NgayTao = DateTime.Now,
                     NgayCapNhat = null,
-                    MaThe = null
+                    MaThe = null // ✅ Để null vì chưa có thẻ thư viện
                 };
 
                 context.DocGias.Add(newDocGia);
@@ -286,7 +297,7 @@ namespace LibraryManagementVersion2.Repositories
                             err = "Dữ liệu đã tồn tại (trùng lặp khóa chính hoặc unique constraint)";
                             break;
                         case 547:
-                            err = "Vi phạm ràng buộc khóa ngoại";
+                            err = "Vi phạm ràng buộc khóa ngoại - Vui lòng kiểm tra loại độc giả";
                             break;
                         default:
                             err = "Lỗi cập nhật database: " + sqlEx.Message;
@@ -313,14 +324,14 @@ namespace LibraryManagementVersion2.Repositories
         // Cập nhật thông tin độc giả
         public bool CapNhatDocGia(int maDocGia, string hoTen, int tuoi, string soDT,
                                  string cccd, string gioiTinh, string email, string diaChi,
-                                 int? maLoaiDG, bool trangThai, ref string err)
+                                 int maLoaiDG, bool trangThai, ref string err) 
         {
             LibraryManagement1Entities context = null;
             try
             {
                 context = new LibraryManagement1Entities();
 
-                var docGiaQuery = context.DocGias.FirstOrDefault(docgia => docgia.MaDocGia == maDocGia);
+                var docGiaQuery = context.DocGias.FirstOrDefault(dg => dg.MaDocGia == maDocGia);
 
                 if (docGiaQuery == null)
                 {
@@ -328,7 +339,7 @@ namespace LibraryManagementVersion2.Repositories
                     return false;
                 }
 
-                // Validate input
+                // ✅ Validate input
                 if (string.IsNullOrWhiteSpace(hoTen))
                 {
                     err = "Họ tên không được để trống";
@@ -341,14 +352,36 @@ namespace LibraryManagementVersion2.Repositories
                     return false;
                 }
 
-                if (string.IsNullOrWhiteSpace(soDT))
+                if (string.IsNullOrWhiteSpace(soDT) || soDT.Length != 10)
                 {
-                    err = "Số điện thoại không được để trống";
+                    err = "Số điện thoại phải có đúng 10 chữ số";
+                    return false;
+                }
+
+                if (!string.IsNullOrWhiteSpace(cccd) && cccd.Length != 12)
+                {
+                    err = "CCCD phải có đúng 12 chữ số";
+                    return false;
+                }
+
+                // ✅ Validate giới tính
+                if (!string.IsNullOrWhiteSpace(gioiTinh) &&
+                    gioiTinh != "Nam" && gioiTinh != "Nữ")
+                {
+                    err = "Giới tính chỉ được là 'Nam' hoặc 'Nữ'";
+                    return false;
+                }
+
+                // ✅ Kiểm tra MaLoaiDG có tồn tại không
+                var loaiDGExists = context.LoaiDocGias.Any(ldg => ldg.MaLoaiDG == maLoaiDG);
+                if (!loaiDGExists)
+                {
+                    err = "Loại độc giả không tồn tại trong hệ thống";
                     return false;
                 }
 
                 // Kiểm tra trùng lặp số điện thoại (trừ chính nó)
-                var existingByPhone = context.DocGias.FirstOrDefault(docgia => docgia.SoDT == soDT && docgia.MaDocGia != maDocGia);
+                var existingByPhone = context.DocGias.FirstOrDefault(dg => dg.SoDT == soDT && dg.MaDocGia != maDocGia);
                 if (existingByPhone != null)
                 {
                     err = "Số điện thoại đã tồn tại trong hệ thống";
@@ -358,7 +391,7 @@ namespace LibraryManagementVersion2.Repositories
                 // Kiểm tra trùng lặp CCCD (nếu có, trừ chính nó)
                 if (!string.IsNullOrWhiteSpace(cccd))
                 {
-                    var existingByCCCD = context.DocGias.FirstOrDefault(docgia => docgia.CCCD == cccd && docgia.MaDocGia != maDocGia);
+                    var existingByCCCD = context.DocGias.FirstOrDefault(dg => dg.CCCD == cccd && dg.MaDocGia != maDocGia);
                     if (existingByCCCD != null)
                     {
                         err = "CCCD đã tồn tại trong hệ thống";
@@ -366,26 +399,15 @@ namespace LibraryManagementVersion2.Repositories
                     }
                 }
 
-                // Kiểm tra MaLoaiDG có tồn tại không (nếu có)
-                if (maLoaiDG.HasValue)
-                {
-                    var loaiDGExists = context.LoaiDocGias.Any(loaidg => loaidg.MaLoaiDG == maLoaiDG.Value);
-                    if (!loaiDGExists)
-                    {
-                        err = "Loại độc giả không tồn tại";
-                        return false;
-                    }
-                }
-
-                // Cập nhật thông tin
+                // ✅ Cập nhật thông tin
                 docGiaQuery.HoTen = hoTen.Trim();
                 docGiaQuery.Tuoi = tuoi;
                 docGiaQuery.SoDT = soDT.Trim();
                 docGiaQuery.CCCD = string.IsNullOrWhiteSpace(cccd) ? null : cccd.Trim();
-                docGiaQuery.GioiTinh = string.IsNullOrWhiteSpace(gioiTinh) ? null : gioiTinh;
+                docGiaQuery.GioiTinh = string.IsNullOrWhiteSpace(gioiTinh) ? null : gioiTinh.Trim(); // ✅ "Nam" or "Nữ" or null
                 docGiaQuery.Email = string.IsNullOrWhiteSpace(email) ? null : email.Trim();
                 docGiaQuery.DiaChi = string.IsNullOrWhiteSpace(diaChi) ? null : diaChi.Trim();
-                docGiaQuery.MaLoaiDG = maLoaiDG;
+                docGiaQuery.MaLoaiDG = maLoaiDG; // ✅ Luôn có giá trị hợp lệ
                 docGiaQuery.TrangThai = trangThai;
                 docGiaQuery.NgayCapNhat = DateTime.Now;
 
@@ -411,7 +433,7 @@ namespace LibraryManagementVersion2.Repositories
                             err = "Dữ liệu đã tồn tại (trùng lặp)";
                             break;
                         case 547:
-                            err = "Vi phạm ràng buộc khóa ngoại";
+                            err = "Vi phạm ràng buộc khóa ngoại - Vui lòng kiểm tra loại độc giả";
                             break;
                         default:
                             err = "Lỗi cập nhật database: " + sqlEx.Message;
@@ -435,7 +457,7 @@ namespace LibraryManagementVersion2.Repositories
             }
         }
 
-        // ✅ UPDATED - Xóa độc giả (thực chất là toggle trạng thái)
+        // Xóa độc giả 
         public bool XoaDocGia(int maDocGia, ref string err)
         {
             LibraryManagement1Entities context = null;
