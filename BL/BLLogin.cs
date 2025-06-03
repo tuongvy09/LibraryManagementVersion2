@@ -12,7 +12,7 @@ namespace LibraryManagementVersion2.Repositories
         {
             role = null;
 
-            using (LibraryEntities db = new LibraryEntities())
+            using (LibraryManagement1Entities db = new LibraryManagement1Entities())
             {
                 var user = db.Users.FirstOrDefault(u => u.Username == username && u.Password == password);
 

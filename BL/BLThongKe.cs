@@ -17,7 +17,7 @@ namespace ThuVien_EF.BS_Layer
 
             try
             {
-                using (LibraryEntities context = new LibraryEntities())
+                using (LibraryManagement1Entities context = new LibraryManagement1Entities())
                 {
                     var allDocGia = context.DocGias.ToList();
 
@@ -65,7 +65,7 @@ namespace ThuVien_EF.BS_Layer
 
             try
             {
-                using (LibraryEntities context = new LibraryEntities())
+                using (LibraryManagement1Entities context = new LibraryManagement1Entities())
                 {
                     var allBienLai = context.BienLais.ToList();
 

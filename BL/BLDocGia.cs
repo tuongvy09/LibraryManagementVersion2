@@ -10,15 +10,15 @@ namespace LibraryManagementVersion2.Repositories
 {
     class BLDocGia
     {
-        // Lấy danh sách tất cả độc giả - FIXED VARIABLE CONFLICT
+        // ✅ Method gốc (giữ nguyên để tương thích)
         public DataTable LayDocGia()
         {
-            LibraryEntities context = null;
+            LibraryManagement1Entities context = null;
             try
             {
-                context = new LibraryEntities();
+                context = new LibraryManagement1Entities();
 
-                var docGiaList = (from docgia in context.DocGias  // Đổi từ 'dg' thành 'docgia'
+                var docGiaList = (from docgia in context.DocGias
                                   join loaidg in context.LoaiDocGias on docgia.MaLoaiDG equals loaidg.MaLoaiDG into ldgGroup
                                   from loaidg in ldgGroup.DefaultIfEmpty()
                                   select new
@@ -26,6 +26,7 @@ namespace LibraryManagementVersion2.Repositories
                                       docgia.MaDocGia,
                                       docgia.HoTen,
                                       docgia.Tuoi,
+                                      docgia.GioiTinh,
                                       docgia.SoDT,
                                       docgia.CCCD,
                                       docgia.Email,
@@ -35,7 +36,6 @@ namespace LibraryManagementVersion2.Repositories
                                         .SelectMany(pp => pp.QDPs)
                                         .Sum(qdp => (decimal?)qdp.TienPhat) ?? 0,
                                       docgia.TrangThai,
-                                      docgia.GioiTinh,
                                       TenLoaiDG = loaidg != null ? loaidg.TenLoaiDG : "Chưa phân loại"
                                   }).Take(1000).ToList();
 
@@ -43,6 +43,7 @@ namespace LibraryManagementVersion2.Repositories
                 dt.Columns.Add("Mã ĐG");
                 dt.Columns.Add("Họ tên");
                 dt.Columns.Add("Tuổi");
+                dt.Columns.Add("Giới tính");
                 dt.Columns.Add("Số ĐT");
                 dt.Columns.Add("CCCD");
                 dt.Columns.Add("Email");
@@ -52,12 +53,13 @@ namespace LibraryManagementVersion2.Repositories
                 dt.Columns.Add("Tiền nợ");
                 dt.Columns.Add("Trạng thái");
 
-                foreach (var item in docGiaList)  // Đổi từ 'dg' thành 'item'
+                foreach (var item in docGiaList)
                 {
                     dt.Rows.Add(
                         item.MaDocGia,
                         item.HoTen ?? "",
                         item.Tuoi,
+                        ConvertGioiTinh(item.GioiTinh),
                         item.SoDT ?? "",
                         item.CCCD ?? "",
                         item.Email ?? "",
@@ -65,7 +67,80 @@ namespace LibraryManagementVersion2.Repositories
                         item.TenLoaiDG ?? "Chưa phân loại",
                         item.NgayDangKy?.ToString("dd/MM/yyyy") ?? "",
                         item.TongTienNo.ToString("N0") + " VNĐ",
-                        item.TrangThai == true ? "Hoạt động" : "Không hoạt động"
+                        item.TrangThai == true ? "Hoạt động" : "Ngừng hoạt động"
+                    );
+                }
+                return dt;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Lỗi khi lấy danh sách độc giả: " + ex.Message);
+            }
+            finally
+            {
+                context?.Dispose();
+            }
+        }
+
+        // ✅ NEW - Method với sắp xếp: Hoạt động trước, Ngừng hoạt động sau
+        public DataTable LayDocGiaSorted()
+        {
+            LibraryManagement1Entities context = null;
+            try
+            {
+                context = new LibraryManagement1Entities();
+
+                var docGiaList = (from docgia in context.DocGias
+                                  join loaidg in context.LoaiDocGias on docgia.MaLoaiDG equals loaidg.MaLoaiDG into ldgGroup
+                                  from loaidg in ldgGroup.DefaultIfEmpty()
+                                  orderby docgia.TrangThai descending, docgia.HoTen ascending
+                                  select new
+                                  {
+                                      docgia.MaDocGia,
+                                      docgia.HoTen,
+                                      docgia.Tuoi,
+                                      docgia.GioiTinh,
+                                      docgia.SoDT,
+                                      docgia.CCCD,
+                                      docgia.Email,
+                                      docgia.DiaChi,
+                                      docgia.NgayDangKy,
+                                      TongTienNo = docgia.PhieuPhats
+                                        .SelectMany(pp => pp.QDPs)
+                                        .Sum(qdp => (decimal?)qdp.TienPhat) ?? 0,
+                                      docgia.TrangThai,
+                                      TenLoaiDG = loaidg != null ? loaidg.TenLoaiDG : "Chưa phân loại"
+                                  }).Take(1000).ToList();
+
+                DataTable dt = new DataTable();
+                dt.Columns.Add("Mã ĐG");
+                dt.Columns.Add("Họ tên");
+                dt.Columns.Add("Tuổi");
+                dt.Columns.Add("Giới tính");
+                dt.Columns.Add("Số ĐT");
+                dt.Columns.Add("CCCD");
+                dt.Columns.Add("Email");
+                dt.Columns.Add("Địa chỉ");
+                dt.Columns.Add("Loại ĐG");
+                dt.Columns.Add("Ngày đăng ký");
+                dt.Columns.Add("Tiền nợ");
+                dt.Columns.Add("Trạng thái");
+
+                foreach (var item in docGiaList)
+                {
+                    dt.Rows.Add(
+                        item.MaDocGia,
+                        item.HoTen ?? "",
+                        item.Tuoi,
+                        ConvertGioiTinh(item.GioiTinh),
+                        item.SoDT ?? "",
+                        item.CCCD ?? "",
+                        item.Email ?? "",
+                        item.DiaChi ?? "",
+                        item.TenLoaiDG ?? "Chưa phân loại",
+                        item.NgayDangKy?.ToString("dd/MM/yyyy") ?? "",
+                        item.TongTienNo.ToString("N0") + " VNĐ",
+                        item.TrangThai == true ? "Hoạt động" : "Ngừng hoạt động"
                     );
                 }
                 return dt;
@@ -83,10 +158,10 @@ namespace LibraryManagementVersion2.Repositories
         // Lấy danh sách loại độc giả cho ComboBox
         public DataTable LayLoaiDocGia()
         {
-            LibraryEntities context = null;
+            LibraryManagement1Entities context = null;
             try
             {
-                context = new LibraryEntities();
+                context = new LibraryManagement1Entities();
 
                 var loaiDGList = context.LoaiDocGias.ToList();
 
@@ -94,7 +169,7 @@ namespace LibraryManagementVersion2.Repositories
                 dt.Columns.Add("MaLoaiDG", typeof(int));
                 dt.Columns.Add("TenLoaiDG", typeof(string));
 
-                foreach (var loaidg in loaiDGList)  // Đổi từ 'ldg' thành 'loaidg'
+                foreach (var loaidg in loaiDGList)
                 {
                     dt.Rows.Add(loaidg.MaLoaiDG, loaidg.TenLoaiDG ?? "");
                 }
@@ -115,10 +190,10 @@ namespace LibraryManagementVersion2.Repositories
                               string gioiTinh, string email, string diaChi,
                               int? maLoaiDG, bool trangThai, ref string err)
         {
-            LibraryEntities context = null;
+            LibraryManagement1Entities context = null;
             try
             {
-                context = new LibraryEntities();
+                context = new LibraryManagement1Entities();
 
                 // Validate input trước khi thêm
                 if (string.IsNullOrWhiteSpace(hoTen))
@@ -240,10 +315,10 @@ namespace LibraryManagementVersion2.Repositories
                                  string cccd, string gioiTinh, string email, string diaChi,
                                  int? maLoaiDG, bool trangThai, ref string err)
         {
-            LibraryEntities context = null;
+            LibraryManagement1Entities context = null;
             try
             {
-                context = new LibraryEntities();
+                context = new LibraryManagement1Entities();
 
                 var docGiaQuery = context.DocGias.FirstOrDefault(docgia => docgia.MaDocGia == maDocGia);
 
@@ -360,13 +435,13 @@ namespace LibraryManagementVersion2.Repositories
             }
         }
 
-        // Xóa độc giả
+        // ✅ UPDATED - Xóa độc giả (thực chất là toggle trạng thái)
         public bool XoaDocGia(int maDocGia, ref string err)
         {
-            LibraryEntities context = null;
+            LibraryManagement1Entities context = null;
             try
             {
-                context = new LibraryEntities();
+                context = new LibraryManagement1Entities();
 
                 var docGia = context.DocGias.FirstOrDefault(docgia => docgia.MaDocGia == maDocGia);
                 if (docGia == null)
@@ -375,36 +450,10 @@ namespace LibraryManagementVersion2.Repositories
                     return false;
                 }
 
-                // Kiểm tra ràng buộc trước khi xóa
-                var hasLibraryCard = context.TheThuViens.Any(ttv => ttv.MaDG == maDocGia);
-                if (hasLibraryCard)
-                {
-                    err = "Không thể xóa độc giả vì đã có thẻ thư viện. Vui lòng xóa thẻ trước.";
-                    return false;
-                }
+                // ✅ Soft delete - toggle trạng thái thay vì xóa thật
+                docGia.TrangThai = !docGia.TrangThai;
+                docGia.NgayCapNhat = DateTime.Now;
 
-                var hasBorrowRecords = context.PhieuMuonSaches.Any(pms => pms.MaDocGia == maDocGia);
-                if (hasBorrowRecords)
-                {
-                    err = "Không thể xóa độc giả vì đã có lịch sử mượn sách.";
-                    return false;
-                }
-
-                var hasFineRecords = context.PhieuPhats.Any(pp => pp.MaDG == maDocGia);
-                if (hasFineRecords)
-                {
-                    err = "Không thể xóa độc giả vì đã có phiếu phạt.";
-                    return false;
-                }
-
-                var hasReceiptRecords = context.BienLais.Any(bl => bl.MaDocGia == maDocGia);
-                if (hasReceiptRecords)
-                {
-                    err = "Không thể xóa độc giả vì đã có biên lai thanh toán.";
-                    return false;
-                }
-
-                context.DocGias.Remove(docGia);
                 context.SaveChanges();
                 return true;
             }
@@ -412,7 +461,7 @@ namespace LibraryManagementVersion2.Repositories
             {
                 if (ex.InnerException?.InnerException is SqlException sqlEx && sqlEx.Number == 547)
                 {
-                    err = "Không thể xóa độc giả vì đã có dữ liệu liên quan trong hệ thống.";
+                    err = "Không thể thay đổi trạng thái độc giả vì có dữ liệu liên quan.";
                 }
                 else
                 {
@@ -431,15 +480,15 @@ namespace LibraryManagementVersion2.Repositories
             }
         }
 
-        // Tìm kiếm độc giả 
+        // ✅ Method gốc (giữ nguyên để tương thích)
         public DataTable TimKiemDocGia(string tuKhoa)
         {
-            LibraryEntities context = null;
+            LibraryManagement1Entities context = null;
             try
             {
-                context = new LibraryEntities();
+                context = new LibraryManagement1Entities();
 
-                var docGiaList = (from docgia in context.DocGias  // Đổi từ 'dg' thành 'docgia'
+                var docGiaList = (from docgia in context.DocGias
                                   join loaidg in context.LoaiDocGias on docgia.MaLoaiDG equals loaidg.MaLoaiDG into ldgGroup
                                   from loaidg in ldgGroup.DefaultIfEmpty()
                                   where docgia.HoTen.Contains(tuKhoa) ||
@@ -451,6 +500,7 @@ namespace LibraryManagementVersion2.Repositories
                                       docgia.MaDocGia,
                                       docgia.HoTen,
                                       docgia.Tuoi,
+                                      docgia.GioiTinh,
                                       docgia.SoDT,
                                       docgia.CCCD,
                                       docgia.Email,
@@ -465,6 +515,7 @@ namespace LibraryManagementVersion2.Repositories
                 dt.Columns.Add("Mã ĐG");
                 dt.Columns.Add("Họ tên");
                 dt.Columns.Add("Tuổi");
+                dt.Columns.Add("Giới tính");
                 dt.Columns.Add("Số ĐT");
                 dt.Columns.Add("CCCD");
                 dt.Columns.Add("Email");
@@ -474,12 +525,13 @@ namespace LibraryManagementVersion2.Repositories
                 dt.Columns.Add("Tiền nợ");
                 dt.Columns.Add("Trạng thái");
 
-                foreach (var item in docGiaList)  // Đổi từ 'dg' thành 'item'
+                foreach (var item in docGiaList)
                 {
                     dt.Rows.Add(
                         item.MaDocGia,
                         item.HoTen ?? "",
                         item.Tuoi,
+                        ConvertGioiTinh(item.GioiTinh),
                         item.SoDT ?? "",
                         item.CCCD ?? "",
                         item.Email ?? "",
@@ -487,7 +539,82 @@ namespace LibraryManagementVersion2.Repositories
                         item.TenLoaiDG ?? "Chưa phân loại",
                         item.NgayDangKy?.ToString("dd/MM/yyyy") ?? "",
                         (item.TienNo ?? 0).ToString("N0") + " VNĐ",
-                        item.TrangThai == true ? "Hoạt động" : "Không hoạt động"
+                        item.TrangThai == true ? "Hoạt động" : "Ngừng hoạt động"
+                    );
+                }
+                return dt;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Lỗi khi tìm kiếm độc giả: " + ex.Message);
+            }
+            finally
+            {
+                context?.Dispose();
+            }
+        }
+
+        // ✅ NEW - Method tìm kiếm với sắp xếp
+        public DataTable TimKiemDocGiaSorted(string tuKhoa)
+        {
+            LibraryManagement1Entities context = null;
+            try
+            {
+                context = new LibraryManagement1Entities();
+
+                var docGiaList = (from docgia in context.DocGias
+                                  join loaidg in context.LoaiDocGias on docgia.MaLoaiDG equals loaidg.MaLoaiDG into ldgGroup
+                                  from loaidg in ldgGroup.DefaultIfEmpty()
+                                  where docgia.HoTen.Contains(tuKhoa) ||
+                                        docgia.SoDT.Contains(tuKhoa) ||
+                                        (docgia.Email != null && docgia.Email.Contains(tuKhoa)) ||
+                                        (docgia.CCCD != null && docgia.CCCD.Contains(tuKhoa))
+                                  orderby docgia.TrangThai descending, docgia.HoTen ascending
+                                  select new
+                                  {
+                                      docgia.MaDocGia,
+                                      docgia.HoTen,
+                                      docgia.Tuoi,
+                                      docgia.GioiTinh,
+                                      docgia.SoDT,
+                                      docgia.CCCD,
+                                      docgia.Email,
+                                      docgia.DiaChi,
+                                      docgia.NgayDangKy,
+                                      docgia.TienNo,
+                                      docgia.TrangThai,
+                                      TenLoaiDG = loaidg != null ? loaidg.TenLoaiDG : "Chưa phân loại"
+                                  }).Take(500).ToList();
+
+                DataTable dt = new DataTable();
+                dt.Columns.Add("Mã ĐG");
+                dt.Columns.Add("Họ tên");
+                dt.Columns.Add("Tuổi");
+                dt.Columns.Add("Giới tính");
+                dt.Columns.Add("Số ĐT");
+                dt.Columns.Add("CCCD");
+                dt.Columns.Add("Email");
+                dt.Columns.Add("Địa chỉ");
+                dt.Columns.Add("Loại ĐG");
+                dt.Columns.Add("Ngày đăng ký");
+                dt.Columns.Add("Tiền nợ");
+                dt.Columns.Add("Trạng thái");
+
+                foreach (var item in docGiaList)
+                {
+                    dt.Rows.Add(
+                        item.MaDocGia,
+                        item.HoTen ?? "",
+                        item.Tuoi,
+                        ConvertGioiTinh(item.GioiTinh),
+                        item.SoDT ?? "",
+                        item.CCCD ?? "",
+                        item.Email ?? "",
+                        item.DiaChi ?? "",
+                        item.TenLoaiDG ?? "Chưa phân loại",
+                        item.NgayDangKy?.ToString("dd/MM/yyyy") ?? "",
+                        (item.TienNo ?? 0).ToString("N0") + " VNĐ",
+                        item.TrangThai == true ? "Hoạt động" : "Ngừng hoạt động"
                     );
                 }
                 return dt;
@@ -505,10 +632,10 @@ namespace LibraryManagementVersion2.Repositories
         // Lấy thông tin độc giả theo mã
         public DocGia LayDocGiaTheoMa(int maDocGia)
         {
-            LibraryEntities context = null;
+            LibraryManagement1Entities context = null;
             try
             {
-                context = new LibraryEntities();
+                context = new LibraryManagement1Entities();
                 return context.DocGias.FirstOrDefault(docgia => docgia.MaDocGia == maDocGia);
             }
             catch (Exception ex)
@@ -524,10 +651,10 @@ namespace LibraryManagementVersion2.Repositories
         // Test connection
         public DataTable TestConnection()
         {
-            LibraryEntities context = null;
+            LibraryManagement1Entities context = null;
             try
             {
-                context = new LibraryEntities();
+                context = new LibraryManagement1Entities();
                 var count = context.DocGias.Count();
 
                 DataTable dt = new DataTable();
@@ -562,7 +689,7 @@ namespace LibraryManagementVersion2.Repositories
 
             try
             {
-                using (LibraryEntities context = new LibraryEntities())
+                using (LibraryManagement1Entities context = new LibraryManagement1Entities())
                 {
                     // Lấy thông tin độc giả
                     var docGia = context.DocGias.FirstOrDefault(dg => dg.MaDocGia == maDocGia);
@@ -638,12 +765,15 @@ namespace LibraryManagementVersion2.Repositories
 
             return dt;
         }
+
+        // ✅ UPDATED - Method LayTatCaDocGia với sắp xếp
         public DataTable LayTatCaDocGia()
         {
             DataTable dt = new DataTable();
             dt.Columns.Add("MaDocGia", typeof(int));
             dt.Columns.Add("HoTen", typeof(string));
             dt.Columns.Add("Tuoi", typeof(int));
+            dt.Columns.Add("GioiTinh", typeof(string));
             dt.Columns.Add("SoDT", typeof(string));
             dt.Columns.Add("CCCD", typeof(string));
             dt.Columns.Add("Email", typeof(string));
@@ -655,9 +785,13 @@ namespace LibraryManagementVersion2.Repositories
 
             try
             {
-                using (LibraryEntities context = new LibraryEntities())
+                using (LibraryManagement1Entities context = new LibraryManagement1Entities())
                 {
-                    var allDocGia = context.DocGias.ToList();
+                    // ✅ Sắp xếp: Hoạt động trước, Ngừng hoạt động sau
+                    var allDocGia = context.DocGias
+                        .OrderByDescending(dg => dg.TrangThai)
+                        .ThenBy(dg => dg.HoTen)
+                        .ToList();
 
                     foreach (var dg in allDocGia)
                     {
@@ -703,6 +837,7 @@ namespace LibraryManagementVersion2.Repositories
                             dg.MaDocGia,
                             dg.HoTen ?? "",
                             dg.Tuoi,
+                            ConvertGioiTinh(dg.GioiTinh),
                             dg.SoDT ?? "",
                             dg.CCCD ?? "",
                             dg.Email ?? "",
@@ -721,6 +856,30 @@ namespace LibraryManagementVersion2.Repositories
             }
 
             return dt;
+        }
+
+        // ✅ Helper method để convert giới tính
+        private string ConvertGioiTinh(string gioiTinh)
+        {
+            if (string.IsNullOrEmpty(gioiTinh))
+                return "Chưa xác định";
+
+            switch (gioiTinh.ToUpper())
+            {
+                case "M":
+                case "MALE":
+                    return "Nam";
+                case "F":
+                case "FEMALE":
+                    return "Nữ";
+                case "NAM":
+                    return "Nam";
+                case "NỮ":
+                case "NU":
+                    return "Nữ";
+                default:
+                    return gioiTinh;
+            }
         }
     }
 }

@@ -11,7 +11,7 @@ namespace LibraryManagementVersion2.Repositories
     {
         public List<DauSach> GetAllMaDauSach()
         {
-            using (var context = new LibraryEntities())
+            using (var context = new LibraryManagement1Entities())
             {
                 return context.DauSaches.ToList();
             }
@@ -19,7 +19,7 @@ namespace LibraryManagementVersion2.Repositories
 
         public int AddDauSach(string tenDauSach, int maTheLoai, int maNXB, int? namXuatBan, decimal? giaTien, int? soTrang, string ngonNgu, string mota)
         {
-            using (var context = new LibraryEntities())
+            using (var context = new LibraryManagement1Entities())
             {
                 var newDauSach = new DauSach
                 {
@@ -42,7 +42,7 @@ namespace LibraryManagementVersion2.Repositories
 
         public void UpdateDauSach(int maDauSach, int maTheLoai, int maNXB, int? namXuatBan, decimal? giaTien, int? soTrang, string ngonNgu, string mota)
         {
-            using (var context = new LibraryEntities())
+            using (var context = new LibraryManagement1Entities())
             {
                 var dauSach = context.DauSaches.SingleOrDefault(ds => ds.MaDauSach == maDauSach);
                 if (dauSach != null)
@@ -66,7 +66,7 @@ namespace LibraryManagementVersion2.Repositories
 
         public void DeleteDauSach(int maDauSach)
         {
-            using (var context = new LibraryEntities())
+            using (var context = new LibraryManagement1Entities())
             {
                 using (var transaction = context.Database.BeginTransaction())
                 {
@@ -96,7 +96,7 @@ namespace LibraryManagementVersion2.Repositories
 
         public List<DauSachDTO> SearchDauSach(string keyword)
         {
-            using (var context = new LibraryEntities())
+            using (var context = new LibraryManagement1Entities())
             {
                 // Load đầy đủ dữ liệu liên quan trước khi xử lý
                 var dsList = context.DauSaches
@@ -130,7 +130,7 @@ namespace LibraryManagementVersion2.Repositories
 
         public List<DauSachDTO> GetAllDauSachFullInfo()
         {
-            using (var context = new LibraryEntities())
+            using (var context = new LibraryManagement1Entities())
             {
                 var dsList = context.DauSaches
     .Include(ds => ds.TheLoai)

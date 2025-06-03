@@ -12,7 +12,7 @@ namespace LibraryManagementVersion2.Repositories
     {
         public void AddTheLoai(int qdSoTuoi, string tenTheLoai)
         {
-            using (var context = new LibraryEntities())
+            using (var context = new LibraryManagement1Entities())
             {
                 try
                 {
@@ -33,7 +33,7 @@ namespace LibraryManagementVersion2.Repositories
         }
         public void UpdateTheLoai(int maTheLoai, int qdSoTuoi)
         {
-            using (var context = new LibraryEntities())
+            using (var context = new LibraryManagement1Entities())
             {
                 try
                 {
@@ -57,7 +57,7 @@ namespace LibraryManagementVersion2.Repositories
         public bool DeleteTheLoai(int maTheLoai, out string errorMessage)
         {
             errorMessage = "";
-            using (var context = new LibraryEntities())
+            using (var context = new LibraryManagement1Entities())
             {
                 try
                 {
@@ -88,7 +88,7 @@ namespace LibraryManagementVersion2.Repositories
         }
         public List<TheLoai> SearchTheLoai(string keyword)
         {
-            using (var context = new LibraryEntities())
+            using (var context = new LibraryManagement1Entities())
             {
                 var query = context.TheLoais.AsQueryable();
 
@@ -102,7 +102,7 @@ namespace LibraryManagementVersion2.Repositories
         }
         public List<TheLoai> GetAllTheLoai()
         {
-            using (var context = new LibraryEntities())
+            using (var context = new LibraryManagement1Entities())
             {
                 return context.TheLoais.ToList();
             }

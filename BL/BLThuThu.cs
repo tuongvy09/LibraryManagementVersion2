@@ -12,7 +12,7 @@ namespace LibraryManagementVersion2.Repositories
         // Lấy danh sách tất cả thủ thư
         public DataTable LayThuThu()
         {
-            LibraryEntities qltvEntity = new LibraryEntities();
+            LibraryManagement1Entities qltvEntity = new LibraryManagement1Entities();
 
             var thuThuList = from tt in qltvEntity.ThuThus
                              select tt;
@@ -45,6 +45,53 @@ namespace LibraryManagementVersion2.Repositories
             return dt;
         }
 
+        public DataTable LayThuThuSorted()
+        {
+            LibraryManagement1Entities qltvEntity = new LibraryManagement1Entities();
+
+            var thuThus = from tt in qltvEntity.ThuThus
+                          orderby tt.TrangThai descending, tt.TenThuThu ascending
+                          select new
+                          {
+                              tt.MaThuThu,
+                              tt.TenThuThu,
+                              tt.Email,
+                              tt.SoDienThoai,
+                              tt.DiaChi,
+                              tt.NgaySinh,
+                              tt.NgayBatDauLam,
+                              tt.GioiTinh,
+                              tt.TrangThai
+                          };
+
+            DataTable dt = new DataTable();
+            dt.Columns.Add("Mã thủ thư");
+            dt.Columns.Add("Tên thủ thư");
+            dt.Columns.Add("Email");
+            dt.Columns.Add("Số điện thoại");
+            dt.Columns.Add("Địa chỉ");
+            dt.Columns.Add("Ngày sinh");
+            dt.Columns.Add("Ngày bắt đầu làm");
+            dt.Columns.Add("Giới tính");
+            dt.Columns.Add("Trạng thái");
+
+            foreach (var tt in thuThus)
+            {
+                dt.Rows.Add(
+                    tt.MaThuThu,
+                    tt.TenThuThu,
+                    tt.Email ?? "Chưa cập nhật",
+                    tt.SoDienThoai ?? "Chưa cập nhật",
+                    tt.DiaChi ?? "Chưa cập nhật",
+                    tt.NgaySinh?.ToString("dd/MM/yyyy") ?? "",
+                    tt.NgayBatDauLam?.ToString("dd/MM/yyyy") ?? "",
+                    ConvertGioiTinh(tt.GioiTinh),
+                    tt.TrangThai == true ? "Hoạt động" : "Ngừng hoạt động"
+                );
+            }
+            return dt;
+        }
+
         // Thêm thủ thư mới
         public bool ThemThuThu(string tenThuThu, string email, string soDienThoai,
                               string diaChi, DateTime? ngayBatDauLam, DateTime? ngaySinh,
@@ -52,7 +99,7 @@ namespace LibraryManagementVersion2.Repositories
         {
             try
             {
-                LibraryEntities qltvEntity = new LibraryEntities();
+                LibraryManagement1Entities qltvEntity = new LibraryManagement1Entities();
 
                 ThuThu tt = new ThuThu();
                 tt.TenThuThu = tenThuThu;
@@ -83,7 +130,7 @@ namespace LibraryManagementVersion2.Repositories
         {
             try
             {
-                LibraryEntities qltvEntity = new LibraryEntities();
+                LibraryManagement1Entities qltvEntity = new LibraryManagement1Entities();
 
                 var thuThuQuery = (from tt in qltvEntity.ThuThus
                                    where tt.MaThuThu == maThuThu
@@ -118,14 +165,20 @@ namespace LibraryManagementVersion2.Repositories
         {
             try
             {
-                LibraryEntities qltvEntity = new LibraryEntities();
+                LibraryManagement1Entities qltvEntity = new LibraryManagement1Entities();
 
-                ThuThu tt = new ThuThu();
-                tt.MaThuThu = maThuThu;
+                var thuThuQuery = (from tt in qltvEntity.ThuThus
+                                   where tt.MaThuThu == maThuThu
+                                   select tt).SingleOrDefault();
 
-                qltvEntity.ThuThus.Attach(tt);
-                qltvEntity.ThuThus.Remove(tt);
-                qltvEntity.SaveChanges();
+                if (thuThuQuery != null)
+                {
+                    // Soft delete - toggle trạng thái
+                    thuThuQuery.TrangThai = !thuThuQuery.TrangThai;
+                    thuThuQuery.NgayCapNhat = DateTime.Now;
+                    qltvEntity.SaveChanges();
+                }
+
                 return true;
             }
             catch (Exception ex)
@@ -138,7 +191,7 @@ namespace LibraryManagementVersion2.Repositories
         // Tìm kiếm thủ thư theo tên
         public DataTable TimKiemThuThu(string tenThuThu)
         {   
-            LibraryEntities qltvEntity = new LibraryEntities();
+            LibraryManagement1Entities qltvEntity = new LibraryManagement1Entities();
 
             var thuThuList = from tt in qltvEntity.ThuThus
                              where tt.TenThuThu.Contains(tenThuThu)
@@ -172,12 +225,86 @@ namespace LibraryManagementVersion2.Repositories
             return dt;
         }
 
+        public DataTable TimKiemThuThuSorted(string tuKhoa)
+        {
+            LibraryManagement1Entities qltvEntity = new LibraryManagement1Entities();
+
+            var thuThus = from tt in qltvEntity.ThuThus
+                          where tt.TenThuThu.Contains(tuKhoa) ||
+                                tt.Email.Contains(tuKhoa) ||
+                                tt.SoDienThoai.Contains(tuKhoa)
+                          orderby tt.TrangThai descending, tt.TenThuThu ascending
+                          select new
+                          {
+                              tt.MaThuThu,
+                              tt.TenThuThu,
+                              tt.Email,
+                              tt.SoDienThoai,
+                              tt.DiaChi,
+                              tt.NgaySinh,
+                              tt.NgayBatDauLam,
+                              tt.GioiTinh,
+                              tt.TrangThai
+                          };
+
+            DataTable dt = new DataTable();
+            dt.Columns.Add("Mã thủ thư");
+            dt.Columns.Add("Tên thủ thư");
+            dt.Columns.Add("Email");
+            dt.Columns.Add("Số điện thoại");
+            dt.Columns.Add("Địa chỉ");
+            dt.Columns.Add("Ngày sinh");
+            dt.Columns.Add("Ngày bắt đầu làm");
+            dt.Columns.Add("Giới tính");
+            dt.Columns.Add("Trạng thái");
+
+            foreach (var tt in thuThus)
+            {
+                dt.Rows.Add(
+                    tt.MaThuThu,
+                    tt.TenThuThu,
+                    tt.Email ?? "Chưa cập nhật",
+                    tt.SoDienThoai ?? "Chưa cập nhật",
+                    tt.DiaChi ?? "Chưa cập nhật",
+                    tt.NgaySinh?.ToString("dd/MM/yyyy") ?? "",
+                    tt.NgayBatDauLam?.ToString("dd/MM/yyyy") ?? "",
+                    ConvertGioiTinh(tt.GioiTinh),
+                    tt.TrangThai == true ? "Hoạt động" : "Ngừng hoạt động"
+                );
+            }
+            return dt;
+        }
+
         // Lấy thông tin thủ thư theo mã
         public ThuThu LayThuThuTheoMa(int maThuThu)
         {
-            LibraryEntities qltvEntity = new LibraryEntities();
+            LibraryManagement1Entities qltvEntity = new LibraryManagement1Entities();
 
             return qltvEntity.ThuThus.FirstOrDefault(tt => tt.MaThuThu == maThuThu);
         }
+
+        private string ConvertGioiTinh(string gioiTinh)
+        {
+            if (string.IsNullOrEmpty(gioiTinh))
+                return "Chưa xác định";
+
+            switch (gioiTinh.ToUpper())
+            {
+                case "M":
+                case "MALE":
+                    return "Nam";
+                case "F":
+                case "FEMALE":
+                    return "Nữ";
+                case "NAM":
+                    return "Nam";
+                case "NỮ":
+                case "NU":
+                    return "Nữ";
+                default:
+                    return gioiTinh;
+            }
+        }
+
     }
 }

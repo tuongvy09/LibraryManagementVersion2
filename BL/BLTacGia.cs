@@ -11,7 +11,7 @@ namespace LibraryManagementVersion2.Repositories
     {
         public void AddTacGia(string tenTG)
         {
-            using (var context = new LibraryEntities())
+            using (var context = new LibraryManagement1Entities())
             {
                 try
                 {
@@ -31,7 +31,7 @@ namespace LibraryManagementVersion2.Repositories
 
         public void UpdateTacGia(int maTacGia, string tenTG)
         {
-            using (var context = new LibraryEntities())
+            using (var context = new LibraryManagement1Entities())
             {
                 try
                 {
@@ -55,7 +55,7 @@ namespace LibraryManagementVersion2.Repositories
 
         public void DeleteTacGia(int maTacGia)
         {
-            using (var context = new LibraryEntities())
+            using (var context = new LibraryManagement1Entities())
             {
                 try
                 {
@@ -82,7 +82,7 @@ namespace LibraryManagementVersion2.Repositories
 
         public List<TacGia> GetAllTacGia()
         {
-            using (var context = new LibraryEntities())
+            using (var context = new LibraryManagement1Entities())
             {
                 return context.TacGias.ToList();
             }
@@ -90,7 +90,7 @@ namespace LibraryManagementVersion2.Repositories
 
         public List<TacGia> GetTacGias(string searchTerm = "")
         {
-            using (var context = new LibraryEntities())
+            using (var context = new LibraryManagement1Entities())
             {
                 var query = context.TacGias.AsQueryable();
 

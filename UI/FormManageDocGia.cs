@@ -13,23 +13,132 @@ namespace ThuVien_EF.Forms
     {
         BLDocGia dbDocGia = new BLDocGia();
         string err;
+        private bool isPlaceholderActive = true;
+        private string placeholderText = "Nhập tên, số điện thoại hoặc CCCD...";
 
         public FormDocGiaManagement()
         {
             InitializeComponent();
+            InitializeCustomStyle();
+        }
+
+        private void InitializeCustomStyle()
+        {
+            // Setup placeholder text
+            SetPlaceholder();
+
+            // Đăng ký events
+            txtTimKiem.Enter += TxtTimKiem_Enter;
+            txtTimKiem.Leave += TxtTimKiem_Leave;
+            txtTimKiem.TextChanged += TxtTimKiem_TextChanged;
+            txtTimKiem.KeyDown += TxtTimKiem_KeyDown;
+
+            // Đăng ký event để highlight rows sau khi data binding complete
+            dgvDocGia.DataBindingComplete += (s, args) => HighlightInactiveRows();
+        }
+
+        private void SetPlaceholder()
+        {
+            if (string.IsNullOrWhiteSpace(txtTimKiem.Text) || isPlaceholderActive)
+            {
+                txtTimKiem.Text = placeholderText;
+                txtTimKiem.ForeColor = Color.Gray;
+                txtTimKiem.Font = new Font(txtTimKiem.Font, FontStyle.Italic);
+                isPlaceholderActive = true;
+            }
+        }
+
+        private void ClearPlaceholder()
+        {
+            if (isPlaceholderActive)
+            {
+                txtTimKiem.Text = "";
+                txtTimKiem.ForeColor = Color.Black;
+                txtTimKiem.Font = new Font(txtTimKiem.Font, FontStyle.Regular);
+                isPlaceholderActive = false;
+            }
+        }
+
+        private void TxtTimKiem_Enter(object sender, EventArgs e)
+        {
+            ClearPlaceholder();
+        }
+
+        private void TxtTimKiem_Leave(object sender, EventArgs e)
+        {
+            if (string.IsNullOrWhiteSpace(txtTimKiem.Text))
+            {
+                SetPlaceholder();
+            }
+        }
+
+        private void TxtTimKiem_TextChanged(object sender, EventArgs e)
+        {
+            if (!isPlaceholderActive && txtTimKiem.Focused)
+            {
+                txtTimKiem.ForeColor = Color.Black;
+                txtTimKiem.Font = new Font(txtTimKiem.Font, FontStyle.Regular);
+            }
+        }
+
+        private void TxtTimKiem_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+            {
+                btnTimKiem_Click(sender, e);
+                e.Handled = true;
+                e.SuppressKeyPress = true;
+            }
+            else if (e.KeyCode == Keys.Escape)
+            {
+                btnReload_Click(sender, e);
+                e.Handled = true;
+                e.SuppressKeyPress = true;
+            }
         }
 
         void LoadData()
         {
             try
             {
+                // ✅ Load data với sắp xếp: Hoạt động trước, Ngừng hoạt động sau
                 dgvDocGia.DataSource = dbDocGia.LayTatCaDocGia();
                 dgvDocGia.AutoResizeColumns();
+
+                // ✅ Highlight các dòng ngừng hoạt động
+                HighlightInactiveRows();
             }
             catch (Exception ex)
             {
                 MessageBox.Show("Không lấy được dữ liệu: " + ex.Message, "Lỗi",
                     MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        // ✅ Method để highlight các dòng ngừng hoạt động
+        private void HighlightInactiveRows()
+        {
+            try
+            {
+                foreach (DataGridViewRow row in dgvDocGia.Rows)
+                {
+                    var trangThaiCell = row.Cells["TrangThai"];
+
+                    if (trangThaiCell?.Value?.ToString() == "Ngừng hoạt động")
+                    {
+                        row.DefaultCellStyle.BackColor = Color.FromArgb(248, 249, 250); // Màu xám nhạt
+                        row.DefaultCellStyle.ForeColor = Color.Gray; // Chữ màu xám
+                    }
+                    else
+                    {
+                        row.DefaultCellStyle.BackColor = Color.White;
+                        row.DefaultCellStyle.ForeColor = Color.Black;
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                System.Diagnostics.Debug.WriteLine($"Lỗi highlight rows: {ex.Message}");
             }
         }
 
@@ -93,19 +202,38 @@ namespace ThuVien_EF.Forms
             }
         }
 
-        // ✅ RESTORED: Chức năng xóa độc giả
+        // ✅ UPDATED: Chức năng vô hiệu hóa/kích hoạt độc giả
         private void btnXoa_Click(object sender, EventArgs e)
         {
             if (dgvDocGia.CurrentRow == null)
             {
-                MessageBox.Show("Vui lòng chọn độc giả cần xóa!", "Thông báo",
+                MessageBox.Show("Vui lòng chọn độc giả cần vô hiệu hóa!", "Thông báo",
                     MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
 
-            string hoTen = dgvDocGia.CurrentRow.Cells["HoTen"].Value?.ToString() ?? "N/A";
-            DialogResult result = MessageBox.Show($"Bạn có chắc chắn muốn xóa độc giả '{hoTen}'?\n\nLưu ý: Thao tác này không thể hoàn tác!",
-                "Xác nhận xóa", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+            // ✅ Lấy thông tin độc giả hiện tại
+            string hoTen = dgvDocGia.CurrentRow.Cells["HoTen"].Value?.ToString() ?? "độc giả này";
+            string trangThaiHienTai = dgvDocGia.CurrentRow.Cells["TrangThai"].Value?.ToString();
+
+            // ✅ Kiểm tra trạng thái hiện tại để hiển thị thông báo phù hợp
+            DialogResult result;
+            string actionText;
+
+            if (trangThaiHienTai == "Ngừng hoạt động")
+            {
+                result = MessageBox.Show($"Độc giả '{hoTen}' đã được vô hiệu hóa trước đó.\n\n" +
+                    "Bạn có muốn kích hoạt lại tài khoản này không?",
+                    "Kích hoạt lại tài khoản", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+                actionText = "kích hoạt lại";
+            }
+            else
+            {
+                result = MessageBox.Show($"Bạn có chắc chắn muốn vô hiệu hóa tài khoản độc giả '{hoTen}'?\n\n" +
+                    "Lưu ý: Độc giả sẽ không thể mượn sách mới, nhưng dữ liệu sẽ được lưu trữ.",
+                    "Xác nhận vô hiệu hóa", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+                actionText = "vô hiệu hóa";
+            }
 
             if (result == DialogResult.Yes)
             {
@@ -116,13 +244,14 @@ namespace ThuVien_EF.Forms
 
                     if (success)
                     {
-                        MessageBox.Show("Xóa độc giả thành công!", "Thông báo",
-                            MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        // ✅ Thông báo phù hợp với hành động thực tế
+                        MessageBox.Show($"Đã {actionText} tài khoản độc giả '{hoTen}' thành công!",
+                            "Thành công", MessageBoxButtons.OK, MessageBoxIcon.Information);
                         LoadData();
                     }
                     else
                     {
-                        MessageBox.Show("Xóa độc giả thất bại: " + err, "Lỗi",
+                        MessageBox.Show($"Thao tác thất bại: {err}", "Lỗi",
                             MessageBoxButtons.OK, MessageBoxIcon.Error);
                     }
                 }
@@ -134,10 +263,11 @@ namespace ThuVien_EF.Forms
             }
         }
 
-        // ✅ RESTORED: Chức năng tìm kiếm độc giả
+        // ✅ UPDATED: Chức năng tìm kiếm độc giả với sắp xếp
         private void btnTimKiem_Click(object sender, EventArgs e)
         {
-            if (string.IsNullOrWhiteSpace(txtTimKiem.Text))
+            // ✅ Kiểm tra placeholder
+            if (isPlaceholderActive || string.IsNullOrWhiteSpace(txtTimKiem.Text))
             {
                 LoadData();
                 return;
@@ -145,12 +275,24 @@ namespace ThuVien_EF.Forms
 
             try
             {
-                dgvDocGia.DataSource = dbDocGia.TimKiemDocGia(txtTimKiem.Text.Trim());
+                // ✅ Tìm kiếm với sắp xếp
+                dgvDocGia.DataSource = dbDocGia.TimKiemDocGiaSorted(txtTimKiem.Text.Trim());
                 dgvDocGia.AutoResizeColumns();
 
-                // Hiển thị số kết quả tìm được
+                // ✅ Highlight các dòng ngừng hoạt động
+                HighlightInactiveRows();
+
+                // ✅ Hiển thị số kết quả tìm kiếm
                 int rowCount = dgvDocGia.Rows.Count;
-                this.Text = $"Quản lý Độc giả - Tìm thấy {rowCount} kết quả";
+                if (rowCount == 0)
+                {
+                    MessageBox.Show($"Không tìm thấy độc giả nào với từ khóa '{txtTimKiem.Text.Trim()}'!",
+                        "Kết quả tìm kiếm", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
+                else
+                {
+                    this.Text = $"Quản lý Độc giả - Tìm thấy {rowCount} kết quả";
+                }
             }
             catch (Exception ex)
             {
@@ -159,12 +301,14 @@ namespace ThuVien_EF.Forms
             }
         }
 
-        // ✅ RESTORED: Chức năng reload dữ liệu
+        // ✅ UPDATED: Chức năng reload dữ liệu
         private void btnReload_Click(object sender, EventArgs e)
         {
-            txtTimKiem.Clear();
+            SetPlaceholder();
             LoadData();
-            this.Text = "Quản lý Độc giả - Entity Framework"; // Reset title
+            this.Text = "Quản lý Độc giả"; // ✅ Reset title
+            MessageBox.Show("Đã làm mới dữ liệu!", "Thông báo",
+                MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
 
         // ✅ NEW: Chức năng xem thống kê tiền mượn + phạt
@@ -227,55 +371,10 @@ namespace ThuVien_EF.Forms
             // Optional: Có thể thêm logic xử lý click vào cell nếu cần
         }
 
-        // ✅ NEW: Double-click để xem thống kê nhanh
+        // ✅ NEW: Double-click để sửa nhanh
         private void dgvDocGia_DoubleClick(object sender, EventArgs e)
         {
-            btnViewStats_Click(sender, e);
+            btnSua_Click(sender, e);
         }
-
-        // ✅ NEW: Enter key trên textbox tìm kiếm
-        private void txtTimKiem_KeyDown(object sender, KeyEventArgs e)
-        {
-            if (e.KeyCode == Keys.Enter)
-            {
-                btnTimKiem_Click(sender, e);
-            }
-        }
-
-        // ✅ NEW: Xử lý placeholder text cho textbox tìm kiếm
-        private void txtTimKiem_Enter(object sender, EventArgs e)
-        {
-            if (txtTimKiem.ForeColor == System.Drawing.Color.Gray)
-            {
-                txtTimKiem.Text = "";
-                txtTimKiem.ForeColor = System.Drawing.Color.Black;
-            }
-        }
-
-        private void txtTimKiem_Leave(object sender, EventArgs e)
-        {
-            if (string.IsNullOrWhiteSpace(txtTimKiem.Text))
-            {
-                txtTimKiem.Text = "Nhập tên, số điện thoại hoặc CCCD...";
-                txtTimKiem.ForeColor = System.Drawing.Color.Gray;
-            }
-        }
-
-        protected override void OnLoad(EventArgs e)
-        {
-            base.OnLoad(e);
-
-            // Setup placeholder text
-            if (string.IsNullOrEmpty(txtTimKiem.Text))
-            {
-                txtTimKiem.Text = "Nhập tên, số điện thoại hoặc CCCD...";
-                txtTimKiem.ForeColor = System.Drawing.Color.Gray;
-            }
-
-            // Add event handlers cho placeholder
-            txtTimKiem.Enter += txtTimKiem_Enter;
-            txtTimKiem.Leave += txtTimKiem_Leave;
-        }
-
     }
 }
