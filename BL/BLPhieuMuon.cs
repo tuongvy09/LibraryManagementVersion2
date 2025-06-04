@@ -8,7 +8,7 @@ namespace LibraryManagementVersion2.BL
 {
     public class BLPhieuMuon
     {
-        private LibraryManagement1Entities db = new LibraryManagement1Entities();
+        private LibraryEntities db = new LibraryEntities();
 
         public List<PhieuMuon> GetAllPhieuMuon()
         {

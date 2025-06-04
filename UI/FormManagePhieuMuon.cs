@@ -136,7 +136,7 @@ namespace LibraryManagementVersion2.UI
             SetupColumnHeaders();
         }
 
-        /*private void btnAdd_Click(object sender, EventArgs e)
+        private void btnAdd_Click(object sender, EventArgs e)
         {
             using (var formAdd = new FormAddPhieuMuon())
             {
@@ -145,26 +145,7 @@ namespace LibraryManagementVersion2.UI
                     LoadData();
                 }
             }
-        }*/
-
-        /*private void btnEdit_Click(object sender, EventArgs e)
-        {
-            if (dgvPhieuMuon.CurrentRow == null)
-            {
-                MessageBox.Show("Vui lòng chọn phiếu mượn cần sửa!", "Thông báo",
-                    MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                return;
-            }
-
-            int maMuonSach = Convert.ToInt32(dgvPhieuMuon.CurrentRow.Cells["MaMuonSach"].Value);
-            using (var formEdit = new FormEditPhieuMuon(maMuonSach))
-            {
-                if (formEdit.ShowDialog() == DialogResult.OK)
-                {
-                    LoadData();
-                }
-            }
-        }*/
+        }
 
         private void btnDelete_Click(object sender, EventArgs e)
         {
@@ -232,6 +213,25 @@ namespace LibraryManagementVersion2.UI
             txtSearch.Text = "Nhập mã phiếu, tên độc giả hoặc tên cuốn sách...";
             txtSearch.ForeColor = Color.Gray;
             LoadData();
+        }
+
+        private void btnEdit_Click(object sender, EventArgs e)
+        {
+            if (dgvPhieuMuon.CurrentRow == null)
+            {
+                MessageBox.Show("Vui lòng chọn phiếu mượn cần sửa!", "Thông báo",
+                    MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
+            int maMuonSach = Convert.ToInt32(dgvPhieuMuon.CurrentRow.Cells["MaMuonSach"].Value);
+            using (var formEdit = new FormEditPhieuMuon(maMuonSach))
+            {
+                if (formEdit.ShowDialog() == DialogResult.OK)
+                {
+                    LoadData();
+                }
+            }
         }
     }
 }

@@ -13,10 +13,10 @@ namespace LibraryManagementVersion2.Repositories
         // Lấy danh sách tất cả biên lai
         public DataTable LayBienLai()
         {
-            LibraryManagement1Entities context = null;
+            LibraryEntities context = null;
             try
             {
-                context = new LibraryManagement1Entities();
+                context = new LibraryEntities();
 
                 var bienLaiList = (from bl in context.BienLais
                                    join docgia in context.DocGias on bl.MaDocGia equals docgia.MaDocGia into dgGroup
@@ -65,10 +65,10 @@ namespace LibraryManagementVersion2.Repositories
         // Lấy danh sách độc giả cho ComboBox
         public DataTable LayDocGiaChoComboBox()
         {
-            LibraryManagement1Entities context = null;
+            LibraryEntities context = null;
             try
             {
-                context = new LibraryManagement1Entities();
+                context = new LibraryEntities();
 
                 var docGiaList = context.DocGias
                     .Where(dg => dg.TrangThai == true)
@@ -109,10 +109,10 @@ namespace LibraryManagementVersion2.Repositories
         // Thêm biên lai mới
         public bool ThemBienLai(int? maDocGia, DateTime ngayTraTT, string hinhThucThanhToan, decimal tienTra, ref string err)
         {
-            LibraryManagement1Entities context = null;
+            LibraryEntities context = null;
             try
             {
-                context = new LibraryManagement1Entities();
+                context = new LibraryEntities();
 
                 // Validate input
                 if (ngayTraTT > DateTime.Now)
@@ -203,10 +203,10 @@ namespace LibraryManagementVersion2.Repositories
         // Cập nhật biên lai
         public bool CapNhatBienLai(int maBienLai, int? maDocGia, DateTime ngayTraTT, string hinhThucThanhToan, decimal tienTra, ref string err)
         {
-            LibraryManagement1Entities context = null;
+            LibraryEntities context = null;
             try
             {
-                context = new LibraryManagement1Entities();
+                context = new LibraryEntities();
 
                 var bienLaiQuery = context.BienLais.FirstOrDefault(bl => bl.MaBienLai == maBienLai);
 
@@ -301,10 +301,10 @@ namespace LibraryManagementVersion2.Repositories
         // Xóa biên lai
         public bool XoaBienLai(int maBienLai, ref string err)
         {
-            LibraryManagement1Entities context = null;
+            LibraryEntities context = null;
             try
             {
-                context = new LibraryManagement1Entities();
+                context = new LibraryEntities();
 
                 var bienLai = context.BienLais.FirstOrDefault(bl => bl.MaBienLai == maBienLai);
                 if (bienLai == null)
@@ -343,10 +343,10 @@ namespace LibraryManagementVersion2.Repositories
         // Tìm kiếm biên lai
         public DataTable TimKiemBienLai(string tuKhoa)
         {
-            LibraryManagement1Entities context = null;
+            LibraryEntities context = null;
             try
             {
-                context = new LibraryManagement1Entities();
+                context = new LibraryEntities();
 
                 var bienLaiList = (from bl in context.BienLais
                                    join docgia in context.DocGias on bl.MaDocGia equals docgia.MaDocGia into dgGroup
@@ -399,10 +399,10 @@ namespace LibraryManagementVersion2.Repositories
         // Lấy thông tin biên lai theo mã
         public BienLai LayBienLaiTheoMa(int maBienLai)
         {
-            LibraryManagement1Entities context = null;
+            LibraryEntities context = null;
             try
             {
-                context = new LibraryManagement1Entities();
+                context = new LibraryEntities();
                 return context.BienLais.FirstOrDefault(bl => bl.MaBienLai == maBienLai);
             }
             catch (Exception ex)

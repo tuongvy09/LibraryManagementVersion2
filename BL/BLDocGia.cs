@@ -13,10 +13,10 @@ namespace LibraryManagementVersion2.Repositories
         // ✅ Method gốc (giữ nguyên để tương thích)
         public DataTable LayDocGia()
         {
-            LibraryManagement1Entities context = null;
+            LibraryEntities context = null;
             try
             {
-                context = new LibraryManagement1Entities();
+                context = new LibraryEntities();
 
                 var docGiaList = (from docgia in context.DocGias
                                   join loaidg in context.LoaiDocGias on docgia.MaLoaiDG equals loaidg.MaLoaiDG into ldgGroup
@@ -85,10 +85,10 @@ namespace LibraryManagementVersion2.Repositories
         // ✅ NEW - Method với sắp xếp: Hoạt động trước, Ngừng hoạt động sau
         public DataTable LayDocGiaSorted()
         {
-            LibraryManagement1Entities context = null;
+            LibraryEntities context = null;
             try
             {
-                context = new LibraryManagement1Entities();
+                context = new LibraryEntities();
 
                 var docGiaList = (from docgia in context.DocGias
                                   join loaidg in context.LoaiDocGias on docgia.MaLoaiDG equals loaidg.MaLoaiDG into ldgGroup
@@ -158,10 +158,10 @@ namespace LibraryManagementVersion2.Repositories
         // Lấy danh sách loại độc giả cho ComboBox
         public DataTable LayLoaiDocGia()
         {
-            LibraryManagement1Entities context = null;
+            LibraryEntities context = null;
             try
             {
-                context = new LibraryManagement1Entities();
+                context = new LibraryEntities();
 
                 var loaiDGList = context.LoaiDocGias.ToList();
 
@@ -190,10 +190,10 @@ namespace LibraryManagementVersion2.Repositories
                               string gioiTinh, string email, string diaChi,
                               int maLoaiDG, bool trangThai, ref string err) // ✅ Đổi từ int? thành int
         {
-            LibraryManagement1Entities context = null;
+            LibraryEntities context = null;
             try
             {
-                context = new LibraryManagement1Entities();
+                context = new LibraryEntities();
 
                 // ✅ Validate input trước khi thêm
                 if (string.IsNullOrWhiteSpace(hoTen))
@@ -326,10 +326,10 @@ namespace LibraryManagementVersion2.Repositories
                                  string cccd, string gioiTinh, string email, string diaChi,
                                  int maLoaiDG, bool trangThai, ref string err) 
         {
-            LibraryManagement1Entities context = null;
+            LibraryEntities context = null;
             try
             {
-                context = new LibraryManagement1Entities();
+                context = new LibraryEntities();
 
                 var docGiaQuery = context.DocGias.FirstOrDefault(dg => dg.MaDocGia == maDocGia);
 
@@ -460,10 +460,10 @@ namespace LibraryManagementVersion2.Repositories
         // Xóa độc giả 
         public bool XoaDocGia(int maDocGia, ref string err)
         {
-            LibraryManagement1Entities context = null;
+            LibraryEntities context = null;
             try
             {
-                context = new LibraryManagement1Entities();
+                context = new LibraryEntities();
 
                 var docGia = context.DocGias.FirstOrDefault(docgia => docgia.MaDocGia == maDocGia);
                 if (docGia == null)
@@ -505,10 +505,10 @@ namespace LibraryManagementVersion2.Repositories
         // ✅ Method gốc (giữ nguyên để tương thích)
         public DataTable TimKiemDocGia(string tuKhoa)
         {
-            LibraryManagement1Entities context = null;
+            LibraryEntities context = null;
             try
             {
-                context = new LibraryManagement1Entities();
+                context = new LibraryEntities();
 
                 var docGiaList = (from docgia in context.DocGias
                                   join loaidg in context.LoaiDocGias on docgia.MaLoaiDG equals loaidg.MaLoaiDG into ldgGroup
@@ -579,10 +579,10 @@ namespace LibraryManagementVersion2.Repositories
         // ✅ NEW - Method tìm kiếm với sắp xếp
         public DataTable TimKiemDocGiaSorted(string tuKhoa)
         {
-            LibraryManagement1Entities context = null;
+            LibraryEntities context = null;
             try
             {
-                context = new LibraryManagement1Entities();
+                context = new LibraryEntities();
 
                 var docGiaList = (from docgia in context.DocGias
                                   join loaidg in context.LoaiDocGias on docgia.MaLoaiDG equals loaidg.MaLoaiDG into ldgGroup
@@ -654,10 +654,10 @@ namespace LibraryManagementVersion2.Repositories
         // Lấy thông tin độc giả theo mã
         public DocGia LayDocGiaTheoMa(int maDocGia)
         {
-            LibraryManagement1Entities context = null;
+            LibraryEntities context = null;
             try
             {
-                context = new LibraryManagement1Entities();
+                context = new LibraryEntities();
                 return context.DocGias.FirstOrDefault(docgia => docgia.MaDocGia == maDocGia);
             }
             catch (Exception ex)
@@ -673,10 +673,10 @@ namespace LibraryManagementVersion2.Repositories
         // Test connection
         public DataTable TestConnection()
         {
-            LibraryManagement1Entities context = null;
+            LibraryEntities context = null;
             try
             {
-                context = new LibraryManagement1Entities();
+                context = new LibraryEntities();
                 var count = context.DocGias.Count();
 
                 DataTable dt = new DataTable();
@@ -711,7 +711,7 @@ namespace LibraryManagementVersion2.Repositories
 
             try
             {
-                using (LibraryManagement1Entities context = new LibraryManagement1Entities())
+                using (LibraryEntities context = new LibraryEntities())
                 {
                     // Lấy thông tin độc giả
                     var docGia = context.DocGias.FirstOrDefault(dg => dg.MaDocGia == maDocGia);
@@ -807,7 +807,7 @@ namespace LibraryManagementVersion2.Repositories
 
             try
             {
-                using (LibraryManagement1Entities context = new LibraryManagement1Entities())
+                using (LibraryEntities context = new LibraryEntities())
                 {
                     // ✅ Sắp xếp: Hoạt động trước, Ngừng hoạt động sau
                     var allDocGia = context.DocGias

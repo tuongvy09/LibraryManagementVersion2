@@ -11,7 +11,7 @@ namespace LibraryManagementVersion2.Repositories
     {
         public void AddTacGiaChoDauSach(int maDauSach, int maTacGia)
         {
-            using (var context = new LibraryManagement1Entities())
+            using (var context = new LibraryEntities())
             {
                 var dauSach = context.DauSaches.Find(maDauSach);
                 var tacGia = context.TacGias.Find(maTacGia);
@@ -29,7 +29,7 @@ namespace LibraryManagementVersion2.Repositories
 
         public void UpdateTacGiaChoDauSach(int maDauSach, List<int> danhSachMaTacGiaMoi)
         {
-            using (var context = new LibraryManagement1Entities())
+            using (var context = new LibraryEntities())
             {
                 var dauSach = context.DauSaches.Include(ds => ds.TacGias).FirstOrDefault(ds => ds.MaDauSach == maDauSach);
 
@@ -53,7 +53,7 @@ namespace LibraryManagementVersion2.Repositories
 
         public List<int> LayDanhSachMaTacGiaTheoDauSach(int maDauSach)
         {
-            using (var context = new LibraryManagement1Entities())
+            using (var context = new LibraryEntities())
             {
                 var tacGiaIds = context.DauSaches
                     .Where(ds => ds.MaDauSach == maDauSach)

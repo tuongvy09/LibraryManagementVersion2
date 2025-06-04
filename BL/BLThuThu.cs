@@ -12,7 +12,7 @@ namespace LibraryManagementVersion2.Repositories
         // Lấy danh sách tất cả thủ thư
         public DataTable LayThuThu()
         {
-            LibraryManagement1Entities qltvEntity = new LibraryManagement1Entities();
+            LibraryEntities qltvEntity = new LibraryEntities();
 
             var thuThuList = from tt in qltvEntity.ThuThus
                              select tt;
@@ -47,7 +47,7 @@ namespace LibraryManagementVersion2.Repositories
 
         public DataTable LayThuThuSorted()
         {
-            LibraryManagement1Entities qltvEntity = new LibraryManagement1Entities();
+            LibraryEntities qltvEntity = new LibraryEntities();
 
             var thuThus = from tt in qltvEntity.ThuThus
                           orderby tt.TrangThai descending, tt.TenThuThu ascending
@@ -99,7 +99,7 @@ namespace LibraryManagementVersion2.Repositories
         {
             try
             {
-                LibraryManagement1Entities qltvEntity = new LibraryManagement1Entities();
+                LibraryEntities qltvEntity = new LibraryEntities();
 
                 ThuThu tt = new ThuThu();
                 tt.TenThuThu = tenThuThu;
@@ -130,7 +130,7 @@ namespace LibraryManagementVersion2.Repositories
         {
             try
             {
-                LibraryManagement1Entities qltvEntity = new LibraryManagement1Entities();
+                LibraryEntities qltvEntity = new LibraryEntities();
 
                 var thuThuQuery = (from tt in qltvEntity.ThuThus
                                    where tt.MaThuThu == maThuThu
@@ -165,7 +165,7 @@ namespace LibraryManagementVersion2.Repositories
         {
             try
             {
-                LibraryManagement1Entities qltvEntity = new LibraryManagement1Entities();
+                LibraryEntities qltvEntity = new LibraryEntities();
 
                 var thuThuQuery = (from tt in qltvEntity.ThuThus
                                    where tt.MaThuThu == maThuThu
@@ -190,8 +190,8 @@ namespace LibraryManagementVersion2.Repositories
 
         // Tìm kiếm thủ thư theo tên
         public DataTable TimKiemThuThu(string tenThuThu)
-        {   
-            LibraryManagement1Entities qltvEntity = new LibraryManagement1Entities();
+        {
+            LibraryEntities qltvEntity = new LibraryEntities();
 
             var thuThuList = from tt in qltvEntity.ThuThus
                              where tt.TenThuThu.Contains(tenThuThu)
@@ -227,7 +227,7 @@ namespace LibraryManagementVersion2.Repositories
 
         public DataTable TimKiemThuThuSorted(string tuKhoa)
         {
-            LibraryManagement1Entities qltvEntity = new LibraryManagement1Entities();
+            LibraryEntities qltvEntity = new LibraryEntities();
 
             var thuThus = from tt in qltvEntity.ThuThus
                           where tt.TenThuThu.Contains(tuKhoa) ||
@@ -278,7 +278,7 @@ namespace LibraryManagementVersion2.Repositories
         // Lấy thông tin thủ thư theo mã
         public ThuThu LayThuThuTheoMa(int maThuThu)
         {
-            LibraryManagement1Entities qltvEntity = new LibraryManagement1Entities();
+            LibraryEntities qltvEntity = new LibraryEntities();
 
             return qltvEntity.ThuThus.FirstOrDefault(tt => tt.MaThuThu == maThuThu);
         }

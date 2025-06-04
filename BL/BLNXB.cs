@@ -10,7 +10,7 @@ namespace LibraryManagementVersion2.Repositories
     {
         public void AddNXB(string tenNXB)
         {
-            using (var context = new LibraryManagement1Entities())
+            using (var context = new LibraryEntities())
             {
                 var nxb = new NXB
                 {
@@ -24,7 +24,7 @@ namespace LibraryManagementVersion2.Repositories
 
         public void UpdateNXB(int maNXB, string tenNXB)
         {
-            using (var context = new LibraryManagement1Entities())
+            using (var context = new LibraryEntities())
             {
                 var nxb = context.NXBs.Find(maNXB);
                 if (nxb == null)
@@ -37,7 +37,7 @@ namespace LibraryManagementVersion2.Repositories
 
         public void DeleteNXB(int maNXB)
         {
-            using (var context = new LibraryManagement1Entities())
+            using (var context = new LibraryEntities())
             {
                 var nxb = context.NXBs.Find(maNXB);
                 if (nxb == null)
@@ -50,7 +50,7 @@ namespace LibraryManagementVersion2.Repositories
 
         public List<NXB> SearchNXB(string tenNXB)
         {
-            using (var context = new LibraryManagement1Entities())
+            using (var context = new LibraryEntities())
             {
                 var result = context.NXBs
                     .Where(nxb => nxb.TenNSB.Contains(tenNXB))
@@ -63,7 +63,7 @@ namespace LibraryManagementVersion2.Repositories
 
         public List<NXB> GetAllNXB()
         {
-            using (var context = new LibraryManagement1Entities())
+            using (var context = new LibraryEntities())
             {
                 return context.NXBs.ToList();
             }

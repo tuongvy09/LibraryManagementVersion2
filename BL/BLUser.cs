@@ -11,7 +11,7 @@ namespace LibraryManagementVersion2.Repositories
     {
         public User GetUserByUsername(string username)
         {
-            using (var context = new LibraryManagement1Entities())
+            using (var context = new LibraryEntities())
             {
                 try
                 {
@@ -27,7 +27,7 @@ namespace LibraryManagementVersion2.Repositories
 
         public List<User> GetAllUsers()
         {
-            using (var context = new LibraryManagement1Entities())
+            using (var context = new LibraryEntities())
             {
                 try
                 {
@@ -42,7 +42,7 @@ namespace LibraryManagementVersion2.Repositories
         }
         public bool AddUser(string username, string password, string role)
         {
-            using (var context = new LibraryManagement1Entities())
+            using (var context = new LibraryEntities())
             {
                 try
                 {
@@ -67,7 +67,7 @@ namespace LibraryManagementVersion2.Repositories
         }
         public bool UpdateUser(int userId, string username, string password, string role)
         {
-            using (var context = new LibraryManagement1Entities())
+            using (var context = new LibraryEntities())
             {
                 try
                 {
@@ -95,7 +95,7 @@ namespace LibraryManagementVersion2.Repositories
         }
         public bool DeleteUser(int userId)
         {
-            using (var context = new LibraryManagement1Entities())
+            using (var context = new LibraryEntities())
             {
                 try
                 {

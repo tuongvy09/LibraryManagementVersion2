@@ -202,6 +202,18 @@
     <Compile Include="UI\FormAddNXB.Designer.cs">
       <DependentUpon>FormAddNXB.cs</DependentUpon>
     </Compile>
+    <Compile Include="UI\FormAddPhieuMuon.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UI\FormAddPhieuMuon.Designer.cs">
+      <DependentUpon>FormAddPhieuMuon.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UI\FormAddPhieuPhat.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UI\FormAddPhieuPhat.Designer.cs">
+      <DependentUpon>FormAddPhieuPhat.cs</DependentUpon>
+    </Compile>
     <Compile Include="UI\FormAddTG.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -243,6 +255,18 @@
     </Compile>
     <Compile Include="UI\FormEditDocGia.Designer.cs">
       <DependentUpon>FormEditDocGia.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UI\FormEditPhieuMuon.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UI\FormEditPhieuMuon.Designer.cs">
+      <DependentUpon>FormEditPhieuMuon.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UI\FormEditPhieuPhat.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UI\FormEditPhieuPhat.Designer.cs">
+      <DependentUpon>FormEditPhieuPhat.cs</DependentUpon>
     </Compile>
     <Compile Include="UI\FormEditTheThuVien.cs">
       <SubType>Form</SubType>
