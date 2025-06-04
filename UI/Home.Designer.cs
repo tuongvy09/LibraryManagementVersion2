@@ -119,13 +119,13 @@ namespace LibraryManagementVersion2
             menuItems.Add("Quản lý Thẻ thư viện");
 
             // Các mục menu chính
-            menuItems.AddRange(new[] { "Sách", "Độc giả", "Mượn sách", "Phiếu Mượn", "Phiếu phạt", "Biên lai" });
+            menuItems.AddRange(new[] { "Sách", "Mượn sách", "Phiếu Mượn", "Phiếu phạt", "Biên lai" });
 
             menuItems.Add("Thống kê - Báo cáo");
 
             if (role == "admin")
             {
-                menuItems = menuItems.Concat(new[] { "Người dùng", "Lịch sử thao tác" }).ToArray().ToList();
+                menuItems = menuItems.Concat(new[] { "Người dùng"}).ToArray().ToList();
             }
 
             Dictionary<string, Image> menuIcons = new Dictionary<string, Image>()
@@ -136,7 +136,7 @@ namespace LibraryManagementVersion2
         { "Thống kê - Báo cáo", Properties.Resources.statistics ?? CreateDefaultIcon() },
 
         { "Sách", Properties.Resources.books ?? CreateDefaultIcon() },
-        { "Độc giả", Properties.Resources.readers ?? CreateDefaultIcon() },
+        //{ "Độc giả", Properties.Resources.readers ?? CreateDefaultIcon() },
         { "Mượn sách", Properties.Resources.book__1_ ?? CreateDefaultIcon() },
 
         // Thêm icon cho "Phiếu Mượn" (bạn nhớ thêm ảnh này vào resources nếu chưa có)
@@ -145,7 +145,7 @@ namespace LibraryManagementVersion2
         { "Phiếu phạt", Properties.Resources.voucher ?? CreateDefaultIcon() },
         { "Biên lai", Properties.Resources.reciept ?? CreateDefaultIcon() },
         { "Người dùng", Properties.Resources.teamwork ?? CreateDefaultIcon() },
-        { "Lịch sử thao tác", Properties.Resources.history_book ?? CreateDefaultIcon() }
+        //{ "Lịch sử thao tác", Properties.Resources.history_book ?? CreateDefaultIcon() }
     };
 
             foreach (var item in menuItems)
@@ -241,6 +241,10 @@ namespace LibraryManagementVersion2
                 //    break;
 
                 case "Phiếu phạt":
+<<<<<<< HEAD
+=======
+                    newForm = new FormManagePhieuPhat();
+>>>>>>> eb23ac5d69ab744d67b2ca0dbae35ff27525f6ce
                     break;
 
                 case "Biên lai":

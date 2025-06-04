@@ -102,6 +102,8 @@
     <Compile Include="BienLai.cs">
       <DependentUpon>LibraryModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="BL\BLPhieuMuon.cs" />
+    <Compile Include="BL\BLPhieuPhat.cs" />
     <Compile Include="CuonSach.cs">
       <DependentUpon>LibraryModel.tt</DependentUpon>
     </Compile>
@@ -217,6 +219,18 @@
     <Compile Include="UI\FormAddNXB.Designer.cs">
       <DependentUpon>FormAddNXB.cs</DependentUpon>
     </Compile>
+    <Compile Include="UI\FormAddPhieuMuon.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UI\FormAddPhieuMuon.Designer.cs">
+      <DependentUpon>FormAddPhieuMuon.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UI\FormAddPhieuPhat.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UI\FormAddPhieuPhat.Designer.cs">
+      <DependentUpon>FormAddPhieuPhat.cs</DependentUpon>
+    </Compile>
     <Compile Include="UI\FormAddTG.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -241,6 +255,12 @@
     <Compile Include="UI\FormAddThuThu.Designer.cs">
       <DependentUpon>FormAddThuThu.cs</DependentUpon>
     </Compile>
+    <Compile Include="UI\FormChiTietPhieuMuon.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UI\FormChiTietPhieuMuon.Designer.cs">
+      <DependentUpon>FormChiTietPhieuMuon.cs</DependentUpon>
+    </Compile>
     <Compile Include="UI\FormDocGiaStatsDetail.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -252,6 +272,18 @@
     </Compile>
     <Compile Include="UI\FormEditDocGia.Designer.cs">
       <DependentUpon>FormEditDocGia.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UI\FormEditPhieuMuon.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UI\FormEditPhieuMuon.Designer.cs">
+      <DependentUpon>FormEditPhieuMuon.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UI\FormEditPhieuPhat.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UI\FormEditPhieuPhat.Designer.cs">
+      <DependentUpon>FormEditPhieuPhat.cs</DependentUpon>
     </Compile>
     <Compile Include="UI\FormEditTheThuVien.cs">
       <SubType>Form</SubType>
@@ -295,6 +327,15 @@
     <Compile Include="UI\FormManagePhieuMuon.Designer.cs">
       <DependentUpon>FormManagePhieuMuon.cs</DependentUpon>
     </Compile>
+<<<<<<< HEAD
+=======
+    <Compile Include="UI\FormManagePhieuPhat.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UI\FormManagePhieuPhat.Designer.cs">
+      <DependentUpon>FormManagePhieuPhat.cs</DependentUpon>
+    </Compile>
+>>>>>>> eb23ac5d69ab744d67b2ca0dbae35ff27525f6ce
     <Compile Include="UI\FormManageTG.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -370,6 +411,12 @@
       <DependentUpon>FormManagePhieuMuon.cs</DependentUpon>
 >>>>>>> Stashed changes
     </EmbeddedResource>
+    <EmbeddedResource Include="UI\FormManagePhieuMuon.resx">
+      <DependentUpon>FormManagePhieuMuon.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UI\FormManagePhieuPhat.resx">
+      <DependentUpon>FormManagePhieuPhat.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="UI\FormManageTheThuVien.resx">
       <DependentUpon>FormManageTheThuVien.cs</DependentUpon>
     </EmbeddedResource>
@@ -391,6 +438,7 @@
       <Generator>EntityModelCodeGenerator</Generator>
       <LastGenOutput>LibraryModel.Designer.cs</LastGenOutput>
     </EntityDeploy>
+    <None Include="BL\EF.Reverse.POCO.v3.ttinclude" />
     <None Include="LibraryModel.edmx.diagram">
       <DependentUpon>LibraryModel.edmx</DependentUpon>
     </None>

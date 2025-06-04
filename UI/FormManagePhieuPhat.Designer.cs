@@ -1,6 +1,6 @@
 ﻿namespace LibraryManagementVersion2.UI
 {
-    partial class FormManagePhieuMuon
+    partial class FormManagePhieuPhat
     {
         /// <summary>
         /// Required designer variable.
@@ -36,8 +36,8 @@
             this.btnEdit = new System.Windows.Forms.Button();
             this.btnDelete = new System.Windows.Forms.Button();
             this.btnRefresh = new System.Windows.Forms.Button();
-            this.dgvPhieuMuon = new System.Windows.Forms.DataGridView();
-            ((System.ComponentModel.ISupportInitialize)(this.dgvPhieuMuon)).BeginInit();
+            this.dgvPhieuPhat = new System.Windows.Forms.DataGridView();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvPhieuPhat)).BeginInit();
             this.SuspendLayout();
             // 
             // lblTitle
@@ -47,36 +47,28 @@
             this.lblTitle.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(115)))), ((int)(((byte)(154)))), ((int)(((byte)(79)))));
             this.lblTitle.Location = new System.Drawing.Point(12, 9);
             this.lblTitle.Name = "lblTitle";
-            this.lblTitle.Size = new System.Drawing.Size(283, 32);
-            this.lblTitle.TabIndex = 3;
-            this.lblTitle.Text = "QUẢN LÝ PHIẾU MƯỢN";
+            this.lblTitle.Size = new System.Drawing.Size(267, 32);
+            this.lblTitle.TabIndex = 4;
+            this.lblTitle.Text = "QUẢN LÝ PHIẾU PHẠT";
             // 
             // lblSearch
             // 
             this.lblSearch.AutoSize = true;
             this.lblSearch.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblSearch.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(115)))), ((int)(((byte)(154)))), ((int)(((byte)(79)))));
-<<<<<<< HEAD
-            this.lblSearch.Location = new System.Drawing.Point(16, 52);
-=======
-            this.lblSearch.Location = new System.Drawing.Point(17, 51);
->>>>>>> eb23ac5d69ab744d67b2ca0dbae35ff27525f6ce
+            this.lblSearch.Location = new System.Drawing.Point(16, 53);
             this.lblSearch.Name = "lblSearch";
             this.lblSearch.Size = new System.Drawing.Size(67, 19);
-            this.lblSearch.TabIndex = 4;
+            this.lblSearch.TabIndex = 5;
             this.lblSearch.Text = "Tìm kiếm:";
             // 
             // txtSearch
             // 
             this.txtSearch.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-<<<<<<< HEAD
-            this.txtSearch.Location = new System.Drawing.Point(87, 50);
-=======
-            this.txtSearch.Location = new System.Drawing.Point(88, 50);
->>>>>>> eb23ac5d69ab744d67b2ca0dbae35ff27525f6ce
+            this.txtSearch.Location = new System.Drawing.Point(89, 51);
             this.txtSearch.Name = "txtSearch";
             this.txtSearch.Size = new System.Drawing.Size(389, 25);
-            this.txtSearch.TabIndex = 5;
+            this.txtSearch.TabIndex = 6;
             // 
             // btnSearch
             // 
@@ -85,20 +77,12 @@
             this.btnSearch.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnSearch.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnSearch.ForeColor = System.Drawing.Color.White;
-<<<<<<< HEAD
-            this.btnSearch.Location = new System.Drawing.Point(491, 51);
-=======
-            this.btnSearch.Location = new System.Drawing.Point(494, 51);
->>>>>>> eb23ac5d69ab744d67b2ca0dbae35ff27525f6ce
+            this.btnSearch.Location = new System.Drawing.Point(499, 51);
             this.btnSearch.Name = "btnSearch";
             this.btnSearch.Size = new System.Drawing.Size(80, 25);
-            this.btnSearch.TabIndex = 6;
+            this.btnSearch.TabIndex = 7;
             this.btnSearch.Text = "Tìm kiếm";
             this.btnSearch.UseVisualStyleBackColor = false;
-<<<<<<< HEAD
-=======
-            this.btnSearch.Click += new System.EventHandler(this.btnSearch_Click);
->>>>>>> eb23ac5d69ab744d67b2ca0dbae35ff27525f6ce
             // 
             // btnAdd
             // 
@@ -107,20 +91,13 @@
             this.btnAdd.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnAdd.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnAdd.ForeColor = System.Drawing.Color.White;
-<<<<<<< HEAD
-            this.btnAdd.Location = new System.Drawing.Point(20, 92);
-=======
-            this.btnAdd.Location = new System.Drawing.Point(21, 91);
->>>>>>> eb23ac5d69ab744d67b2ca0dbae35ff27525f6ce
+            this.btnAdd.Location = new System.Drawing.Point(20, 94);
             this.btnAdd.Name = "btnAdd";
             this.btnAdd.Size = new System.Drawing.Size(100, 35);
-            this.btnAdd.TabIndex = 7;
+            this.btnAdd.TabIndex = 8;
             this.btnAdd.Text = "Thêm mới";
             this.btnAdd.UseVisualStyleBackColor = false;
-<<<<<<< HEAD
-=======
-            this.btnAdd.Click += new System.EventHandler(this.btnAdd_Click);
->>>>>>> eb23ac5d69ab744d67b2ca0dbae35ff27525f6ce
+            this.btnAdd.Click += new System.EventHandler(this.btnAdd_Click_1);
             // 
             // btnEdit
             // 
@@ -129,20 +106,13 @@
             this.btnEdit.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnEdit.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnEdit.ForeColor = System.Drawing.Color.White;
-<<<<<<< HEAD
-            this.btnEdit.Location = new System.Drawing.Point(141, 92);
-=======
-            this.btnEdit.Location = new System.Drawing.Point(148, 91);
->>>>>>> eb23ac5d69ab744d67b2ca0dbae35ff27525f6ce
+            this.btnEdit.Location = new System.Drawing.Point(145, 94);
             this.btnEdit.Name = "btnEdit";
             this.btnEdit.Size = new System.Drawing.Size(80, 35);
-            this.btnEdit.TabIndex = 8;
+            this.btnEdit.TabIndex = 9;
             this.btnEdit.Text = "Sửa";
             this.btnEdit.UseVisualStyleBackColor = false;
-<<<<<<< HEAD
-=======
-            this.btnEdit.Click += new System.EventHandler(this.btnEdit_Click);
->>>>>>> eb23ac5d69ab744d67b2ca0dbae35ff27525f6ce
+            this.btnEdit.Click += new System.EventHandler(this.btnEdit_Click_1);
             // 
             // btnDelete
             // 
@@ -151,20 +121,12 @@
             this.btnDelete.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnDelete.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnDelete.ForeColor = System.Drawing.Color.White;
-<<<<<<< HEAD
-            this.btnDelete.Location = new System.Drawing.Point(240, 92);
-=======
-            this.btnDelete.Location = new System.Drawing.Point(254, 91);
->>>>>>> eb23ac5d69ab744d67b2ca0dbae35ff27525f6ce
+            this.btnDelete.Location = new System.Drawing.Point(254, 94);
             this.btnDelete.Name = "btnDelete";
             this.btnDelete.Size = new System.Drawing.Size(80, 35);
-            this.btnDelete.TabIndex = 9;
+            this.btnDelete.TabIndex = 10;
             this.btnDelete.Text = "Xóa";
             this.btnDelete.UseVisualStyleBackColor = false;
-<<<<<<< HEAD
-=======
-            this.btnDelete.Click += new System.EventHandler(this.btnDelete_Click);
->>>>>>> eb23ac5d69ab744d67b2ca0dbae35ff27525f6ce
             // 
             // btnRefresh
             // 
@@ -173,54 +135,36 @@
             this.btnRefresh.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnRefresh.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnRefresh.ForeColor = System.Drawing.Color.White;
-<<<<<<< HEAD
-            this.btnRefresh.Location = new System.Drawing.Point(340, 92);
-=======
-            this.btnRefresh.Location = new System.Drawing.Point(363, 91);
->>>>>>> eb23ac5d69ab744d67b2ca0dbae35ff27525f6ce
+            this.btnRefresh.Location = new System.Drawing.Point(363, 94);
             this.btnRefresh.Name = "btnRefresh";
             this.btnRefresh.Size = new System.Drawing.Size(80, 35);
-            this.btnRefresh.TabIndex = 10;
+            this.btnRefresh.TabIndex = 11;
             this.btnRefresh.Text = "Làm mới";
             this.btnRefresh.UseVisualStyleBackColor = false;
-<<<<<<< HEAD
-=======
-            this.btnRefresh.Click += new System.EventHandler(this.btnRefresh_Click);
->>>>>>> eb23ac5d69ab744d67b2ca0dbae35ff27525f6ce
             // 
-            // dgvPhieuMuon
+            // dgvPhieuPhat
             // 
-            this.dgvPhieuMuon.AllowUserToAddRows = false;
-            this.dgvPhieuMuon.AllowUserToDeleteRows = false;
-            this.dgvPhieuMuon.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
-            this.dgvPhieuMuon.BackgroundColor = System.Drawing.Color.White;
-            this.dgvPhieuMuon.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            this.dgvPhieuMuon.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-<<<<<<< HEAD
-            this.dgvPhieuMuon.Location = new System.Drawing.Point(20, 141);
-=======
-            this.dgvPhieuMuon.Location = new System.Drawing.Point(21, 143);
->>>>>>> eb23ac5d69ab744d67b2ca0dbae35ff27525f6ce
-            this.dgvPhieuMuon.MultiSelect = false;
-            this.dgvPhieuMuon.Name = "dgvPhieuMuon";
-            this.dgvPhieuMuon.ReadOnly = true;
-            this.dgvPhieuMuon.RowHeadersWidth = 51;
-            this.dgvPhieuMuon.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-<<<<<<< HEAD
-            this.dgvPhieuMuon.Size = new System.Drawing.Size(952, 394);
-            this.dgvPhieuMuon.TabIndex = 11;
-=======
-            this.dgvPhieuMuon.Size = new System.Drawing.Size(938, 391);
-            this.dgvPhieuMuon.TabIndex = 11;
-            this.dgvPhieuMuon.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvPhieuMuon_CellDoubleClick);
->>>>>>> eb23ac5d69ab744d67b2ca0dbae35ff27525f6ce
+            this.dgvPhieuPhat.AllowUserToAddRows = false;
+            this.dgvPhieuPhat.AllowUserToDeleteRows = false;
+            this.dgvPhieuPhat.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
+            this.dgvPhieuPhat.BackgroundColor = System.Drawing.Color.White;
+            this.dgvPhieuPhat.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.dgvPhieuPhat.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dgvPhieuPhat.Location = new System.Drawing.Point(20, 146);
+            this.dgvPhieuPhat.MultiSelect = false;
+            this.dgvPhieuPhat.Name = "dgvPhieuPhat";
+            this.dgvPhieuPhat.ReadOnly = true;
+            this.dgvPhieuPhat.RowHeadersWidth = 51;
+            this.dgvPhieuPhat.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
+            this.dgvPhieuPhat.Size = new System.Drawing.Size(938, 384);
+            this.dgvPhieuPhat.TabIndex = 12;
             // 
-            // FormManagePhieuMuon
+            // FormManagePhieuPhat
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(984, 561);
-            this.Controls.Add(this.dgvPhieuMuon);
+            this.Controls.Add(this.dgvPhieuPhat);
             this.Controls.Add(this.btnRefresh);
             this.Controls.Add(this.btnDelete);
             this.Controls.Add(this.btnEdit);
@@ -229,13 +173,9 @@
             this.Controls.Add(this.txtSearch);
             this.Controls.Add(this.lblSearch);
             this.Controls.Add(this.lblTitle);
-            this.Name = "FormManagePhieuMuon";
-<<<<<<< HEAD
-            this.Text = "FormManagePhieuMuon";
-=======
-            this.Text = "v";
->>>>>>> eb23ac5d69ab744d67b2ca0dbae35ff27525f6ce
-            ((System.ComponentModel.ISupportInitialize)(this.dgvPhieuMuon)).EndInit();
+            this.Name = "FormManagePhieuPhat";
+            this.Text = "FormManagePhieuPhat";
+            ((System.ComponentModel.ISupportInitialize)(this.dgvPhieuPhat)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -251,6 +191,6 @@
         private System.Windows.Forms.Button btnEdit;
         private System.Windows.Forms.Button btnDelete;
         private System.Windows.Forms.Button btnRefresh;
-        private System.Windows.Forms.DataGridView dgvPhieuMuon;
+        private System.Windows.Forms.DataGridView dgvPhieuPhat;
     }
 }
