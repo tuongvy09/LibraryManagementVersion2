@@ -240,8 +240,8 @@ namespace LibraryManagementVersion2
                 //case "Mượn sách":
                 //    break;
 
-                //case "Phiếu phạt":
-                //    break;
+                case "Phiếu phạt":
+                    break;
 
                 case "Biên lai":
                     newForm = new FormManageBienLai();
@@ -252,9 +252,9 @@ namespace LibraryManagementVersion2
                 //    newContent.Dock = DockStyle.Fill;
                 //    break;
 
-                //case "Phiếu Mượn":
-                //    newForm = new FormAddPhieuMuon();
-                //    break;
+                case "Phiếu Mượn":
+                    newForm = new FormManagePhieuMuon();
+                    break;
 
                 //case "Lịch sử thao tác":
                 //    break;

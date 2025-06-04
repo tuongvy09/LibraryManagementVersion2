@@ -147,6 +147,7 @@
     <Compile Include="QDP.cs">
       <DependentUpon>LibraryModel.tt</DependentUpon>
     </Compile>
+<<<<<<< Updated upstream
     <Compile Include="BL\BLBienLai.cs" />
     <Compile Include="BL\BLDocGia.cs" />
     <Compile Include="BL\BLTheThuVien.cs" />
@@ -161,6 +162,22 @@
     <Compile Include="BL\BLTacGia.cs" />
     <Compile Include="BL\BLTheLoai.cs" />
     <Compile Include="BL\BLUser.cs" />
+=======
+    <Compile Include="Repositories\BLBienLai.cs" />
+    <Compile Include="Repositories\BLDocGia.cs" />
+    <Compile Include="Repositories\BLTheThuVien.cs" />
+    <Compile Include="Repositories\BLThuThu.cs" />
+    <Compile Include="Repositories\CuonSachRepositories.cs" />
+    <Compile Include="Repositories\DauSachRepositories.cs" />
+    <Compile Include="Repositories\DauSachTacGiaRepository.cs" />
+    <Compile Include="Repositories\ImportExcelToDatabase.cs" />
+    <Compile Include="Repositories\LoginRepositories.cs" />
+    <Compile Include="Repositories\NXBRepository.cs" />
+    <Compile Include="Repositories\PhieuMuonRepositories.cs" />
+    <Compile Include="Repositories\TacGiaRepository.cs" />
+    <Compile Include="Repositories\TheLoaiRepository.cs" />
+    <Compile Include="Repositories\UserRepository.cs" />
+>>>>>>> Stashed changes
     <Compile Include="sysdiagram.cs">
       <DependentUpon>LibraryModel.tt</DependentUpon>
     </Compile>
@@ -272,6 +289,12 @@
     <Compile Include="UI\FormManageNXB.Designer.cs">
       <DependentUpon>FormManageNXB.cs</DependentUpon>
     </Compile>
+    <Compile Include="UI\FormManagePhieuMuon.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UI\FormManagePhieuMuon.Designer.cs">
+      <DependentUpon>FormManagePhieuMuon.cs</DependentUpon>
+    </Compile>
     <Compile Include="UI\FormManageTG.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -339,8 +362,13 @@
     <EmbeddedResource Include="UI\FormManageBienLai.resx">
       <DependentUpon>FormManageBienLai.cs</DependentUpon>
     </EmbeddedResource>
+<<<<<<< Updated upstream
     <EmbeddedResource Include="UI\FormManageDocGia.resx">
       <DependentUpon>FormManageDocGia.cs</DependentUpon>
+=======
+    <EmbeddedResource Include="UI\FormManagePhieuMuon.resx">
+      <DependentUpon>FormManagePhieuMuon.cs</DependentUpon>
+>>>>>>> Stashed changes
     </EmbeddedResource>
     <EmbeddedResource Include="UI\FormManageTheThuVien.resx">
       <DependentUpon>FormManageTheThuVien.cs</DependentUpon>
